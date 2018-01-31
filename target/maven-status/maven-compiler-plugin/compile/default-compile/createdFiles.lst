@@ -1,0 +1,5 @@
+com/journaldev/jsf/beans/SessionBean.class
+com/journaldev/jsf/util/DataConnect.class
+com/journaldev/jsf/beans/Login.class
+com/journaldev/jsf/dao/LoginDAO.class
+com/journaldev/jsf/filter/AuthorizationFilter.class
