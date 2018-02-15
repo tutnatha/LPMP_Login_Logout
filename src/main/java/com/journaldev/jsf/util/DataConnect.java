@@ -7,10 +7,13 @@ public class DataConnect {
 
 	public static Connection getConnection() {
 		try {
-//			Class.forName("com.mysql.jdbc.Driver");
-                        Class.forName("org.postgresql.Driver");
+			Class.forName("com.mysql.jdbc.Driver");
+//                        Class.forName("org.postgresql.Driver");
+//			Connection con = DriverManager.getConnection(
+//					"jdbc:postgresql://localhost:5432/xxydb", "postgres", "postgresql");
 			Connection con = DriverManager.getConnection(
-					"jdbc:postgresql://localhost:5432/xxydb", "postgres", "postgresql");
+					"jdbc:mysql://localhost:3306/playground?profileSQL=true", "root", ""); //pwd=lpmp@123
+
 			return con;
 		} catch (Exception ex) {
 			System.out.println("Database.getConnection() Error -->"

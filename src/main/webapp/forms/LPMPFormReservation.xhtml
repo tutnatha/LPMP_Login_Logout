@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<ui:composition template="/applayout/pageTemplate.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html" 
+  xmlns:f="http://java.sun.com/jsf/core" 
+  xmlns:b="http://bootsfaces.net/ui"
+  xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <ui:define name="content">
+    <style>
+td {
+	padding: 8px;
+}
+</style>
+
+	<b:form inline="true">
+	   	<h:panelGrid columns="1" cellpadding="5">
+			<b:inputText label="E-mail:" labelStyle="width:80px;">
+			    <f:facet name="prepend">
+				<h:outputText value="@" />
+			    </f:facet>
+			</b:inputText>
+			<b:inputText label="Amount:" labelStyle="width:80px;">
+			    <f:facet name="append">
+				<h:outputText value=".00" />
+			    </f:facet>
+			</b:inputText>
+			<b:inputText label="Price:" labelStyle="width:80px;">
+		    	    <f:facet name="prepend">
+		            	<h:outputText value="$" />
+		            </f:facet>
+		            <f:facet name="append">
+		        	<h:outputText value=".00" />
+		    	    </f:facet>
+			</b:inputText>
+        	</h:panelGrid>
+	</b:form>
+  </ui:define>
+</ui:composition>

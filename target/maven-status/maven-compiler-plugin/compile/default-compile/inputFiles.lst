@@ -1,5 +1,7 @@
+/home/wisty/git/BootsFaces_Login_Logout/src/main/java/com/journaldev/jsf/pojo/daftarhunian/DaftarhunianHdr.java
 /home/wisty/git/BootsFaces_Login_Logout/src/main/java/com/journaldev/jsf/beans/Login.java
 /home/wisty/git/BootsFaces_Login_Logout/src/main/java/com/journaldev/jsf/dao/LoginDAO.java
 /home/wisty/git/BootsFaces_Login_Logout/src/main/java/com/journaldev/jsf/filter/AuthorizationFilter.java
 /home/wisty/git/BootsFaces_Login_Logout/src/main/java/com/journaldev/jsf/beans/SessionBean.java
 /home/wisty/git/BootsFaces_Login_Logout/src/main/java/com/journaldev/jsf/util/DataConnect.java
+/home/wisty/git/BootsFaces_Login_Logout/src/main/java/com/journaldev/jsf/beans/DaftarhunianHdrBean.java

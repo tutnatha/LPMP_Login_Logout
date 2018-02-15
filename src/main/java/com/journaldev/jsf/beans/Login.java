@@ -51,7 +51,8 @@ public class Login implements Serializable {
 			HttpSession session = SessionBean.getSession();
 			session.setAttribute("username", user);
 			//return "admin"; //admin.xhtml
-			return "starter_template";  //starter_template.xml
+			//return "starter_template";  //starter_template.xml
+			return "dashboard";	//dashboard.xml
 		} else {
 			FacesContext.getCurrentInstance().addMessage(
 					null,
