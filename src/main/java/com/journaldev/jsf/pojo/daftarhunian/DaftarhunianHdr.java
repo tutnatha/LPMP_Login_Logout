@@ -53,7 +53,7 @@ public class DaftarhunianHdr {
         this.tglMulai = tglMulai;
         this.tglSelesai = tglSelesai;
         this.sudahSelesai = sudahSelesai;
-	this.kodeKegiatan = kodeKegiatan;
+        this.kodeKegiatan = kodeKegiatan;
     }
 
 //    public int getNo() {

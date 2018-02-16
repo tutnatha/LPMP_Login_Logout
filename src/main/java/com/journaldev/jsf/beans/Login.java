@@ -59,6 +59,9 @@ public class Login implements Serializable {
 					new FacesMessage(FacesMessage.SEVERITY_WARN,
 							"Incorrect Username and Passowrd",
 							"Please enter correct username and Password"));
+			
+//			<p:commandButton value="Error" actionListener="#{messagesBean.error}" update="@form"/>
+			
 			return "login"; //login.xhtml
 		}
 	}

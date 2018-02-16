@@ -43,6 +43,12 @@
 			action="#{login.validateUsernamePassword}"
 			icon="log-in" size="lg"
 			value="Login"></b:commandButton>
+		<b:messages/>
+  		
+		<b:growl id="growlMsg" globalOnly="true" placementFrom="bottom"
+        show-detail="true" show-summary="false" allowDismiss="true"
+        delay="10000" escape="true" />
+	
 	</h:form>
 	</b:container>
 </h:body>
