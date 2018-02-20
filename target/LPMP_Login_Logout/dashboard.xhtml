@@ -30,7 +30,7 @@
         <b:container fluid="true">
             <b:row>
                 <b:column col-sm="3" col-md="2" styleClass="sidebar">
-                    <b:listLinks>
+                    <!-- <b:listLinks>
                         <b:navLink header="Dasboard Links" />
                         <b:navLink href="#" value="Overview" active="true"/>
                         <b:navLink href="#" value="Reports" />
@@ -43,13 +43,16 @@
                         <b:navLink value="One more nav" />
                         <b:navLink value="Another nav item" />
                         <b:navLink value="More navigation" />
-                    </b:listLinks>
+                    </b:listLinks> -->
                     <b:listLinks>
                         <b:navLink value="Nav item again" />
                         <b:navLink value="One more nav" />
                         <b:navLink value="Another nav item" />
-			<b:navLink value="DataTable" outcome="/forms/DataTable" icon-awesome="table" />
-			<b:navLink value="Input Text" outcome="/forms/LPMPFormReservation" icon-awesome="keyboard-o" />
+						<b:navLink value="DataTable" outcome="/forms/DataTable" icon-awesome="table" />
+						<b:navLink value="Input Reservasi" outcome="/forms/LPMPFormReservation" icon-awesome="keyboard-o" />
+						<b:navLink value="Cari/Ubah/Hapus Reservasi" outcome="/forms/LPMPFormGetReservation" icon-awesome="keyboard-o" />
+						<b:navLink value="Basic Navigation Level" outcome="/primefaces-extention/BasicNavigationLevel" icon-awesome="keyboard-o" />
+
                     </b:listLinks>
                 </b:column>
                 <b:column col-sm="9" offset-sm="3" col-md="10" offset="2" styleClass="main">

@@ -1,7 +1,10 @@
 package com.journaldev.jsf.beans;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.net.URI;
+import java.net.URISyntaxException;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.UUID;
 
@@ -13,10 +16,10 @@ import javax.faces.context.FacesContext;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
-
-//import com.concretepage.entity.Article;
 
 @ManagedBean
 @RequestScoped
@@ -28,6 +31,11 @@ public class ReservationBean implements Serializable{
 	private Date tglSelesai;
 	private String sudahSelesai;
 	private int kodeKegiatan;
+	
+	public ReservationBean() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	
 	public String getNo() {
 		return no;
@@ -88,6 +96,7 @@ public class ReservationBean implements Serializable{
     }
     
     public void addReservationDemo() {
+//    	try {
     	HttpHeaders headers = getHeaders();  
         RestTemplate restTemplate = new RestTemplate();
 //	String url = "http://localhost:8080/user/article";
@@ -105,17 +114,62 @@ public class ReservationBean implements Serializable{
         objDfrtHdr.setTglMulai(tglMulai);
         objDfrtHdr.setTglSelesai(tglSelesai);
                 
-        HttpEntity<com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr> requestEntity = new HttpEntity<com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr>(objDfrtHdr, headers);
-        URI uri = restTemplate.postForLocation(url, requestEntity);
+    	HttpEntity<com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr> requestEntity = new HttpEntity<com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr>(objDfrtHdr, headers);
+    	URI uri = restTemplate.postForLocation(url, requestEntity);
+
+    	/* 1.tipu pakai Get: tapi lakukan insert ke data base */
+    	/* 2. get select max(id) if exist compare with current row data */
+    	    	
+//    	}	catch (IOException | ParseException ex) {
+    	
+//    	}
+//        }catch (URISyntaxException e){
+//        	FacesContext.getCurrentInstance().addMessage(
+//    				null,
+//    				new FacesMessage(FacesMessage.SEVERITY_WARN,
+//    						url,
+//    						uri.toString()));        	
+//        }
         
-        //Tampilkan ke screen browser
-        System.out.println(uri.getPath());
-        FacesContext.getCurrentInstance().addMessage(
+        /*
+        if(uri==null){
+        	FacesContext.getCurrentInstance().addMessage(
+    				null,
+    				new FacesMessage(FacesMessage.SEVERITY_WARN,
+    						url,
+    						"Success!!!"));
+    		
+        }else{
+        	//Tampilkan ke screen browser
+        	System.out.println(uri.getPath());
+        	FacesContext.getCurrentInstance().addMessage(
 				null,
 				new FacesMessage(FacesMessage.SEVERITY_WARN,
 						url,
 						"uri result : "+uri.getPath()));
-		
+        }
+        */
+//    	getDaftarhunianHdrByIdDemo();
+    }
+
+    public void getDaftarhunianHdrByIdDemo() {
+    	HttpHeaders headers = getHeaders();  
+        RestTemplate restTemplate = new RestTemplate();
+        String url = "http://207.148.66.201:8080/user/daftarhunianHdrs/{no}";
+    	
+        HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
+        ResponseEntity<com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr.class, 16);
+        com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr dftr = responseEntity.getBody();
+        System.out.println("Jml Peserta:"+dftr.getJmlPeserta()+", Kegiatan:"+dftr.getKodeKegiatan()
+                 +", No:"+dftr.getNo());
+        
+        FacesContext.getCurrentInstance().addMessage(
+				null,
+				new FacesMessage(FacesMessage.SEVERITY_WARN,
+						url,
+						"Jml Peserta:"+dftr.getJmlPeserta()+", Kegiatan:"+dftr.getKodeKegiatan()
+		                 +", No:"+dftr.getNo()));
+        
     }
 
 }

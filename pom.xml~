@@ -112,6 +112,14 @@
                     <optional>true</optional>
 		    <version>1.5.10.RELEASE</version>
             	</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.primefaces.extensions/primefaces-extensions -->
+		<dependency>
+		    <groupId>org.primefaces.extensions</groupId>
+		    <artifactId>primefaces-extensions</artifactId>
+		    <version>6.1.1</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
