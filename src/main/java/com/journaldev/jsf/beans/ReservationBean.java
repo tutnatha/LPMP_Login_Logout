@@ -5,7 +5,9 @@ import java.io.Serializable;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import javax.faces.application.FacesMessage;
@@ -32,6 +34,10 @@ public class ReservationBean implements Serializable{
 	private String sudahSelesai;
 	private int kodeKegiatan;
 	
+        private List<String> selectOneMenuKegiatans = new ArrayList<String>();
+
+        private String selectOneMenuKegiatan;
+
 	public ReservationBean() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -171,5 +177,40 @@ public class ReservationBean implements Serializable{
 		                 +", No:"+dftr.getNo()));
         
     }
+
+    public List<String> selectOneMenuKegiatanService(){
+        HttpHeaders headers = getHeaders();
+        RestTemplate restTemplate = new RestTemplate();
+        String url = "http://207.148.66.201:8080/user/kegiatans";
+        HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
+        ResponseEntity<com.journaldev.jsf.pojo.Kegiatan[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, com.journaldev.jsf.pojo.Kegiatan[].class);
+        com.journaldev.jsf.pojo.Kegiatan[] kegiatans = responseEntity.getBody();
+
+        for(com.journaldev.jsf.pojo.Kegiatan kegiatan : kegiatans) {
+            String s = kegiatan.getKode(); //hanya mindahin ke var saja it's OK.
+            selectOneMenuKegiatans.add(s);
+        }
+        return selectOneMenuKegiatans;
+    }
+    
+    /*Getters and Setters*/
+
+    public List<String> getSelectOneMenuKegiatans() {
+        return selectOneMenuKegiatans;
+    }
+
+    public void setSelectOneMenuKegiatans(List<String> selectOneMenuKegiatans) {
+        this.selectOneMenuKegiatans = selectOneMenuKegiatans;
+    }
+
+    public String getSelectOneMenuKegiatan() {
+        return selectOneMenuKegiatan;
+    }
+
+    public void setSelectOneMenuKegiatan(String selectOneMenuKegiatan) {
+        this.selectOneMenuKegiatan = selectOneMenuKegiatan;
+    }
+    
+    /*Getters and Setters*/
 
 }

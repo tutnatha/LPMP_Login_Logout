@@ -25,7 +25,7 @@ public class LoginDAO {
 		try {
 			con = DataConnect.getConnection();
 //			ps = con.prepareStatement("Select uname, password from Users where uname = ? and password = ?");
-			ps = con.prepareStatement("Select username, password from users where username = ? and password = ?");	//mysql:playground
+			ps = con.prepareStatement("Select username, password from users where username = ? and password = ?");    //mysql:playground
 			ps.setString(1, user);
 			ps.setString(2, password);
 
@@ -39,6 +39,14 @@ public class LoginDAO {
 			return false;
 		} finally {
 			DataConnect.close(con);
+		}
+		return false;
+	}
+
+	public static boolean validate2(String user, String password) {
+		LoginRestClient lrc = new LoginRestClient(user);
+		if (lrc.getUsr().getUsername().equals(user) && lrc.getUsr().getPassword().equals(password)) {
+			return true;
 		}
 		return false;
 	}

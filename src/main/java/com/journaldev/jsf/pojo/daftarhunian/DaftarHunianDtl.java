@@ -3,7 +3,7 @@ package com.journaldev.jsf.pojo.daftarhunian;
 public class DaftarHunianDtl {
 //no":"1","seqNo":1,"noKamar":314
 	private int no;
-	private String seqNo;
+	private int seqNo;
 	private String noKamar;
 
 	public DaftarHunianDtl() {
@@ -19,11 +19,11 @@ public class DaftarHunianDtl {
 		this.no = no;
 	}
 
-	public String getSeqNo() {
+	public int getSeqNo() {
 		return seqNo;
 	}
 
-	public void setSeqNo(String seqNo) {
+	public void setSeqNo(int seqNo) {
 		this.seqNo = seqNo;
 	}
 

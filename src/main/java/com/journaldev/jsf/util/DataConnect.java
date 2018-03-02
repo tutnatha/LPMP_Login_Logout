@@ -12,8 +12,8 @@ public class DataConnect {
 //			Connection con = DriverManager.getConnection(
 //					"jdbc:postgresql://localhost:5432/xxydb", "postgres", "postgresql");
 			Connection con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/playground?profileSQL=true", "root", ""); //pwd=lpmp@123
-
+//					"jdbc:mysql://localhost:3306/playground?profileSQL=true", "root", ""); //pwd=lpmp@123
+                                        "jdbc:mysql://wisty-lenovo-g405:3306/playground?profileSQL=true", "root", "");
 			return con;
 		} catch (Exception ex) {
 			System.out.println("Database.getConnection() Error -->"

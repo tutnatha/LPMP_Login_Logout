@@ -30,14 +30,19 @@ td {
 			    <f:facet name="prepend">
 			    	</f:facet>
 			    </b:inputText>
-			    
+
 			    <b:inputText label="Penyelenggara:" labelStyle="width:80px;" 
 			    	value="#{reservationBean.penyelenggara}">
 			    	<f:facet name="prepend">				
 			    </f:facet>
 			    </b:inputText>
-			    
-			    <!-- <b:row> -->
+
+<!--
+				<b:selectOneMenu label="Penyelenggara : " value="#{reservationBean.selectOneMenuKamar}">
+					<f:selectItems value="#{reservationBean.selectOneMenuKamars}" />
+				</b:selectOneMenu>
+-->
+				<!-- <b:row> -->
 			    <b:datepicker id="tglmulai" mode="toggle-icon" showWeek="true"
 			    	firstDay="1" value="#{reservationBean.tglMulai}" required="true"
 			    	label="Tgl Mulai:" label-col-sm="1" col-sm="2"/>
@@ -55,13 +60,19 @@ td {
 			    	<f:facet name="prepend">				
 			    </f:facet>
 			    </b:inputText>
-			    			    
+<!--			    			    
 			    <b:inputText label="Kode Kegiatan:" labelStyle="width:80px;" 
 			    	value="#{reservationBean.kodeKegiatan}">
 			    	<f:facet name="prepend">				
 			    </f:facet>
 			    </b:inputText>
-			    			    
+-->
+
+                            <b:selectOneMenu label="Kode Kegiatan : " value="#{reservationBean.selectOneMenuKegiatan}">
+                                    <f:selectItems value="#{reservationBean.selectOneMenuKegiatans}" />
+                            </b:selectOneMenu>
+
+
 		      	 <b:row>         	
 		          	<b:commandButton value="submit" update="@form" col-sm="2"
 		              		look="success" onclick="ajax:reservationBean.addReservationDemo()" />		            
