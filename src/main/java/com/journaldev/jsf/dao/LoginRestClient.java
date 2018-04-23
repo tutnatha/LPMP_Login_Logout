@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import com.journaldev.jsf.pojo.Users;
+import javax.faces.context.FacesContext;
 
 public class LoginRestClient {
 
@@ -19,11 +20,18 @@ public class LoginRestClient {
     Users usr = new Users();
     String username;
 
+    public String SERVICE_BASE_URI;
+    
     public LoginRestClient(String param) {
         HttpHeaders headers = getHeaders();
         RestTemplate restTemplate = new RestTemplate();
-        String url = "http://207.148.66.201:8080/user/users/{username}";
-
+//        String url = "http://207.148.66.201:8080/user/users/{username}";
+    
+        FacesContext fc = FacesContext.getCurrentInstance();
+        SERVICE_BASE_URI = fc.getExternalContext().getInitParameter("metadata.serviceBaseURI");
+    
+        String url = SERVICE_BASE_URI+"user/users/{username}"; 
+        
         HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
         ResponseEntity<Users> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, Users.class, param);
         Users dftr = responseEntity.getBody();

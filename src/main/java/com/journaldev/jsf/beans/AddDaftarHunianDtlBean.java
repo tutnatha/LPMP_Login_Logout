@@ -1,5 +1,7 @@
 package com.journaldev.jsf.beans;
 
+import com.course.springbootstarter.penyelenggara.Penyelenggara;
+import com.journaldev.jsf.hashmap.PenyelenggaraHashMap;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.URI;
@@ -30,13 +32,20 @@ import com.journaldev.jsf.pojo.daftarhunian.QueryDaftarhunianDlt;
 @ManagedBean
 @RequestScoped
 public class AddDaftarHunianDtlBean implements Serializable{
-
+    
     private List<String> selectOneMenuKamars = new ArrayList<String>();
-
     private String selectOneMenuKamar;
 
+    public String SERVICE_BASE_URI; 
+    
+    ArrayList<Penyelenggara> pList = new ArrayList<Penyelenggara>();
+    PenyelenggaraHashMap pHm = new PenyelenggaraHashMap();
+            
     public AddDaftarHunianDtlBean() {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        SERVICE_BASE_URI = fc.getExternalContext().getInitParameter("metadata.serviceBaseURI");
         selectOneMenuKamarService();
+        
     }
 
     private HttpHeaders getHeaders() {
@@ -52,7 +61,8 @@ public class AddDaftarHunianDtlBean implements Serializable{
     public List<String> selectOneMenuKamarService(){
         HttpHeaders headers = getHeaders();
         RestTemplate restTemplate = new RestTemplate();
-        String url = "http://207.148.66.201:8080/user/kamars";
+//        String url = "http://207.148.66.201:8080/user/kamars";
+        String url = SERVICE_BASE_URI+"user/kamars";
         HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
         ResponseEntity<com.journaldev.jsf.pojo.daftarhunian.Kamar[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, com.journaldev.jsf.pojo.daftarhunian.Kamar[].class);
         com.journaldev.jsf.pojo.daftarhunian.Kamar[] kamars = responseEntity.getBody();
@@ -63,6 +73,7 @@ public class AddDaftarHunianDtlBean implements Serializable{
         }
         return selectOneMenuKamars;
     }
+
 
     public void btnSelectItemsOKCLick(){
         HttpHeaders headers = getHeaders();

@@ -30,19 +30,26 @@ td {
 			    <f:facet name="prepend">
 			    	</f:facet>
 			    </b:inputText>
-
+<!--
 			    <b:inputText label="Penyelenggara:" labelStyle="width:80px;" 
 			    	value="#{reservationBean.penyelenggara}">
 			    	<f:facet name="prepend">				
 			    </f:facet>
 			    </b:inputText>
-
-<!--
-				<b:selectOneMenu label="Penyelenggara : " value="#{reservationBean.selectOneMenuKamar}">
-					<f:selectItems value="#{reservationBean.selectOneMenuKamars}" />
-				</b:selectOneMenu>
 -->
-				<!-- <b:row> -->
+                            <!--<f:selectItems value="#{reservationBean.selectOneMenuPenyelenggaras}" />-->
+                            <h:selectOneMenu label="Penyelenggara : " 
+                                    value="#{reservationBean.selectOneMenuPenyelenggara}"
+                                    onchange="submit()"
+                                    valueChangeListener="#{reservationBean.penyelenggarasChanged}">
+                                <f:selectItems value="#{reservationBean.penyelenggaras}"/>
+                            </h:selectOneMenu>
+                    
+                            <b:message colMd="2" />
+                            <b:inputText value="#{reservationBean.selectOneMenuPenyelenggara}" 
+                                         disabled="true" colMd="4" label="Last submitted value:" labelColMd="2" />
+
+                            <!-- <b:row> -->
 			    <b:datepicker id="tglmulai" mode="toggle-icon" showWeek="true"
 			    	firstDay="1" value="#{reservationBean.tglMulai}" required="true"
 			    	label="Tgl Mulai:" label-col-sm="1" col-sm="2"/>
@@ -67,11 +74,20 @@ td {
 			    </f:facet>
 			    </b:inputText>
 -->
-
+<!--
                             <b:selectOneMenu label="Kode Kegiatan : " value="#{reservationBean.selectOneMenuKegiatan}">
                                     <f:selectItems value="#{reservationBean.selectOneMenuKegiatans}" />
                             </b:selectOneMenu>
-
+-->
+                            <h:selectOneMenu label="Nama Kegiatan : " 
+                                             value="#{reservationBean.selectOneMenuKegiatan}"
+                                              onchange="submit()"
+                                             valueChangeListener="#{reservationBean.kegiatansChanged}">
+                                <f:selectItems value="#{reservationBean.kegiatansMap}"/>
+                            </h:selectOneMenu>
+                            <b:message colMd="2" />
+                            <b:inputText value="#{reservationBean.selectOneMenuKegiatan}" 
+                                                 disabled="true" colMd="4" label="Last Kegiatan value:" labelColMd="2" />
 
 		      	 <b:row>         	
 		          	<b:commandButton value="submit" update="@form" col-sm="2"

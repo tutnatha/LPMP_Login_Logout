@@ -8,6 +8,7 @@ com/journaldev/jsf/beans/Login.class
 net/bootsfaces/demo/imageGallery/ImageGallery.class
 net/bootsfaces/demo/DateTimeBean$2.class
 net/bootsfaces/demo/PollDemoBean.class
+com/journaldev/jsf/hashmap/PenyelenggaraHashMap.class
 net/bootsfaces/demo/KebabBean.class
 DaftarhunianHdrBean.class
 com/journaldev/jsf/pojo/Sport.class
@@ -73,6 +74,7 @@ com/journaldev/jsf/pojo/Users.class
 net/bootsfaces/demo/FlyOutMenuBean.class
 net/bootsfaces/demo/LoremIpsumBean.class
 com/journaldev/jsf/beans/SessionBean.class
+com/course/springbootstarter/penyelenggara/Penyelenggara.class
 net/bootsfaces/demo/DateTimeBean$3.class
 net/bootsfaces/demo/NavBarBean.class
 de/beyondjava/jsf/sample/carshop/Car.class

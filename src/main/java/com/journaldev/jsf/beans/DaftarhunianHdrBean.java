@@ -19,6 +19,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr;
+import javax.faces.context.FacesContext;
 
 /**
  * Data Model Bean for Items
@@ -30,10 +31,16 @@ public class DaftarhunianHdrBean implements Serializable {
 
     private static DaftarhunianHdr[] hdrList;
     private DataModel<DaftarhunianHdr> hdrs;
-
+    
+    public String SERVICE_BASE_URI;
+    
 //([{"no":"1","penyelenggara":"Umum","jmlPeserta":100,"tglMulai":null,"tglSelesai":null,"sudahSelesai":"N","kodeKegiatan":"1"},
     public DaftarhunianHdrBean(){
-	SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+	//taruh paling atas ya tut..
+        FacesContext fc = FacesContext.getCurrentInstance();
+        SERVICE_BASE_URI = fc.getExternalContext().getInitParameter("metadata.serviceBaseURI");
+            
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
         String dateInString = "7-Jun-2013";
 	Date date = null;
         try {
@@ -56,6 +63,7 @@ public class DaftarhunianHdrBean implements Serializable {
                 
 //    hdrs = new ArrayDataModel<DaftarhunianHdr>(hdrList);
 	hdrs = getAllDaftarHunianHdr();
+        
     }
 
     public DataModel<DaftarhunianHdr> getHdrs() {
@@ -78,7 +86,8 @@ public class DaftarhunianHdrBean implements Serializable {
     public DataModel<DaftarhunianHdr> getAllDaftarHunianHdr(){
 	HttpHeaders headers = getHeaders();
 	RestTemplate restTemplate = new RestTemplate();
-	String url = "http://207.148.66.201:8080/user/daftarhunianHdrs";
+//	String url = "http://207.148.66.201:8080/user/daftarhunianHdrs";
+        String url = SERVICE_BASE_URI+"user/daftarhunianHdrs";
 	HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
 	ResponseEntity<DaftarhunianHdr[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, DaftarhunianHdr[].class);
         DaftarhunianHdr[] hdrList = responseEntity.getBody();

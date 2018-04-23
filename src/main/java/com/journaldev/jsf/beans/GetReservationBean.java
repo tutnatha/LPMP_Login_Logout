@@ -37,11 +37,15 @@ public class GetReservationBean implements Serializable{
 	private String sudahSelesai;
 	private int kodeKegiatan;
 	
-    List<QueryDaftarhunianDlt> queryDaftarhunianDlt = new ArrayList<QueryDaftarhunianDlt>();
-
-	public GetReservationBean() {
+        List<QueryDaftarhunianDlt> queryDaftarhunianDlt = new ArrayList<QueryDaftarhunianDlt>();
+        public String SERVICE_BASE_URI;
+	
+        public GetReservationBean() {
 		super();
 		// TODO Auto-generated constructor stub
+                FacesContext fc = FacesContext.getCurrentInstance();
+                SERVICE_BASE_URI = fc.getExternalContext().getInitParameter("metadata.serviceBaseURI");
+    
 	}
 	
 	public String getNo() {
@@ -107,7 +111,8 @@ public class GetReservationBean implements Serializable{
     	HttpHeaders headers = getHeaders();  
         RestTemplate restTemplate = new RestTemplate();
 //	String url = "http://localhost:8080/user/article";
-        String url = "http://207.148.66.201:8080/user/daftarhunianHdrs";	//harus dirubah ke app.properties
+//        String url = "http://207.148.66.201:8080/user/daftarhunianHdrs";	//harus dirubah ke app.properties
+        String url = SERVICE_BASE_URI+"user/daftarhunianHdrs";
         com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr objDfrtHdr = new com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr();
         objDfrtHdr.setJmlPeserta(jmlPeserta); 
         objDfrtHdr.setKodeKegiatan(kodeKegiatan);
@@ -162,8 +167,8 @@ public class GetReservationBean implements Serializable{
     public void getDaftarhunianHdrByIdDemo() {
     	HttpHeaders headers = getHeaders();  
         RestTemplate restTemplate = new RestTemplate();
-        String url = "http://207.148.66.201:8080/user/daftarhunianHdrs/{no}";
-    	
+//        String url = "http://207.148.66.201:8080/user/daftarhunianHdrs/{no}";
+    	String url = SERVICE_BASE_URI+"user/daftarhunianHdrs/{no}";
         HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
         ResponseEntity<com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr.class, 16);
         com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr dftr = responseEntity.getBody();
@@ -197,10 +202,12 @@ public class GetReservationBean implements Serializable{
         getDaftarhunianDtls();
     }
 
-   	public void getDaftarhunianDtls() {
+    public void getDaftarhunianDtls() {
     	HttpHeaders headers = getHeaders();  
         RestTemplate restTemplate = new RestTemplate();
-        String url = "http://207.148.66.201:8080/user/daftarhunianDtls";    	
+//        String url = "http://207.148.66.201:8080/user/daftarhunianDtls";
+    	String url = SERVICE_BASE_URI+"user/daftarhunianDtls";
+
         HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
         ResponseEntity<com.journaldev.jsf.pojo.daftarhunian.DaftarHunianDtl[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, com.journaldev.jsf.pojo.daftarhunian.DaftarHunianDtl[].class);
         com.journaldev.jsf.pojo.daftarhunian.DaftarHunianDtl[] articles = responseEntity.getBody();
