@@ -1,5 +1,6 @@
 package com.journaldev.jsf.beans;
 
+import beans.hunian.asrama.DaftarHunianAsrama;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.URI;
@@ -25,10 +26,11 @@ import org.springframework.web.client.RestTemplate;
 
 import com.journaldev.jsf.pojo.daftarhunian.DaftarHunianDtlKey;
 import com.journaldev.jsf.pojo.daftarhunian.QueryDaftarhunianDlt;
+import java.util.Arrays;
 
 @ManagedBean
 @RequestScoped
-public class GetReservationBean implements Serializable{
+public class GetReservationBean2 implements Serializable{
 	private String no;
 	private String penyelenggara;
 	private int jmlPeserta;
@@ -40,7 +42,7 @@ public class GetReservationBean implements Serializable{
         List<QueryDaftarhunianDlt> queryDaftarhunianDlt = new ArrayList<QueryDaftarhunianDlt>();
         public String SERVICE_BASE_URI;
 	
-        public GetReservationBean() {
+        public GetReservationBean2() {
 		super();
 		// TODO Auto-generated constructor stub
                 FacesContext fc = FacesContext.getCurrentInstance();
@@ -170,11 +172,7 @@ public class GetReservationBean implements Serializable{
 //        String url = "http://207.148.66.201:8080/user/daftarhunianHdrs/{no}";
     	String url = SERVICE_BASE_URI+"user/daftarhunianHdrs/{no}";
         HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
-//        ResponseEntity<com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr.class, 16);
-        ResponseEntity<com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr> responseEntity = 
-            restTemplate.exchange(url, HttpMethod.GET, requestEntity, 
-            com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr.class, this.getNo());
-
+        ResponseEntity<com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr.class, 16);
         com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr dftr = responseEntity.getBody();
         System.out.println("Jml Peserta:"+dftr.getJmlPeserta()+", Kegiatan:"+dftr.getKodeKegiatan()
                  +", No:"+dftr.getNo());
@@ -210,12 +208,10 @@ public class GetReservationBean implements Serializable{
     	HttpHeaders headers = getHeaders();  
         RestTemplate restTemplate = new RestTemplate();
 //        String url = "http://207.148.66.201:8080/user/daftarhunianDtls";
-    	String url = SERVICE_BASE_URI+"user/daftarhunianDtls/{no}";
+    	String url = SERVICE_BASE_URI+"user/daftarhunianDtls";
 
         HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
-        ResponseEntity<com.journaldev.jsf.pojo.daftarhunian.DaftarHunianDtl[]> responseEntity = 
-            restTemplate.exchange(url, HttpMethod.GET, requestEntity, 
-            com.journaldev.jsf.pojo.daftarhunian.DaftarHunianDtl[].class, this.getNo());
+        ResponseEntity<com.journaldev.jsf.pojo.daftarhunian.DaftarHunianDtl[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, com.journaldev.jsf.pojo.daftarhunian.DaftarHunianDtl[].class);
         com.journaldev.jsf.pojo.daftarhunian.DaftarHunianDtl[] articles = responseEntity.getBody();
         for(com.journaldev.jsf.pojo.daftarhunian.DaftarHunianDtl article : articles) {
               System.out.println("Id:"+article.getNo()+", Title:"+article.getNoKamar()
@@ -237,15 +233,40 @@ public class GetReservationBean implements Serializable{
         }
     }
 
-   	public List<QueryDaftarhunianDlt> getQueryDaftarhunianDlt() {
-		return queryDaftarhunianDlt;
-	}
+    public List<QueryDaftarhunianDlt> getQueryDaftarhunianDlt() {
+            return queryDaftarhunianDlt;
+    }
 
-	public void setQueryDaftarhunianDlt(List<QueryDaftarhunianDlt> queryDaftarhunianDlt) {
-		this.queryDaftarhunianDlt = queryDaftarhunianDlt;
-	}
-    
+    public void setQueryDaftarhunianDlt(List<QueryDaftarhunianDlt> queryDaftarhunianDlt) {
+            this.queryDaftarhunianDlt = queryDaftarhunianDlt;
+    }
+
 /***  Buatkan method baru : get ws data dari url dibawah ini,
         tetapi retrieve per noTrx saja
-        http://207.148.66.201:8080/user/getAllDaftarHunianAsramas ***/        
+        http://207.148.66.201:8080/user/getAllDaftarHunianAsramas ***/
+
+    public List<DaftarHunianAsrama> getAllListDaftarHunianAsrama(){
+	HttpHeaders headers = getHeaders();
+	RestTemplate restTemplate = new RestTemplate();
+//	String url = "http://207.148.66.201:8080/user/getAllDaftarHunianAsramas";
+        String url = SERVICE_BASE_URI+"user/getAllDaftarHunianAsramas";
+	HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
+        
+        //instantiate Java Class        
+        
+	ResponseEntity<DaftarHunianAsrama[]> responseEntity = 
+                restTemplate.exchange(url, 
+                HttpMethod.GET, requestEntity, DaftarHunianAsrama[].class);
+        DaftarHunianAsrama[] hdrList = responseEntity.getBody();     
+       
+//	return hdrs;
+        List<DaftarHunianAsrama> list = Arrays.asList(hdrList);
+        
+        int x = list.get(0).getDaftarHunianAsramaDtls().size();
+        
+        System.out.println("int x :"+x);
+        
+        return list;
+    }
+        
 }
