@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.3.final using JasperReports Library version 6.4.3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportDftrHunianAsrama" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d31c6961-835d-4b47-aeb9-9da16c320500">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="subreportParameter" class="net.sf.jasperreports.engine.JasperReport"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="noTrx" class="java.lang.Integer"/>
+	<field name="penyelenggara" class="java.lang.String"/>
+	<field name="jmlPeserta" class="java.lang.Integer"/>
+	<field name="tglMulai" class="java.util.Date"/>
+	<field name="tglSelesai" class="java.util.Date"/>
+	<field name="sudahSelesai" class="java.lang.String"/>
+	<field name="kodeKegiatan" class="java.lang.String"/>
+	<field name="daftarHunianAsramaDtls" class="java.util.List"/>
+	<group name="LANTAI">
+		<groupExpression><![CDATA[$F{noTrx}]]></groupExpression>
+		<groupHeader>
+			<band height="26"/>
+		</groupHeader>
+		<groupFooter>
+			<band height="50"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="75" y="5" width="411" height="20" uuid="7e37decd-e73f-4ecd-ac8f-6c7aba1a3ee5"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DAFTAR HUNIAN ASRAMA / MESS LPMP BALI]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="89" splitType="Stretch">
+			<staticText>
+				<reportElement x="14" y="12" width="100" height="14" uuid="960f4471-f36b-4459-9549-8d2a83a0d5ed"/>
+				<text><![CDATA[NAMA KEGIATAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="30" width="100" height="14" uuid="e9390d27-7556-4f8b-a928-7a5b5f179941"/>
+				<text><![CDATA[PENYELENGGARA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="47" width="100" height="14" uuid="d929042e-0b7d-4023-98ec-20300ea13eaa"/>
+				<text><![CDATA[TANGGAL KEG.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="65" width="100" height="14" uuid="54122c77-476a-4181-b27a-9193fa6ea247"/>
+				<text><![CDATA[JUMLAH PESERTA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="114" y="12" width="12" height="14" uuid="b5d200ce-15e4-4aa2-af61-77f6c1bb8202"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="113" y="30" width="12" height="14" uuid="a12602ba-2803-48ec-9262-fabfcd2a4bfa"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="114" y="47" width="12" height="14" uuid="a91f8185-e5a5-4323-8e19-37808fc6363a"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="114" y="65" width="12" height="14" uuid="177c8d64-5521-4264-b63a-623ecd29acd1"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="125" y="12" width="100" height="14" uuid="7be4e45c-47a0-4110-8db6-e2444bcbe59e"/>
+				<textFieldExpression><![CDATA[$F{noTrx}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="126" y="30" width="123" height="14" uuid="dbf19b09-19ae-41da-ad9c-47d73ec6a6e3"/>
+				<textFieldExpression><![CDATA[$F{penyelenggara}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="126" y="65" width="100" height="14" uuid="fadbc20f-0abb-4c98-ae28-f880b680ba8d"/>
+				<textFieldExpression><![CDATA[$F{jmlPeserta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="126" y="47" width="100" height="14" uuid="2acf7399-1caa-4ade-8119-5b5c5133ab1e"/>
+				<textFieldExpression><![CDATA[$F{tglMulai}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="293" y="49" width="100" height="20" uuid="5cbe3fb8-5acb-43b5-9dd8-f494d82e543a"/>
+				<textFieldExpression><![CDATA[$F{tglSelesai}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="229" y="49" width="64" height="12" uuid="3d355aec-de37-47df-935a-453cc4f516f7"/>
+				<text><![CDATA[SELESAI]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="28" splitType="Stretch">
+			<staticText>
+				<reportElement x="14" y="5" width="61" height="13" uuid="17cf8945-2e73-4eef-9241-c6b8ff203d42"/>
+				<text><![CDATA[NO. KAMAR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="122" y="4" width="100" height="13" uuid="8b0ff65f-df21-4101-ae04-5da9e439bd8e"/>
+				<text><![CDATA[N A M A]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="268" y="3" width="100" height="20" uuid="3e3e8064-5cab-4e4c-91b3-4ce4f6249003"/>
+				<text><![CDATA[ALAMAT / UNIT KERJA]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="39" splitType="Stretch">
+			<subreport>
+				<reportElement x="12" y="3" width="540" height="32" uuid="8705a573-f17d-47b1-9780-b002623361ce"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource
+                  ($F{daftarHunianAsramaDtls})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{subreportParameter}]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

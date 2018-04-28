@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<ui:composition template="/applayout/pageTemplate.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:define name="content">
+        <style>
+td {
+	padding: 8px;
+}
+</style>
+
+        <b:form inline="true">
+            <h:panelGrid columns="2" cellpadding="5">
+                <b:panel title="Formulir Reservasi" look="primary">
+                    <!-- 	   		<b:inputText value="1" label="No trx"  update="leftmessages rightmessages" />
+                                <b:inputText value="2" label="Penyelenggara"  onkeyup="ajax:messagesBean.update()" update="leftmessages rightmessages" />
+                                <b:inputText value="3" label="Tgl Mulai"  onkeyup="ajax:messagesBean.update()" update="leftmessages rightmessages"  />
+                                <b:inputText value="4" label="Tgl Selesai"  onkeyup="ajax:messagesBean.update()" update="leftmessages rightmessages" />
+                                <b:inputText value="5" label="Jml Peserta"  onkeyup="ajax:messagesBean.update()" update="leftmessages rightmessages"  />
+                                <b:inputText value="6" label="Sudah Selesai"  onkeyup="ajax:messagesBean.update()" update="leftmessages rightmessages"  />
+                                <b:inputText value="7" label="Kode Kegiatan"  onkeyup="ajax:messagesBean.update()" update="leftmessages rightmessages"  />
+                     -->
+                    <b:inputText label="No trx:" labelStyle="width:80px;"
+                                 value="#{reservationBean.no}">
+
+                        <f:facet name="prepend">
+                        </f:facet>
+                    </b:inputText>
+<!--
+                    <b:inputText label="Penyelenggara:" labelStyle="width:80px;"
+                                 value="#{reservationBean.penyelenggara}">
+                        <f:facet name="prepend">
+                        </f:facet>
+                    </b:inputText>
+-->
+<!--<f:selectItems value="#{reservationBean.selectOneMenuPenyelenggaras}" colMd="2"/>-->
+                    <h:selectOneMenu label="Penyelenggara : " 
+                                     value="#{reservationBean.selectOneMenuPenyelenggara}"
+                                      onchange="submit()"
+                                     valueChangeListener="#{reservationBean.penyelenggarasChanged}">
+                        <f:selectItems value="#{reservationBean.penyelenggaras}"/>
+                    </h:selectOneMenu>
+                    <b:message colMd="2" />
+                    <b:inputText value="#{reservationBean.selectOneMenuPenyelenggara}" 
+                                         disabled="true" colMd="4" label="Last Penyelenggara value:" labelColMd="2" />
+
+                    <!-- <b:row> -->
+                    <b:datepicker id="tglmulai" mode="toggle-icon" showWeek="true"
+                                  firstDay="1" value="#{reservationBean.tglMulai}" required="true"
+                                  label="Tgl Mulai:" label-col-sm="1" col-sm="2"/>
+                    <!-- <b:message for="tglmulai" col-sm="1"/>  -->
+
+                    <b:datepicker id="tglselesai" mode="toggle-icon" showWeek="true"
+                                  firstDay="1" value="#{reservationBean.tglSelesai}" required="true"
+                                  label="Tgl Selesai:" label-col-sm="3" col-sm="4"/>
+                    <!-- <b:message for="tglselesai" col-sm="1"/>  -->
+                    <!-- </b:row>  -->
+
+
+                    <b:inputText label="Jml Peserta:" labelStyle="width:80px;"
+                                 value="#{reservationBean.jmlPeserta}">
+                        <f:facet name="prepend">
+                        </f:facet>
+                    </b:inputText>
+                    
+                    <!--
+                    <b:selectOneMenu label="Nama Kegiatan : " value="#{reservationBean.selectOneMenuKegiatan}">
+                            <f:selectItems value="#{reservationBean.selectOneMenuKegiatans}" />
+                    </b:selectOneMenu>
+                    -->
+                    
+                    <h:selectOneMenu label="Nama Kegiatan : " 
+                                     value="#{reservationBean.selectOneMenuKegiatan}"
+                                      onchange="submit()"
+                                     valueChangeListener="#{reservationBean.kegiatansChanged}">
+                        <f:selectItems value="#{reservationBean.kegiatansMap}"/>
+                    </h:selectOneMenu>
+                    <b:message colMd="2" />
+                    <b:inputText value="#{reservationBean.selectOneMenuKegiatan}" 
+                                         disabled="true" colMd="4" label="Last Kegiatan value:" labelColMd="2" />
+
+<!--
+                    <b:inputText label="Kode Kegiatan:" labelStyle="width:80px;"
+                                 value="#{reservationBean.kodeKegiatan}">
+                        <f:facet name="prepend">
+                        </f:facet>
+                    </b:inputText>
+-->
+                    
+                    <b:row>
+                        <b:commandButton value="submit" update="@form" col-sm="2"
+                                         look="success" onclick="ajax:reservationBean.addReservationDemo()" />
+                    </b:row>
+
+                    <b:messages styleClass="msgs" redisplay="true" for="@parent" recursive="true"
+                                id="leftmessages"/>
+                </b:panel>
+
+            </h:panelGrid>
+        </b:form>
+    </ui:define>
+</ui:composition>

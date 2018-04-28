@@ -1,5 +1,6 @@
 package com.journaldev.jsf.beans;
 
+import beans.hunian.asrama.DaftarHunianAsrama;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.URI;
@@ -25,6 +26,19 @@ import org.springframework.web.client.RestTemplate;
 
 import com.journaldev.jsf.pojo.daftarhunian.DaftarHunianDtlKey;
 import com.journaldev.jsf.pojo.daftarhunian.QueryDaftarhunianDlt;
+import java.io.File;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.util.JRLoader;
 
 @ManagedBean
 @RequestScoped
@@ -247,5 +261,62 @@ public class GetReservationBean implements Serializable{
     
 /***  Buatkan method baru : get ws data dari url dibawah ini,
         tetapi retrieve per noTrx saja
-        http://207.148.66.201:8080/user/getAllDaftarHunianAsramas ***/        
+        http://207.148.66.201:8080/user/daftarHunianAsrama/{no} ***/        
+        
+//    public List<DaftarHunianAsrama> getAllListDaftarHunianAsrama(){
+    public List<DaftarHunianAsrama> getReservasiPerNoTrx(String noTrx){
+	HttpHeaders headers = getHeaders();
+	RestTemplate restTemplate = new RestTemplate();
+//	String url = "http://207.148.66.201:8080/user/daftarHunianAsrama/{no}";
+//        String url = SERVICE_BASE_URI+"user/daftarHunianAsrama/{no}";
+        String url = SERVICE_BASE_URI+"user/daftarHunianAsrama2/{no}";
+	HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
+        
+        //instantiate Java Class        
+        
+	ResponseEntity<DaftarHunianAsrama[]> responseEntity = 
+                restTemplate.exchange(url, 
+                HttpMethod.GET, requestEntity, DaftarHunianAsrama[].class, noTrx);
+//        DaftarHunianAsrama[] hdrList = responseEntity.getBody();
+       //ia sudah menjasi single class
+        DaftarHunianAsrama[] hdrList = responseEntity.getBody();
+//	return hdrs;
+        List<DaftarHunianAsrama> list = Arrays.asList(hdrList);
+        
+        int x = list.get(0).getDaftarHunianAsramaDtls().size();
+        
+        System.out.println("int x :"+x);
+        
+        return list;
+    }
+
+//    exportarPDF()
+//    public void exportarPDF() throws JRException, IOException {
+    public void printReservasiPerNoTrx() throws JRException, IOException {
+        Map<String, Object> parametros = new HashMap<String, Object>();
+        parametros.put("txtUsuario", "Juan Romero");  //remark dulu
+        
+        String realPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
+        
+        JasperReport jasperSubReport = (JasperReport)JRLoader.loadObjectFromFile(realPath + "reportDfrtHunianAsramaDtl.jasper");
+
+        parametros.put("subreportParameter", jasperSubReport);
+        parametros.put("SUBREPORT_DIR", "/WEB-INF/");   //tidak dipakai di jasper file 
+        
+        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().
+                getRealPath("/reportDftrHunianAsrama.jasper"));
+        
+        String noTrx = this.getNo();
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), 
+                parametros,                
+                new JRBeanCollectionDataSource(this.getReservasiPerNoTrx(noTrx)));
+        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().
+                getExternalContext().getResponse();
+        response.addHeader("Content-disposition", "attachment; filename=jsfReporte.pdf");
+        ServletOutputStream stream = response.getOutputStream();
+        JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
+        stream.flush();
+        stream.close();
+        FacesContext.getCurrentInstance().responseComplete();
+    }
 }
