@@ -17,7 +17,7 @@
 			<base-name>org.natha.properties.application</base-name>
 			<var>app</var>
 		</resource-bundle>
-                
+                <!-- harus pake ini biar bootsfaces tampil normal -->
                 <resource-handler>org.omnifaces.resourcehandler.CombinedResourceHandler</resource-handler>
 	</application>
 
