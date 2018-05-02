@@ -19,7 +19,8 @@ public class DaftarHunianAsrama {
     private Date tglMulai;
     private Date tglSelesai;
     private String sudahSelesai;
-    private String kodeKegiatan;
+//    private String kodeKegiatan;
+    private int kodeKegiatan;
     private List<DaftarHunianAsramaDtl> daftarHunianAsramaDtls;
     
     public DaftarHunianAsrama() {
@@ -72,16 +73,19 @@ public class DaftarHunianAsrama {
     public void setSudahSelesai(String sudahSelesai) {
         this.sudahSelesai = sudahSelesai;
     }
-
-    public String getKodeKegiatan() {
+    
+//    public String getKodeKegiatan() {
+    public int getKodeKegiatan() {
         return kodeKegiatan;
     }
 
-    public void setKodeKegiatan(String kodeKegiatan) {
+//    public void setKodeKegiatan(String kodeKegiatan) {
+    public void setKodeKegiatan(int kodeKegiatan) {
         this.kodeKegiatan = kodeKegiatan;
     }
 
-    public DaftarHunianAsrama(int noTrx, String penyelenggara, int jmlPeserta, Date tglMulai, Date tglSelesai, String sudahSelesai, String kodeKegiatan) {
+//    public DaftarHunianAsrama(int noTrx, String penyelenggara, int jmlPeserta, Date tglMulai, Date tglSelesai, String sudahSelesai, String kodeKegiatan) {
+    public DaftarHunianAsrama(int noTrx, String penyelenggara, int jmlPeserta, Date tglMulai, Date tglSelesai, String sudahSelesai, int kodeKegiatan) {
         this.noTrx = noTrx;
         this.penyelenggara = penyelenggara;
         this.jmlPeserta = jmlPeserta;

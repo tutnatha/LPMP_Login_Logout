@@ -55,9 +55,12 @@ td {
 			    </b:inputText>
 			    			    
                         <b:row>
-                            <b:commandButton value="Cari.." update="@form" col-sm="2"
+                            <!--<b:commandButton value="Cari.." update="@form" col-sm="2"
                                look="success" onclick="ajax:getReservationBean.getDaftarhunianHdrByIdDemo()" />
-                        
+                            -->
+                            <b:commandButton value="Cari.." update="@form" col-sm="2"
+                                    look="success" onclick="ajax:getReservationBean.searchByTrxNo()" />
+                            
                             <b:commandButton value="Print.." update="@form" col-sm="2"
                                look="success" onclick="ajax:getReservationBean.printReservasiPerNoTrx()" />
                             <b:commandButton value="Exportar a PDF" actionListener="#{getReservationBean.printReservasiPerNoTrx()}" ajax="false" />

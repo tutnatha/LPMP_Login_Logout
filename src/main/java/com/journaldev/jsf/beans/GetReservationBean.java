@@ -1,6 +1,7 @@
 package com.journaldev.jsf.beans;
 
 import beans.hunian.asrama.DaftarHunianAsrama;
+import beans.hunian.asrama.DaftarHunianAsramaDtl;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.URI;
@@ -318,5 +319,81 @@ public class GetReservationBean implements Serializable{
         stream.flush();
         stream.close();
         FacesContext.getCurrentInstance().responseComplete();
+    }
+    
+    public void searchByTrxNo(){
+        String noTrx = this.getNo();
+        DaftarHunianAsrama dha = getReservationByNoTrx(noTrx);
+        int jml = dha.getJmlPeserta();
+//        String kodeKegiatan = dha.getKodeKegiatan();
+        int kodeKegiatan = dha.getKodeKegiatan();
+        int inoTrx = dha.getNoTrx();
+        String penyelenggara = dha.getPenyelenggara();
+        String sudahSelesai = dha.getSudahSelesai();
+        Date tglMulai = dha.getTglMulai();
+        Date tglSelesai = dha.getTglSelesai();
+        
+        //Bean setter start
+        this.setJmlPeserta(jmlPeserta);
+        this.setKodeKegiatan(kodeKegiatan);
+        this.setNo(no);
+        this.setPenyelenggara(penyelenggara);
+        this.setSudahSelesai(sudahSelesai);
+        this.setTglMulai(tglMulai);
+        this.setTglSelesai(tglSelesai);
+        //Bean setter end
+        
+        List<DaftarHunianAsramaDtl> dhaDtls = dha.getDaftarHunianAsramaDtls();
+        int z = dhaDtls.size();
+        if(z > 0){
+            for(DaftarHunianAsramaDtl dhaDtl : dhaDtls) {
+              System.out.println("NoID : " + dhaDtl.getId()+", "
+                      + "Title : " + dhaDtl.getRoom().getNo()
+                      +", SeqNo: " + dhaDtl.getSeqNo());
+              QueryDaftarhunianDlt q = new QueryDaftarhunianDlt();
+              //Embeded Key
+              DaftarHunianDtlKey k = new DaftarHunianDtlKey();
+              String noKamar = dhaDtl.getRoom().getNo();
+              int iNoTrx = dhaDtl.getId().getNoTrx();
+              k.setNoKamar(noKamar);
+              k.setNoTrx(iNoTrx);
+              q.setDaftarHunianDtlKey(k);
+              int jmlTt = 0;	//ambil dari jmlTt master Kamar
+              int lantai = 1;	//ambil dari lantai master Kamar
+              q.setJmlTt(jmlTt);
+              q.setLantai(lantai);
+              //add
+              queryDaftarhunianDlt.add(q);
+            }
+        }
+    }
+    
+    public DaftarHunianAsrama getReservationByNoTrx(String noTrx){
+	HttpHeaders headers = getHeaders();
+	RestTemplate restTemplate = new RestTemplate();
+//	String url = "http://207.148.66.201:8080/user/daftarHunianAsrama/{no}";
+        String url = SERVICE_BASE_URI+"user/daftarHunianAsrama/{no}";
+	HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
+        
+        //instantiate Java Class        
+                
+//	ResponseEntity<DaftarHunianAsrama[]> responseEntity =
+        ResponseEntity<DaftarHunianAsrama> responseEntity =        
+                restTemplate.exchange(url, 
+//                HttpMethod.GET, requestEntity, DaftarHunianAsrama[].class, noTrx);
+        HttpMethod.GET, requestEntity, DaftarHunianAsrama.class, noTrx);
+//        DaftarHunianAsrama[] hdrList = responseEntity.getBody();
+        DaftarHunianAsrama dha = responseEntity.getBody();
+       
+//	return hdrs;
+//        List<DaftarHunianAsrama> list = Arrays.asList(hdrList);
+        
+//        int x = list.get(0).getDaftarHunianAsramaDtls().size();
+          int x = dha.getDaftarHunianAsramaDtls().size();
+
+        System.out.println("int x :"+x);
+        
+//        return list;
+        return dha;
     }
 }
