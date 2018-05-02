@@ -13,7 +13,7 @@
 	<group name="lantai">
 		<groupExpression><![CDATA[$F{id.noTrx}]]></groupExpression>
 		<groupHeader>
-			<band height="39">
+			<band height="32">
 				<textField>
 					<reportElement x="378" y="5" width="20" height="18" uuid="bb04bd44-c389-4411-b4ad-ec15f6c1db76"/>
 					<textFieldExpression><![CDATA[$F{room.lantai}]]></textFieldExpression>
@@ -60,7 +60,7 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="36" splitType="Stretch">
+		<band height="29" splitType="Stretch">
 			<textField>
 				<reportElement x="7" y="5" width="100" height="20" uuid="5204e65d-512d-4e77-9606-63a7f6d0251f"/>
 				<textFieldExpression><![CDATA[$F{id.noKamar}]]></textFieldExpression>
