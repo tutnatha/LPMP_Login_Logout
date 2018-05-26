@@ -214,13 +214,13 @@ public class GetReservationBean2 implements Serializable{
         ResponseEntity<com.journaldev.jsf.pojo.daftarhunian.DaftarHunianDtl[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, com.journaldev.jsf.pojo.daftarhunian.DaftarHunianDtl[].class);
         com.journaldev.jsf.pojo.daftarhunian.DaftarHunianDtl[] articles = responseEntity.getBody();
         for(com.journaldev.jsf.pojo.daftarhunian.DaftarHunianDtl article : articles) {
-              System.out.println("Id:"+article.getNo()+", Title:"+article.getNoKamar()
+              System.out.println("Id:"+article.getId().getNoTrx()+", Title:"+article.getId().getNoKamar()
                       +", Category: "+article.getSeqNo());
               QueryDaftarhunianDlt q = new QueryDaftarhunianDlt();
               //Embeded Key
               DaftarHunianDtlKey k = new DaftarHunianDtlKey();
-              String noKamar = article.getNoKamar();
-              int noTrx = article.getNo();
+              String noKamar = article.getId().getNoKamar();
+              int noTrx = article.getId().getNoTrx();
               k.setNoKamar(noKamar);
               k.setNoTrx(noTrx);
               q.setDaftarHunianDtlKey(k);

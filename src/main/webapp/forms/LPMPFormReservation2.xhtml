@@ -92,15 +92,32 @@ td {
 -->
                     
                     <b:row>
-                        <b:commandButton value="submit" update="@form" col-sm="2"
+                        <b:commandButton id="submit-btn" value="submit" update="@form" col-sm="2"
                                          look="success" onclick="ajax:reservationBean.addReservationDemo()" />
+                    
+                        <b:commandButton value="Tambah Kamar" update="@form" col-sm="2"
+		              		look="success" onclick="ajax:reservationBean.addRoomReservationDtl()" />
+                        <b:commandButton value="Tambah Kamar" action="#{reservationBean.addRoomReservationDtl()}">                                
+                        </b:commandButton>
+                        
+                        <b:commandButton value="Cari.." update="@form" col-sm="2"
+                                    look="success" onclick="ajax:reservationBean.searchByTrxNo()" />
                     </b:row>
 
                     <b:messages styleClass="msgs" redisplay="true" for="@parent" recursive="true"
-                                id="leftmessages"/>
+                               id="leftmessages"/>
+                    <b:messages styleClass="msgs" redisplay="true" recursive="true"
+    				id="messages-2" globalOnly="true" severity="info,warn,error,fatal"/>
                 </b:panel>
-
+                <b:message for="submit-btn"/>
             </h:panelGrid>
+            <b:dataTable value="#{reservationBean.queryDaftarhunianDlt}"
+	                 var="dftrHunianDtl">
+                <b:dataTableColumn value="#{dftrHunianDtl.daftarHunianDtlKey.noKamar}" />
+                <b:dataTableColumn value="#{dftrHunianDtl.daftarHunianDtlKey.noTrx}" />
+                <b:dataTableColumn value="#{dftrHunianDtl.lantai}" />
+                <b:dataTableColumn value="#{dftrHunianDtl.jmlTt}" label="Jml T. Tidur"/>
+            </b:dataTable>
         </b:form>
     </ui:define>
 </ui:composition>

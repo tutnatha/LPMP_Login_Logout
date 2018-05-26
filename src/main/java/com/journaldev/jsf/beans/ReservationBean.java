@@ -1,5 +1,9 @@
 package com.journaldev.jsf.beans;
 
+import beans.hunian.asrama.DaftarHunianAsrama;
+import beans.hunian.asrama.DaftarHunianAsramaDtl;
+import com.journaldev.jsf.pojo.daftarhunian.DaftarHunianDtlKey;
+import com.journaldev.jsf.pojo.daftarhunian.QueryDaftarhunianDlt;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.URI;
@@ -14,20 +18,26 @@ import java.util.UUID;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
+import javax.servlet.http.HttpSession;
+import net.bootsfaces.utils.FacesMessages;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 @ManagedBean
-@RequestScoped
+//@RequestScoped    //remark dulu..
+@SessionScoped  //coba-cobi dulu
 public class ReservationBean implements Serializable{
 	private String no;
 	private String penyelenggara;
@@ -49,7 +59,15 @@ public class ReservationBean implements Serializable{
         private String selectOneMenuKegiatan;
 
         public String SERVICE_BASE_URI; 
-            
+
+        List<QueryDaftarhunianDlt> queryDaftarhunianDlt = new ArrayList<QueryDaftarhunianDlt>();
+        
+        //tambahan coba - cobi
+//        @ManagedProperty("#{addDaftarHunianDtlBean}") 
+//        private AddDaftarHunianDtlBean addDaftarHunianDtlBean; // +setter (no getter!)
+
+        private boolean isDtlBtnDisabled;
+        
 	public ReservationBean() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -57,6 +75,9 @@ public class ReservationBean implements Serializable{
                 SERVICE_BASE_URI = fc.getExternalContext().getInitParameter("metadata.serviceBaseURI");
                 selectOneMenuPenyelenggaraService();
                 selectOneMenuKegiatanService();
+                
+                //disable button
+                setIsDtlBtnDisabled(true);
 	}
 	
 	public String getNo() {
@@ -124,7 +145,8 @@ public class ReservationBean implements Serializable{
 //	String url = "http://localhost:8080/user/article";
 //        String url = "http://207.148.66.201:8080/user/daftarhunianHdrs";	//harus dirubah ke app.properties
         
-        String url = SERVICE_BASE_URI+"user/daftarhunianHdrs";
+//        String url = SERVICE_BASE_URI+"user/daftarhunianHdrs";
+        String url = SERVICE_BASE_URI+"user/daftarhunianHdrs2";
         
         com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr objDfrtHdr = new com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr();
         objDfrtHdr.setJmlPeserta(jmlPeserta); 
@@ -154,9 +176,21 @@ public class ReservationBean implements Serializable{
 //        RestTemplate restTemplate = new RestTemplate();
 //        HttpEntity<com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr> request = new HttpEntity<>(objDfrtHdr, headers);
         ResponseEntity<com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr> response = 
-                restTemplate.exchange(url, HttpMethod.POST, requestEntity, com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr.class);
-//        assertThat(response.getStatusCode(), is(HttpStatus.CREATED));
+                restTemplate.exchange(url, HttpMethod.POST, requestEntity, 
+                com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr.class);
+        HttpStatus statusCode = response.getStatusCode();
+        com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr daftarhunianHdr = response.getBody();
         
+        if(daftarhunianHdr.getNo() != null){
+           String sNo = daftarhunianHdr.getNo();
+           this.setNo(no);
+           
+           //unable button
+           setIsDtlBtnDisabled(false);
+        }
+        
+//        assertThat(response.getStatusCode(), is(HttpStatus.CREATED));
+
         /* end buka */
         
 //    	}	catch (IOException | ParseException ex) {
@@ -168,9 +202,12 @@ public class ReservationBean implements Serializable{
                         new FacesMessage(FacesMessage.SEVERITY_WARN,
                                         url,
 //                                        uri.toString()));
-                            response.getStatusCode().toString()));                                
+//                            response.getStatusCode().toString()));
+                        statusCode.toString()));                                
 //        }
         
+        FacesMessages.info("Info", "PrimeFaces <b>rocks</b>. BootsFaces <b>rocks</b>, too!");
+                
         /*
         if(uri==null){
         	FacesContext.getCurrentInstance().addMessage(
@@ -190,6 +227,8 @@ public class ReservationBean implements Serializable{
         }
         */
 //    	getDaftarhunianHdrByIdDemo();
+        //set unabled button = true
+        setIsDtlBtnDisabled(false);
     }
 
     public void getDaftarhunianHdrByIdDemo() {
@@ -329,7 +368,164 @@ public class ReservationBean implements Serializable{
 
     public void setKegiatansMap(Map<String, String> kegiatansMap) {
         this.kegiatansMap = kegiatansMap;
-    }    
+    }
+
+    public List<QueryDaftarhunianDlt> getQueryDaftarhunianDlt() {
+            return queryDaftarhunianDlt;
+    }
+
+    public void setQueryDaftarhunianDlt(List<QueryDaftarhunianDlt> queryDaftarhunianDlt) {
+            this.queryDaftarhunianDlt = queryDaftarhunianDlt;
+    }
+    
     //End Gretters and Setters Map
+    
+    //Pencarian
+    public void searchByTrxNo(){
+        String noTrx = this.getNo();
+        DaftarHunianAsrama dha = getReservationByNoTrx(noTrx);
+        int jml = dha.getJmlPeserta();
+//        String kodeKegiatan = dha.getKodeKegiatan();
+        int kodeKegiatan = dha.getKodeKegiatan();
+        int inoTrx = dha.getNoTrx();
+        String penyelenggara = dha.getPenyelenggara();
+        String sudahSelesai = dha.getSudahSelesai();
+        Date tglMulai = dha.getTglMulai();
+        Date tglSelesai = dha.getTglSelesai();
+        
+        //Bean setter start
+        this.setJmlPeserta(jmlPeserta);
+        this.setKodeKegiatan(kodeKegiatan);
+        this.setNo(no);
+        this.setPenyelenggara(penyelenggara);
+        this.setSudahSelesai(sudahSelesai);
+        this.setTglMulai(tglMulai);
+        this.setTglSelesai(tglSelesai);
+        //Bean setter end
+        queryDaftarhunianDlt.clear();
+        
+        List<DaftarHunianAsramaDtl> dhaDtls = dha.getDaftarHunianAsramaDtls();
+        int z = dhaDtls.size();
+        if(z > 0){
+            for(DaftarHunianAsramaDtl dhaDtl : dhaDtls) {
+              System.out.println("NoID : " + dhaDtl.getId()+", "
+                      + "Title : " + dhaDtl.getRoom().getNo()
+                      +", SeqNo: " + dhaDtl.getSeqNo());
+              QueryDaftarhunianDlt q = new QueryDaftarhunianDlt();
+              //Embeded Key
+              DaftarHunianDtlKey k = new DaftarHunianDtlKey();
+              String noKamar = dhaDtl.getRoom().getNo();
+              int iNoTrx = dhaDtl.getId().getNoTrx();
+              k.setNoKamar(noKamar);
+              k.setNoTrx(iNoTrx);
+              q.setDaftarHunianDtlKey(k);
+              int jmlTt = 0;	//ambil dari jmlTt master Kamar
+              int lantai = 1;	//ambil dari lantai master Kamar
+              q.setJmlTt(jmlTt);
+              q.setLantai(lantai);
+              //add
+              queryDaftarhunianDlt.add(q);
+            }
+        }
+    }
+    
+    public DaftarHunianAsrama getReservationByNoTrx(String noTrx){
+	HttpHeaders headers = getHeaders();
+	RestTemplate restTemplate = new RestTemplate();
+//	String url = "http://207.148.66.201:8080/user/daftarHunianAsrama/{no}";
+        String url = SERVICE_BASE_URI+"user/daftarHunianAsrama/{no}";
+	HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
+        
+        //instantiate Java Class        
+                
+//	ResponseEntity<DaftarHunianAsrama[]> responseEntity =
+        ResponseEntity<DaftarHunianAsrama> responseEntity =        
+                restTemplate.exchange(url, 
+//                HttpMethod.GET, requestEntity, DaftarHunianAsrama[].class, noTrx);
+        HttpMethod.GET, requestEntity, DaftarHunianAsrama.class, noTrx);
+//        DaftarHunianAsrama[] hdrList = responseEntity.getBody();
+        DaftarHunianAsrama dha = responseEntity.getBody();
+       
+//	return hdrs;
+//        List<DaftarHunianAsrama> list = Arrays.asList(hdrList);
+        
+//        int x = list.get(0).getDaftarHunianAsramaDtls().size();
+          int x = dha.getDaftarHunianAsramaDtls().size();
+
+        System.out.println("int x :"+x);
+        
+//        return list;
+        //button unabled
+        setIsDtlBtnDisabled(false);
+        return dha;
+    }
+    
+    //Jangan pakai model gini..
+    //kembali dulu ke model inject Bean
+//    AddDaftarHunianDtlBean2 addDftrHunianDtlBean = new AddDaftarHunianDtlBean2(); 
+
+//    public AddDaftarHunianDtlBean2 getAddDftrHunianDtlBean() {
+//        return addDftrHunianDtlBean;
+//    }
+//
+//    public void setAddDftrHunianDtlBean(AddDaftarHunianDtlBean2 addDftrHunianDtlBean) {
+//        this.addDftrHunianDtlBean = addDftrHunianDtlBean;
+//    }
+
+    //    public String addRoomReservationDtl(String no){
+    public String addRoomReservationDtl(){
+        //ini contoh nya
+        //return "/Quizy.xhtml?faces-redirect=true";
+        
+        //Cara lain adalah dgn..
+        //Buat kelas bean untuk Hunian Dtl
+//        addDaftarHunianDtlBean.setNo(no);
+
+        //cara2 
+//        HttpSession session = getCurrentRequestFromFacesContext().getSession(false); //koq error ya?
+        
+        return "LPMPFormModalAddReservationDtl?faces-redirect=true";
+//        return "LPMPFormModalAddReservationDtl2?faces-redirect=true";
+    }
+
+//    public AddDaftarHunianDtlBean getAddDaftarHunianDtlBean() {
+//        return addDaftarHunianDtlBean;
+//    }
+
+//    public void setAddDaftarHunianDtlBean(AddDaftarHunianDtlBean addDaftarHunianDtlBean) {
+//        this.addDaftarHunianDtlBean = addDaftarHunianDtlBean;
+//    }
+    
+    public void resetFormField(){
+        jmlPeserta = 0;
+        no = null;
+        kodeKegiatan = 0;
+        penyelenggara = "";
+        sudahSelesai = "N";
+        tglMulai = null;
+        tglSelesai = null;
+        
+        this.setJmlPeserta(jmlPeserta);
+        this.setNo(no);
+        this.setKodeKegiatan(kodeKegiatan);
+        this.setPenyelenggara(penyelenggara);
+        this.setSudahSelesai(sudahSelesai);
+        this.setTglMulai(tglMulai);
+        this.setTglSelesai(tglSelesai);
+        
+        queryDaftarhunianDlt.clear();
+        this.setQueryDaftarhunianDlt(queryDaftarhunianDlt);
+        //disable add detail button
+        //disabled="#{bean.isDisabled}"
+        setIsDtlBtnDisabled(true);
+    }
+
+    public boolean isIsDtlBtnDisabled() {
+        return isDtlBtnDisabled;
+    }
+
+    public void setIsDtlBtnDisabled(boolean isDtlBtnDisabled) {
+        this.isDtlBtnDisabled = isDtlBtnDisabled;
+    }
     
 }
