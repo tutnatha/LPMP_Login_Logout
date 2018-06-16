@@ -92,12 +92,16 @@ td {
 -->
                     
                     <b:row>
-                        <b:commandButton id="submit-btn" value="submit" update="@form" col-sm="2"
+                        <b:commandButton id="submit-btn" value="Reservasi Baru" update="@form" col-sm="2"
+		              		look="success" onclick="ajax:reservationBean.resetFormField()" />
+                                
+                        <b:commandButton id="submit-btn2" value="submit" update="@form" col-sm="2"
                                          look="success" onclick="ajax:reservationBean.addReservationDemo()" />
-                    
+                        <!--
                         <b:commandButton value="Tambah Kamar" update="@form" col-sm="2"
 		              		look="success" onclick="ajax:reservationBean.addRoomReservationDtl()" />
-                        <b:commandButton value="Tambah Kamar" action="#{reservationBean.addRoomReservationDtl()}">                                
+                        -->
+                        <b:commandButton value="Tambah Kamar" action="#{reservationBean.addRoomReservationDtl()}">
                         </b:commandButton>
                         
                         <b:commandButton value="Cari.." update="@form" col-sm="2"

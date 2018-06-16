@@ -14,17 +14,24 @@
         <h:outputScript library="holder" name="holder.js" />
         <!--script src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.5.2/holder.min.js"></script-->
         <b:navBar brand="LPMP Bali login : #{login.user}" brandHref="#" inverse="true" fixed="top" fluid="true">
-            
+            <!--
+            <b:dropMenu value="Miscellaneous" hidden="sm">
+                <b:navLink value="Kegiatan yg berlangsung" outcome="/forms/LPMPViewOnlyKegiatan2" icon-awesome="keyboard-o" />
+            </b:dropMenu>          
+            -->        
             <b:navbarLinks pull="right">
-                <b:navLink value="Dashboard" href="#"></b:navLink>
+                <b:navLink value="Dashboard" href="/LPMPBootsFacesWeb-1.2.0-SNAPSHOT/forms/LPMPViewOnlyKegiatan2.jsf"></b:navLink>
                 <b:navLink value="Settings" href="#"></b:navLink>
                 <b:navLink value="Profile" href="#"></b:navLink>
                 <b:navLink value="Help" href="#"></b:navLink>
             </b:navbarLinks>
             <h:form styleClass="navbar-form navbar-right">
                 <div class="form-group">
-                    <b:inputText placeholder="Search..." fieldSize="sm"/>
+                    <b:inputText placeholder="Search..." fieldSize="sm" 
+                                 value="#{daftarhunianHdrBean.noTemp}"/>
                 </div>
+                <b:commandButton value="Form Detail" action="#{daftarhunianHdrBean.showViewReservation()}">
+                    </b:commandButton>
             </h:form>
         </b:navBar>
         <b:container fluid="true">
@@ -56,6 +63,7 @@
                         
                         <b:navLink value="Input Reservasi" outcome="/forms/LPMPFormReservation2" icon-awesome="keyboard-o" />
                         <b:navLink value="Cari/Ubah/Hapus Reservasi" outcome="/forms/LPMPFormGetReservation" icon-awesome="keyboard-o" />
+                        <b:navLink value="Kegiatan yg berlangsung" outcome="/forms/LPMPViewOnlyKegiatan2" icon-awesome="keyboard-o" />
                         
                     </b:listLinks>
                 </b:column>
@@ -85,10 +93,24 @@
                         </b:column>
                     </b:row>
                     <!--<h1>Section title</h1>-->
-                    <h1>Info Daftar Hunian</h1>
+                    <!--<h1>Info Daftar Hunian</h1>-->
+                    
+                    <h1>#{app['dashboard.title2']}</h1>
+                    
+                    <b:inputText label="No trx:" labelStyle="width:80px;" 
+    			value="#{daftarhunianHdrBean.noTemp}">
+    			
+			<f:facet name="prepend">
+			</f:facet>
+		    </b:inputText>
+
+                    
                     <hr/>
                     <b:row styleClass="table-responsive">
-                        <h:dataTable styleClass="table table-striped" value="#{daftarhunianHdrBean.hdrs}" var="hdrs" rows="15">
+                        <!-- Start  -->
+                        <h:dataTable styleClass="table table-striped"
+                            binding="#{daftarhunianHdrBean.datatableHdr}"
+                            value="#{daftarhunianHdrBean.hdrs}" var="hdrs" rows="15">
                             <h:column>
                                 <f:facet name="header"><h:outputText value="#" /></f:facet>
                                 <h:outputText value="#{hdrs.no}" />
@@ -107,21 +129,44 @@
                             </h:column>
                             <h:column>
                                 <f:facet name="header"><h:outputText value="Header" /></f:facet>
-                                <h:outputText value="#{item.tglSelesai}" />
+                                <h:outputText value="#{hdrs.tglSelesai}" />
                             </h:column>
 			    <h:column>
                                 <f:facet name="header"><h:outputText value="Header" /></f:facet>
-                                <h:outputText value="#{item.sudahSelesai}" />
+                                <h:outputText value="#{hdrs.sudahSelesai}" />
                             </h:column>
 			    <h:column>
                                 <f:facet name="header"><h:outputText value="Header" /></f:facet>
-                                <h:outputText value="#{item.kodeKegiatan}" />
+                                <h:outputText value="#{hdrs.kodeKegiatan}" />
                             </h:column>
-                        </h:dataTable>
+                            
+                            <h:column>
+                                <h:outputLink value="#{daftarhunianHdrBean.showViewReservation(hdrs)}">
+                                    <h:outputText value="View Details."/>   
+                                    <f:param name="paramid" value="#{hdrs.no}" />
+                                </h:outputLink>
+                            </h:column>
+                            
+                            <h:column>
+                                
+                                <f:facet name = "header">Edit</f:facet>
+                                
+                                <h:commandButton value = "Edit"
+                                   action = "#{daftarhunianHdrBean.showViewReservation(hdrs)}">
+                                   <f:setPropertyActionListener
+                                   target = "" value = "" />
+                                </h:commandButton>
+                                
+                            </h:column>
+                        </h:dataTable>                        
+                        <!-- end -->
+                        
                     </b:row>
-                </b:column>
+                </b:column>                            
             </b:row>
+        
         </b:container> 
+        
         <style type="text/css">
         .sub-header {
             border-bottom: 1px solid #eee;
@@ -188,5 +233,30 @@
             display: inline-block;
         }
         </style>
+        <!-- Diremark dulu : karena button click tdk berfungsi.. -->
+        <!-- 04-jun-2018: mau dia-->
+        <b:form>
+            <b:dataTable value="#{daftarhunianHdrBean.hdrs}"
+                var="hdrs">
+                <b:dataTableColumn value="#{hdrs.no}" />
+                <b:dataTableColumn value="#{hdrs.penyelenggara}" />
+                <b:dataTableColumn value="#{hdrs.jmlPeserta}" label="Jml Peserta"/>
+                <b:dataTableColumn value="#{hdrs.tglMulai}" label="Tgl Mulai"/>
+                <b:dataTableColumn value="#{hdrs.tglSelesai}" label="Tgl Selesai"/>
+                <b:dataTableColumn value="#{hdrs.sudahSelesai}" label="Sudah Selesai"/>
+                <b:dataTableColumn value="#{hdrs.kodeKegiatan}" label="Kode Kegatan"/>
+                
+                <b:dataTableColumn label="Detail">
+                    <b:commandButton value="View Detail" icon="edit" ajax="false"
+                        action="#{daftarhunianHdrBean.showViewReservation(hdrs)}">                                
+                    </b:commandButton>
+                </b:dataTableColumn>
+
+            </b:dataTable>
+                    
+        </b:form>
+        <!-- end -->
+        
+        
     </h:body>
 </html>

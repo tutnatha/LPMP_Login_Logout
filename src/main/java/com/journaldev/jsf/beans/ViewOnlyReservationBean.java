@@ -26,11 +26,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import com.journaldev.jsf.pojo.daftarhunian.DaftarHunianDtlKey;
+import com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr;
 import com.journaldev.jsf.pojo.daftarhunian.QueryDaftarhunianDlt;
 import java.io.File;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.ViewScoped;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import net.sf.jasperreports.engine.JRException;
@@ -42,8 +46,9 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
 
 @ManagedBean
-@RequestScoped
-public class GetReservationBean implements Serializable{
+//@RequestScoped
+@ViewScoped     //coba-cobi
+public class ViewOnlyReservationBean implements Serializable{
 	private String no;
 	private String penyelenggara;
 	private int jmlPeserta;
@@ -54,15 +59,39 @@ public class GetReservationBean implements Serializable{
 	
         List<QueryDaftarhunianDlt> queryDaftarhunianDlt = new ArrayList<QueryDaftarhunianDlt>();
         public String SERVICE_BASE_URI;
-	
-        public GetReservationBean() {
-		super();
+
+        //contoh
+//        @ManagedProperty("#{reservationBean}") 
+//        private ReservationBean reservationBean; // +setter (no getter!)
+
+        @ManagedProperty("#{daftarhunianHdrBean}")
+        private DaftarhunianHdrBean daftarhunianHdrBean;
+                
+        FacesContext fc = FacesContext.getCurrentInstance();    //coba pasang disini.
+        
+        public ViewOnlyReservationBean() {
+		super();    //pakai koq!!!
 		// TODO Auto-generated constructor stub
-                FacesContext fc = FacesContext.getCurrentInstance();
+//                FacesContext fc = FacesContext.getCurrentInstance();
                 SERVICE_BASE_URI = fc.getExternalContext().getInitParameter("metadata.serviceBaseURI");
-    
-	}
+        }
 	
+        @PostConstruct
+        public void init() {
+            //tangkap parameter url web-param
+            //start..
+//            Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
+//            String paramid = params.get("paramid");
+//            setNo(paramid);
+
+//            DaftarhunianHdr dHdr = daftarhunianHdrBean.currentHdrRow();
+//            this.setNo(dHdr.getNo());
+            this.setNo(daftarhunianHdrBean.noTemp);
+//            no = daftarhunianHdrBean.getNoTemp(); //default
+            //end - tangkap parameter
+            searchByTrxNo();
+        }
+    
 	public String getNo() {
 		return no;
 	}
@@ -348,6 +377,7 @@ public class GetReservationBean implements Serializable{
         List<DaftarHunianAsramaDtl> dhaDtls = dha.getDaftarHunianAsramaDtls();
         int z = dhaDtls.size();
         if(z > 0){
+            queryDaftarhunianDlt.clear();
             for(DaftarHunianAsramaDtl dhaDtl : dhaDtls) {
               System.out.println("NoID : " + dhaDtl.getId()+", "
                       + "Title : " + dhaDtl.getRoom().getNo()
@@ -398,4 +428,39 @@ public class GetReservationBean implements Serializable{
 //        return list;
         return dha;
     }
+    
+    public void checkParam(){
+        Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
+        String paramid = params.get("paramid");
+        setNo(paramid);
+        
+    }
+
+    //Start
+    public FacesContext getFc() {
+        return fc;
+    }
+
+    public void setFc(FacesContext fc) {
+        this.fc = fc;
+    }
+
+    public String getSERVICE_BASE_URI() {
+        return SERVICE_BASE_URI;
+    }
+
+    public void setSERVICE_BASE_URI(String SERVICE_BASE_URI) {
+        this.SERVICE_BASE_URI = SERVICE_BASE_URI;
+    }
+
+    //no Getter
+//    public DaftarhunianHdrBean getDaftarhunianHdrBean() {
+//        return daftarhunianHdrBean;
+//    }
+
+    public void setDaftarhunianHdrBean(DaftarhunianHdrBean daftarhunianHdrBean) {
+        this.daftarhunianHdrBean = daftarhunianHdrBean;
+    }
+    
+    //End
 }

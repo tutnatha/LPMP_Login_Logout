@@ -10,7 +10,6 @@ net/bootsfaces/demo/DateTimeBean$2.class
 net/bootsfaces/demo/PollDemoBean.class
 com/journaldev/jsf/hashmap/PenyelenggaraHashMap.class
 net/bootsfaces/demo/KebabBean.class
-DaftarhunianHdrBean.class
 beans/hunian/asrama/DaftarHunianAsrama.class
 com/journaldev/jsf/pojo/Sport.class
 net/bootsfaces/demo/highFaces/Birth.class
@@ -24,6 +23,7 @@ net/bootsfaces/demo/layout/IconAwesomeBean.class
 com/journaldev/jsf/pojo/daftarhunian/QueryDaftarhunianDlt.class
 test/beans/ScrollSpyBean.class
 com/journaldev/jsf/beans/AddDaftarHunianDtlBean.class
+com/journaldev/jsf/beans/CustomComponentsPenyelenggarasBean.class
 net/bootsfaces/demo/ButtonGroupsBean.class
 net/bootsfaces/demo/InformBean.class
 net/bootsfaces/issues/issue78/SoccerTeamBean.class
@@ -42,13 +42,17 @@ net/bootsfaces/demo/PanelBean.class
 net/bootsfaces/demo/SpinBean.class
 com/journaldev/jsf/beans/Sequence.class
 com/journaldev/jsf/util/DataConnect.class
+com/course/springbootstarter/kegiatan/Kegiatan.class
 net/bootsfaces/demo/ParameterBean.class
+com/journaldev/jsf/beans/ViewOnlyReservationBean.class
 de/beyondjava/jsf/sample/carshop/NewCarBean.class
 org/primefaces/showcase/view/input/CalendarView.class
 net/bootsfaces/demo/MessageStyleBean.class
 beans/hunian/asrama/Room.class
+com/journaldev/jsf/beans/ViewOnlyKegiatanBeans.class
 com/journaldev/jsf/beans/GetReservationBean2.class
 net/bootsfaces/demo/NavLinkBean.class
+com/journaldev/jsf/beans/DaftarhunianHdrBean.class
 net/bootsfaces/demo/GyroscopeBean.class
 net/bootsfaces/demo/ColumnsBean.class
 net/bootsfaces/issues/issue360/Names.class
@@ -111,6 +115,7 @@ net/bootsfaces/demo/DateTimeBean$1.class
 com/journaldev/jsf/pojo/daftarhunian/Kamar.class
 net/bootsfaces/demo/UserBean.class
 net/bootsfaces/RtlBean.class
+com/journaldev/jsf/beans/MainKegiatan.class
 net/bootsfaces/demo/NumberGuessBean.class
 net/bootsfaces/demo/converters/VatConverter.class
 net/bootsfaces/demo/converters/BookshopBean.class

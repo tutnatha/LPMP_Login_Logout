@@ -6,7 +6,10 @@
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
-	<title>Aplikasi LPMP Bali</title>
+	<!--
+        <title>Aplikasi LPMP Bali</title>
+        -->
+        <title>#{app['app.title']}</title>
         <meta name="author" content="Riccardo Massera"></meta>
         <style type="text/css">
             .form-signin {
@@ -20,17 +23,25 @@
 	<b:container>
 	<h:form styleClass="form-signin" prependId="false">
 		<h2 class="form-signin-heading">Please sign in</h2>
-		<h3>LPMP Bali Login</h3>
-		<h:outputText value="Username" />
-		<b:inputText id="username" value="#{login.user}">
+		<!--
+                <h3>LPMP Bali Login</h3>
+                -->
+                <h3>#{app['login.title']}</h3>
+		<!--
+                <h:outputText value="Username" />
+		-->
+                <h:outputText value="#{app['login.username.text']}" />
+                <b:inputText id="username" value="#{login.user}">
 			<f:facet name="prepend">
                 	        <b:icon name="user" />
                     	</f:facet>		
 		</b:inputText>
 		<h:message for="username"></h:message>
 		<br /><br />
-		
+		<!--
 		<h:outputText value="Password" />
+                -->
+                <h:outputText value="#{app['login.password.text']}" />
 		<b:inputSecret id="password" value="#{login.pwd}">
 			<f:facet name="prepend">
                 	        <b:iconAwesome name="key" />
@@ -42,7 +53,7 @@
 		<b:commandButton look="primary btn-block" 
 			action="#{login.validateUsernamePassword}"
 			icon="log-in" size="lg"
-			value="Login"></b:commandButton>
+			value="#{app['login.cb.text']}"></b:commandButton>
 		<b:messages/>
   		
 		<b:growl id="growlMsg" globalOnly="true" placementFrom="bottom"

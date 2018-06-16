@@ -1,3 +1,5 @@
+package com.journaldev.jsf.beans;
+
 import java.io.Serializable;
 import java.util.StringTokenizer;
 
@@ -19,6 +21,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr;
+import javax.faces.bean.SessionScoped;
+import javax.faces.component.html.HtmlDataTable;
 import javax.faces.context.FacesContext;
 
 /**
@@ -26,13 +30,17 @@ import javax.faces.context.FacesContext;
  * @author Thecoder4.eu
  */
 @ManagedBean
-@RequestScoped
+//@RequestScoped    //remark dulu
+@SessionScoped  //coba-cobi dulu
 public class DaftarhunianHdrBean implements Serializable {
 
     private static DaftarhunianHdr[] hdrList;
     private DataModel<DaftarhunianHdr> hdrs;
+    private DaftarhunianHdr selectedDHdr = new DaftarhunianHdr();
+    private HtmlDataTable datatableHdr;   //Datatable UI
     
     public String SERVICE_BASE_URI;
+    public String noTemp;   //temporary var
     
 //([{"no":"1","penyelenggara":"Umum","jmlPeserta":100,"tglMulai":null,"tglSelesai":null,"sudahSelesai":"N","kodeKegiatan":"1"},
     public DaftarhunianHdrBean(){
@@ -94,5 +102,84 @@ public class DaftarhunianHdrBean implements Serializable {
 	hdrs = new ArrayDataModel<DaftarhunianHdr>(hdrList);
 	return hdrs;   	
     }
-}
+    
+    public void showViewReservation(DaftarhunianHdr paramHdr){
+//    public String showViewReservation(DaftarhunianHdr paramHdr){ //yg ini gak mau pa
+        selectedDHdr = paramHdr;
+//        this.setNoTemp(paramHdr.getNo());    //test
+        noTemp = paramHdr.getNo();
+//        return showViewReservation();      //tak ter-execute
+//        showViewReservation();
+    }
+    
+    public String showViewReservation(){
+        //ini contoh nya
+        //return "/Quizy.xhtml?faces-redirect=true";
+        
+        //Cara lain adalah dgn..
+        //Buat kelas bean untuk Hunian Dtl
+//        addDaftarHunianDtlBean.setNo(no);
 
+        //cara2 
+//        HttpSession session = getCurrentRequestFromFacesContext().getSession(false); //koq error ya?
+        
+        //set nilai yg dipilih current-row pd table:
+//        selectedDHdr = hdrs.getRowData();
+        
+        //atau dalam costructornya LPMPViewOnlyReservation: ambil dari url web-param
+        //jika dlm Path yg berbeda:
+//        return "forms/LPMPViewOnlyReservation.jsf";   //yg ini jalan
+        //jika dlm Path yg sama:
+        return "forms/LPMPViewOnlyReservation?faces-redirect=true";
+    }
+
+    public DaftarhunianHdr currentHdrRow(){
+//        selectedDHdr = (DaftarhunianHdr) datatableHdr.getRowData();
+//        selectedDHdr = hdrs.getRowData(); //remark: sudah dari paramHdr 
+        return selectedDHdr;
+    }
+    
+    //Getters & Setters
+    public static DaftarhunianHdr[] getHdrList() {
+        return hdrList;
+    }
+
+    public static void setHdrList(DaftarhunianHdr[] hdrList) {
+        DaftarhunianHdrBean.hdrList = hdrList;
+    }
+
+    public DaftarhunianHdr getSelectedDHdr() {
+        return selectedDHdr;
+    }
+
+    public void setSelectedDHdr(DaftarhunianHdr selectedDHdr) {
+        this.selectedDHdr = selectedDHdr;
+    }
+
+    public HtmlDataTable getDatatableHdr() {
+        return datatableHdr;
+    }
+
+    public void setDatatableHdr(HtmlDataTable datatableHdr) {
+        this.datatableHdr = datatableHdr;
+    }
+
+    public String getSERVICE_BASE_URI() {
+        return SERVICE_BASE_URI;
+    }
+
+    public void setSERVICE_BASE_URI(String SERVICE_BASE_URI) {
+        this.SERVICE_BASE_URI = SERVICE_BASE_URI;
+    }
+    
+    
+    //End
+
+    public String getNoTemp() {
+        return noTemp;
+    }
+
+    public void setNoTemp(String noTemp) {
+        this.noTemp = noTemp;
+    }
+}
