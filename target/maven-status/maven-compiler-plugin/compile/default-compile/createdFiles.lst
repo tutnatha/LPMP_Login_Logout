@@ -33,6 +33,7 @@ net/bootsfaces/demo/CheckboxBean.class
 net/bootsfaces/themes/Theme.class
 com/journaldev/jsf/pojo/daftarhunian/DaftarHunianDtl.class
 net/bootsfaces/issues/issue78/Player.class
+com/journaldev/jsf/net/bootsfaces/demo/CustomComponentsBean.class
 net/bootsfaces/demo/SelectOneMenuBean.class
 com/journaldev/jsf/pojo/daftarhunian/DaftarHunianDtlKey.class
 beans/hunian/asrama/DaftarHunianAsramaDtl.class
@@ -59,8 +60,8 @@ net/bootsfaces/issues/issue360/Names.class
 de/beyondjava/jsf/sample/carshop/CustomerBean.class
 net/bootsfaces/demo/canvas/TechRadar.class
 net/bootsfaces/demo/SemaphoreBean.class
-net/bootsfaces/demo/CustomComponentsBean.class
 net/bootsfaces/issues/issue360/Person.class
+com/journaldev/jsf/beans/CustomComponentsHunianHdrPerPenyelanggara.class
 de/beyondjava/jsf/sample/carshop/DynamicOptionBean.class
 net/bootsfaces/demo/CarBean.class
 net/bootsfaces/demo/TestBean.class
@@ -68,6 +69,7 @@ net/bootsfaces/demo/TagsBean.class
 net/bootsfaces/demo/Item.class
 de/beyondjava/jsf/sample/carshop/CarBean.class
 de/beyondjava/jsf/sample/carshop/SelectionBean.class
+com/journaldev/jsf/beans/CustomComponentsHunianHdrBean.class
 net/bootsfaces/demo/ItemBean.class
 com/journaldev/jsf/dao/LoginDAO.class
 net/bootsfaces/demo/forms/FormBean.class

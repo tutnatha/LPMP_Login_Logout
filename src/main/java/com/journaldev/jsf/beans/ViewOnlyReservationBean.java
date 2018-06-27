@@ -66,7 +66,10 @@ public class ViewOnlyReservationBean implements Serializable{
 
         @ManagedProperty("#{daftarhunianHdrBean}")
         private DaftarhunianHdrBean daftarhunianHdrBean;
-                
+
+        @ManagedProperty("#{customComponentsHunianHdrBean}")
+        private CustomComponentsHunianHdrBean customComponentsHunianHdrBean;
+
         FacesContext fc = FacesContext.getCurrentInstance();    //coba pasang disini.
         
         public ViewOnlyReservationBean() {
@@ -78,6 +81,12 @@ public class ViewOnlyReservationBean implements Serializable{
 	
         @PostConstruct
         public void init() {
+            boolean b = customComponentsHunianHdrBean.itCallFromCCHunianHdr;
+            if(b){ //true
+                String s = customComponentsHunianHdrBean.getSelectedNo();
+                this.setNo(s);
+                customComponentsHunianHdrBean.setItCallFromCCHunianHdr(false);
+            }else{
             //tangkap parameter url web-param
             //start..
 //            Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
@@ -87,6 +96,7 @@ public class ViewOnlyReservationBean implements Serializable{
 //            DaftarhunianHdr dHdr = daftarhunianHdrBean.currentHdrRow();
 //            this.setNo(dHdr.getNo());
             this.setNo(daftarhunianHdrBean.noTemp);
+            }
 //            no = daftarhunianHdrBean.getNoTemp(); //default
             //end - tangkap parameter
             searchByTrxNo();
@@ -463,4 +473,13 @@ public class ViewOnlyReservationBean implements Serializable{
     }
     
     //End
+
+    public CustomComponentsHunianHdrBean getCustomComponentsHunianHdrBean() {
+        return customComponentsHunianHdrBean;
+    }
+
+    public void setCustomComponentsHunianHdrBean(CustomComponentsHunianHdrBean customComponentsHunianHdrBean) {
+        this.customComponentsHunianHdrBean = customComponentsHunianHdrBean;
+    }
+    
 }

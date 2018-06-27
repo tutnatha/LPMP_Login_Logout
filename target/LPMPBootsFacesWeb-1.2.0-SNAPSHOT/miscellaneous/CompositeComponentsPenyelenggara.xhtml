@@ -22,7 +22,7 @@ td {
 
 		<p>Menampilkan data penyelenggara pelaku kegiatan.</p>
 		
-		<h1>Pilih detail untuk melihat kegiatannya</h1>
+		<h1>Pilih detail untuk melihat hunian kegiatannya</h1>
                 
         <b:panel title="Live preview" look="info" collapsible="false">
             
@@ -35,21 +35,22 @@ td {
                                  var="penyelenggara"
                              onpage="console.log('page');">
                     <b:dataTableColumn value="#{penyelenggara.kode}" label="Kode"/>                    
-                    <b:dataTableColumn value="#{penyelenggara.nama}" label="Nama Penyelenggara" />
-                    <!--
-                    <b:dataTableColumn label="Non-AJAX">
-                        <cc:blueButton caption="Select this #{car.brand}" action="#{customComponentsBean.onClick}" />
-                    </b:dataTableColumn> -->
-                    <b:dataTableColumn label="Lihat Kegiatannya.">
-                        <cc:blueButton caption="Pilih #{penyelenggara.nama}" action="#{customComponentsPenyelenggarasBean.onClickPenyelenggara}" />
-                    </b:dataTableColumn>
                     
-                    <!--
-                    <b:dataTableColumn label="AJAX">
-                        <cc:ajaxButton caption="Delete this #{car.brand}" onclick="ajax:customComponentsBean.onDelete(carPool.carPool, car)" update="@form" />
+                    <b:dataTableColumn label="Lihat Kegiatannya.">
+                        <cc:blueButton caption="Pilih #{penyelenggara.nama}" action="#{customComponentsPenyelenggarasBean.onClickPenyelenggara(penyelenggara)}" />
                     </b:dataTableColumn>
-                    -->
+                    <b:dataTableColumn value="#{penyelenggara.nama}" label="Nama Penyelenggara" />
+                
                 </b:dataTable>
+                
+                
+                    <b:inputText label="No trx:" labelStyle="width:80px;" 
+    			value="#{customComponentsPenyelenggarasBean.selectedKode}">
+    			
+			<f:facet name="prepend">
+			</f:facet>
+		    </b:inputText>
+                
             </h:form>
         </b:panel>
     </ui:define>

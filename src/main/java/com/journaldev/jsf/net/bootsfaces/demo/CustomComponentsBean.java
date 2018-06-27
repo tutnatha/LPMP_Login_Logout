@@ -1,4 +1,4 @@
-package net.bootsfaces.demo;
+package com.journaldev.jsf.net.bootsfaces.demo;
 
 import de.beyondjava.jsf.sample.carshop.Car;
 

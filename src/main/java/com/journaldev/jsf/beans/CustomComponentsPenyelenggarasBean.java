@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -28,12 +29,16 @@ import org.springframework.web.client.RestTemplate;
  * @author myssd
  */
 @ManagedBean
-@ViewScoped
+//@ViewScoped   //remark dulu apakah pengaruh?
+@SessionScoped //coba sessi ini
 public class CustomComponentsPenyelenggarasBean implements Serializable{
     private static final long serialVersionUID = 1L;
     private String kode;
     private String nama;
 
+    //kode penyelenggara yg dipilih
+    private String selectedKode;
+            
     public String SERVICE_BASE_URI;
     FacesContext fc = FacesContext.getCurrentInstance();    //coba pasang disini.
     
@@ -120,7 +125,37 @@ public class CustomComponentsPenyelenggarasBean implements Serializable{
         this.setListP(getPenyelenggaraBerlangsung());
     }
     
-    public void onClickPenyelenggara(){
+    public String onClickPenyelenggara(Penyelenggara penyelenggara){    //with param
+//    public String onClickPenyelenggara(){
+        selectedKode = penyelenggara.getKode();   //remark dulu
+        this.setSelectedKode(selectedKode);
         //tampilkan Hunian Hdr per Penyelenggara
+        String page = "CompositeComponentsHunianHdr.jsf";
+        return page;
     }
+
+    public String getSelectedKode() {
+        return selectedKode;
+    }
+
+    public void setSelectedKode(String selectedKode) {
+        this.selectedKode = selectedKode;
+    }
+
+    public String getSERVICE_BASE_URI() {
+        return SERVICE_BASE_URI;
+    }
+
+    public void setSERVICE_BASE_URI(String SERVICE_BASE_URI) {
+        this.SERVICE_BASE_URI = SERVICE_BASE_URI;
+    }
+
+    public FacesContext getFc() {
+        return fc;
+    }
+
+    public void setFc(FacesContext fc) {
+        this.fc = fc;
+    }
+    
 }

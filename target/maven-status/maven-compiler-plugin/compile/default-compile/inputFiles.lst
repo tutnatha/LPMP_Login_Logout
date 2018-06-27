@@ -7,6 +7,8 @@
 /Users/myssd/github.com/tutnatha/02-Mai-2018.LPMP_Login_Logout/src/main/java/com/journaldev/jsf/pojo/daftarhunian/DaftarhunianHdr.java
 /Users/myssd/github.com/tutnatha/02-Mai-2018.LPMP_Login_Logout/src/main/java/com/journaldev/jsf/net/bootsfaces/demo/forms/FormBean.java
 /Users/myssd/github.com/tutnatha/02-Mai-2018.LPMP_Login_Logout/src/main/java/beans/hunian/asrama/DaftarHunianAsrama.java
+/Users/myssd/github.com/tutnatha/02-Mai-2018.LPMP_Login_Logout/src/main/java/com/journaldev/jsf/beans/CustomComponentsHunianHdrBean.java
+/Users/myssd/github.com/tutnatha/02-Mai-2018.LPMP_Login_Logout/src/main/java/com/journaldev/jsf/beans/CustomComponentsHunianHdrPerPenyelanggara.java
 /Users/myssd/github.com/tutnatha/02-Mai-2018.LPMP_Login_Logout/src/main/java/com/journaldev/jsf/beans/ReservationBean.java
 /Users/myssd/github.com/tutnatha/02-Mai-2018.LPMP_Login_Logout/src/main/java/com/journaldev/jsf/pojo/daftarhunian/Kamar.java
 /Users/myssd/github.com/tutnatha/02-Mai-2018.LPMP_Login_Logout/src/main/java/com/journaldev/jsf/beans/ViewOnlyKegiatanBeans.java
