@@ -14,6 +14,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -29,7 +30,8 @@ import org.springframework.web.client.RestTemplate;
  * @author myssd
  */
 @ManagedBean
-@ViewScoped
+//@ViewScoped   //variable init tidak ke trigger
+@SessionScoped //coba ganti dulu
 public class CustomComponentsHunianHdrBean implements Serializable{
     public String SERVICE_BASE_URI;
     FacesContext fc = FacesContext.getCurrentInstance();    //coba pasang disini.

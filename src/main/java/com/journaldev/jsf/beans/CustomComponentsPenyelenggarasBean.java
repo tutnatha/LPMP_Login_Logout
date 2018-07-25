@@ -117,6 +117,8 @@ public class CustomComponentsPenyelenggarasBean implements Serializable{
         
         System.out.println("int x :"+x);
         
+        //reset
+        listP.clear();
         listP.addAll(list);
         return listP;
     }

@@ -40,26 +40,33 @@
         <b:navbarLinks rendered="false">
           <b:navLink outcome="/index" value="Home" icon-awesome="home" />
         </b:navbarLinks>
-        <b:dropMenu value="Miscellaneous" hidden="sm">
+        <b:dropMenu value="Menu Utama" hidden="sm">
+        <!--
+        <b:dropMenu value="Miscellaneous" hidden="sm"> 
+        -->
+          <!--
           <b:navLink value="Configuration" outcome="/miscellaneous/Configuration" icon-awesome="pencil-square-o" />
           <b:navLink value="CSS files, JS files and CDNs" outcome="/layout/resourcemanagement" />
           <b:navLink value="PrimeFaces" outcome="/integration/PrimeFaces" icon="tasks" />
           <b:navLink value="OmniFaces" outcome="/integration/OmniFaces" icon="tasks" />
+          -->
           <!-- b:navLink value="ButterFaces" outcome="/integration/ButterFaces" icon="tasks" / -->
+          <!--
           <b:navLink value="HighFaces" outcome="/integration/HighFaces" icon-awesome="pie-chart" />
           <b:navLink value="HTML5-friendly markup: Using DIV tags in JSF" outcome="/layout/div" icon-awesome="html5" />
           <b:navLink value="Full Calendar" outcome="/miscellaneous/FullCalendar" icon-awesome="calendar"/>
           <b:navLink value="FacesMessages" outcome="/miscellaneous/FacesMessages" icon-awesome="bell"/>
           <b:navLink value="Video" outcome="/miscellaneous/Video" icon-awesome="video-camera"/>
           <b:navLink value="Composite Components" outcome="/miscellaneous/CompositeComponents" icon-awesome="cogs"/>
-          
+          -->
 <!--
           <b:navLink value="#{app['navbartop.navlink.reservasi_room_detai.value']}" outcome="#{app['navbartop.navlink.reservasi_room_detai.outcome']}" icon-awesome="cogs"/>
           <b:navLink value="#{app['navbartop.navlink.hapus_reservasi.value']}" outcome="#{app['navbartop.navlink.hapus_reservasi.outcome']}" icon-awesome="cogs"/>
           <b:navLink value="#{app['navbartop.navlink.add_reservation.value']}" outcome="#{app['navbartop.navlink.add_reservation.outcome']}" icon-awesome="cogs"/>
 -->
-
+<!--
           <b:navLink value="Reservasi Room Detail" outcome="/forms/LPMPFormModalAddReservationDtl" icon-awesome="cogs"/>
+-->          
           <b:navLink value="Cari/Edit/Hapus Reservasi" outcome="/forms/LPMPFormGetReservation" icon-awesome="cogs"/>
           <b:navLink value="Reservasi Baru" outcome="/forms/LPMPFormReservation" icon-awesome="cogs"/>
           <b:navLink value="Kegiatan Sekarang" outcome="/forms/LPMPViewOnlyKegiatan2.jsf" icon-awesome="cogs"/>
@@ -67,6 +74,7 @@
           
         </b:dropMenu>
 
+        <!--
         <b:dropMenu value="Layout">
           <b:navLink value="Basic Layout and Grid System" outcome="/layout/basic" icon-awesome="table" />
           <b:navLink value="Simplified Grid System" outcome="/layout/simplifiedLayout" icon-awesome="table" />
@@ -121,11 +129,11 @@
           <b:navLink value="Growl (popup notifications)" outcome="/forms/Growl" icon-awesome="exclamation" />
           <b:navLink value="Remote command" outcome="/forms/RemoteCommand" icon-awesome="chain-broken" />
         </b:dropMenu>
-
+        -->
         <ui:remove>
           <!-- ************ Menu for cell phones and large desktop screens ************ -->
         </ui:remove>
-
+<!--
         <b:dropMenu value="Bootstrap Widgets" visible="xs,lg">
           <b:navLink value="Alerts" outcome="/bootstrap/alerts" icon="warning-sign" />
           <b:navLink value="Carousel" outcome="/bootstrap/carousel" icon-awesome="caret-square-o-right" />
@@ -155,11 +163,11 @@
             <b:navLink value="Pinch" outcome="/mobile/Pinch" icon-awesome="hand-scissors-o" />
           </ui:remove>
         </b:dropMenu>
-
+-->
         <ui:remove>
           <!-- ************ Menu for tablet computers and small laptops ************ -->
         </ui:remove>
-
+<!--
         <b:dropMenu value="Others" visible="sm...md">
           <b:navLink value="Alerts" outcome="/bootstrap/alerts" icon="warning-sign" />
           <b:navLink value="Carousel" outcome="/bootstrap/carousel" icon-awesome="caret-square-o-right" />
@@ -180,11 +188,13 @@
 
           <b:navLink value="Shake" outcome="/mobile/Shake" icon-awesome="hand-grab-o" />
           <b:navLink value="Gyroscope" outcome="/mobile/Gyroscope" icon-awesome="hand-paper-o" />
+-->    
           <!-- Temporarily hiding the Mobile Menu until 1.0 -->
           <ui:remove>
             <b:navLink value="Touch and Swipe" outcome="/mobile/Touch" icon-awesome="hand-o-up" />
             <b:navLink value="Pinch" outcome="/mobile/Pinch" icon-awesome="hand-scissors-o" />
           </ui:remove>
+<!--          
           <b:navLink value="Configuration" outcome="/miscellaneous/Configuration" icon-awesome="pencil-square-o" />
           <b:navLink value="CSS files, JS files and CDNs" outcome="/layout/resourcemanagement" />
           <b:navLink value="PrimeFaces" outcome="/integration/PrimeFaces" icon="tasks" visible="sm" />
@@ -194,7 +204,7 @@
           <b:navLink value="Full Calendar" outcome="/miscellaneous/FullCalendar" icon-awesome="calendar"/>
           <b:navLink value="FacesMessages" outcome="/miscellaneous/FacesMessages" icon-awesome="bell"/>
         </b:dropMenu>
-
+-->
 
       </b:navbarLinks>
       <b:navbarLinks pull="right">

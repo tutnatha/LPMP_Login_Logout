@@ -68,7 +68,7 @@ public class ViewOnlyReservationBean implements Serializable{
         private DaftarhunianHdrBean daftarhunianHdrBean;
 
         @ManagedProperty("#{customComponentsHunianHdrBean}")
-        private CustomComponentsHunianHdrBean customComponentsHunianHdrBean;
+        private CustomComponentsHunianHdrBean customComponentsHunianHdrBean = new CustomComponentsHunianHdrBean();
 
         FacesContext fc = FacesContext.getCurrentInstance();    //coba pasang disini.
         
