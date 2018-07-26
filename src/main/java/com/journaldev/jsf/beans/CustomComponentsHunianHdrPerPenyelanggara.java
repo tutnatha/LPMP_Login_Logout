@@ -49,5 +49,5 @@ public class CustomComponentsHunianHdrPerPenyelanggara implements Serializable{
     	return headers;
     }
     
-    
+/* ini bean class yg gak jadi ky nya. */    
 }

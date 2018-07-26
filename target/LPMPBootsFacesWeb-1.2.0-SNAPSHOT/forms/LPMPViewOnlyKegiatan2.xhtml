@@ -4,7 +4,8 @@
   xmlns:h="http://java.sun.com/jsf/html" 
   xmlns:f="http://java.sun.com/jsf/core" 
   xmlns:b="http://bootsfaces.net/ui"
-  xmlns:ui="http://java.sun.com/jsf/facelets">
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:cc="http://xmlns.jcp.org/jsf/composite/customComponents">
 
   <ui:define name="content">
     <style>
@@ -13,18 +14,30 @@ td {
 }
 </style>
 
-	<b:form inline="true">
-            
-            <b:commandButton value="Cari.." update="@form" col-sm="2"
-                look="success" action="#{viewOnlyKegiatanBeans.clickCari()}" />
-                            
-     	    <b:dataTable value="#{viewOnlyKegiatanBeans.listKegiatan}"
-	                 var="kegiatanDtl">
-	        <b:dataTableColumn value="#{kegiatanDtl.kode}" />
-	        <b:dataTableColumn value="#{kegiatanDtl.namaKegiatan}" />
-	        <b:dataTableColumn value="#{kegiatanDtl.nama}" />
-	        <b:dataTableColumn value="#{kegiatanDtl.keterangan}" label="Keterangan."/>
-	    </b:dataTable>
-	</b:form>
+        <h1>Daftar Kegiatan<b:badge value="yg aktif" /></h1>
+
+	<p>Menampilkan data kegiatan yg sedang berlangsung.</p>
+		
+	<h1>Pilih detail untuk melihat hunian kegiatannya</h1>
+        
+        <b:panel title="Live preview" look="info" collapsible="false">
+            <b:form inline="true">
+
+                <b:commandButton value="Cari.." update="@form" col-sm="2"
+                    look="success" action="#{viewOnlyKegiatanBeans.clickCari()}" />
+
+                <b:dataTable value="#{viewOnlyKegiatanBeans.listKegiatan}"
+                             var="kegiatanDtl">
+                    <b:dataTableColumn value="#{kegiatanDtl.kode}" />
+                    <b:dataTableColumn value="#{kegiatanDtl.namaKegiatan}" />
+                    <b:dataTableColumn value="#{kegiatanDtl.nama}" />
+                    <b:dataTableColumn value="#{kegiatanDtl.keterangan}" label="Keterangan."/>
+                    <b:dataTableColumn label="Lihat Kegiatannya."> 
+                        <cc:blueButton caption="Pilih #{kegiatanDtl.kode}" action="#{customComponentsKegiatansBean.onClickKegiatan(kegiatanDtl)}" />    
+                    </b:dataTableColumn>
+
+                </b:dataTable>
+            </b:form>
+        </b:panel>
   </ui:define>
 </ui:composition>

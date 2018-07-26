@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<ui:composition template="/applayout/pageTemplate.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:cc="http://java.sun.com/jsf/composite/customComponents">
+
+	<ui:define name="content">
+		<style>
+td {
+	padding: 8px;
+}
+</style>
+		<h1>Daftar Hunian<b:badge value="yg aktif" /></h1>
+
+		<p>Per Jenis Kegiatan.</p>
+		
+		<h1>Pilih detail untuk melihat hunian kegiatannya</h1>
+                
+        <b:panel title="Live preview" look="info" collapsible="false">
+            
+             <h:form>
+                <cc:redButton caption="Tampilkan!" action="#{customComponentsPenyelenggarasBean.onClick}" />
+            </h:form>
+        
+            <h:form>
+                <!--
+                <b:dataTable value="#{customComponentsKegiatansBean.listP}"
+                -->
+                    <b:dataTable value="#{customComponentsHunianHdrPerKegiatanBean.listDftrHdr}"
+                                 var="dt"
+                             onpage="console.log('page');">
+                    <b:dataTableColumn value="#{dt.no}" label="No"/>                    
+                    <b:dataTableColumn value="#{dt.penyelenggara}" label="Nama Penyelenggara" />
+                    <b:dataTableColumn value="#{dt.jmlPeserta}" label="Jml Peserta"/>
+                    <b:dataTableColumn value="#{dt.tglMulai}" label="Tgl Mulai"/>
+                    <b:dataTableColumn value="#{dt.tglSelesai}" label="Tgl Selesai"/>
+                    <b:dataTableColumn value="#{dt.sudahSelesai}" label="Selesai"/>
+                    <b:dataTableColumn value="#{dt.kodeKegiatan}" label="Kegiatan"/>
+                    
+                    <b:dataTableColumn label="Lihat Hunian.">
+                        <cc:blueButton caption="Pilih #{dt.no}" action="#{customComponentsHunianHdrPerKegiatanBean.onClickHunianHdr(dt)}" />
+                    </b:dataTableColumn>
+                    
+                </b:dataTable>
+                
+                <b:inputText label="No trx:" labelStyle="width:80px;" 
+                             value="#{customComponentsHunianHdrPerKegiatanBean.selectedNo}">
+
+                    <f:facet name="prepend">
+                    </f:facet>
+                </b:inputText>
+                
+            </h:form>
+        </b:panel>
+    </ui:define>
+</ui:composition>
