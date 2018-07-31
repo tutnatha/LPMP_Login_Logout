@@ -112,7 +112,7 @@ public class CustomComponentsHunianHdrPerKegiatanBean implements Serializable{
         
         //tampilkan Daftar Hunian Detail
 //        String page = "forms/LPMPViewOnlyReservation.jsf";
-        String page = "LPMPViewOnlyReservation3.jsf";
+        String page = "LPMPViewOnlyReservation3a.jsf";
         return page;
     }
     

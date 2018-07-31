@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.journaldev.jsf.beans;
 
 import beans.hunian.asrama.DaftarHunianAsrama;
@@ -51,7 +56,7 @@ import net.sf.jasperreports.engine.util.JRLoader;
 @ViewScoped     //coba-cobi
 //@SessionScoped
 public class ViewOnlyReservationBeanByKegiatan implements Serializable{
-	private String no;
+    private String no;
 	private String penyelenggara;
 	private int jmlPeserta;
 	private Date tglMulai;
@@ -87,9 +92,10 @@ public class ViewOnlyReservationBeanByKegiatan implements Serializable{
 	
         @PostConstruct
         public void init() {
-            boolean b = customComponentsHunianHdrPerKegiatanBean.itCallFromCCHunianHdr;
+            String s = "1";
+            boolean b = true; //customComponentsHunianHdrPerKegiatanBean.itCallFromCCHunianHdr;
             if(b){ //true
-                String s = customComponentsHunianHdrPerKegiatanBean.getSelectedNo();
+//                String s = customComponentsHunianHdrPerKegiatanBean.getSelectedNo();
                 this.setNo(s);
                 customComponentsHunianHdrPerKegiatanBean.setItCallFromCCHunianHdr(false);
             }else{
@@ -487,5 +493,4 @@ public class ViewOnlyReservationBeanByKegiatan implements Serializable{
     public void setCustomComponentsHunianHdrBean(CustomComponentsHunianHdrPerKegiatanBean customComponentsHunianHdrPerKegiatanBean) {
         this.customComponentsHunianHdrPerKegiatanBean = customComponentsHunianHdrPerKegiatanBean;
     }
-    
 }
