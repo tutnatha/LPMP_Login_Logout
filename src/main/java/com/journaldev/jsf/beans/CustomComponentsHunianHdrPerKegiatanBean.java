@@ -98,9 +98,12 @@ public class CustomComponentsHunianHdrPerKegiatanBean implements Serializable{
 
     public String onClickHunianHdr(DaftarhunianHdr selectedHunianHdr){    //with param
 //    public String onClickKegiatan(){
+//  selectedNo    
+//  yg sudah terset di page sebelumnya
+        String s = selectedNo;
         selectedNo = selectedHunianHdr.getNo();   //remark dulu
-        this.setSelectedNo(selectedNo);
-        
+        this.setSelectedNo(selectedNo);    
+                
         //coba diset Who Am I atau Sy lah yg panggil kamu!!!
         //buatkan sebuah var di LPMPViewOnlyReservation
         //bahwa sy adalah CCHHB CustomComponentsHunianHdrBean
@@ -109,7 +112,7 @@ public class CustomComponentsHunianHdrPerKegiatanBean implements Serializable{
         
         //tampilkan Daftar Hunian Detail
 //        String page = "forms/LPMPViewOnlyReservation.jsf";
-        String page = "LPMPViewOnlyReservation2.jsf";
+        String page = "LPMPViewOnlyReservation3.jsf";
         return page;
     }
     
