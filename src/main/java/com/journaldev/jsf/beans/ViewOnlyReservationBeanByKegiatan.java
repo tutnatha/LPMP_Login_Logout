@@ -493,4 +493,14 @@ public class ViewOnlyReservationBeanByKegiatan implements Serializable{
     public void setCustomComponentsHunianHdrBean(CustomComponentsHunianHdrPerKegiatanBean customComponentsHunianHdrPerKegiatanBean) {
         this.customComponentsHunianHdrPerKegiatanBean = customComponentsHunianHdrPerKegiatanBean;
     }
+
+//    public DaftarhunianHdrBean getDaftarhunianHdrBean() {
+//        return daftarhunianHdrBean;
+//    }
+//
+//    public void setCustomComponentsHunianHdrPerKegiatanBean(CustomComponentsHunianHdrPerKegiatanBean customComponentsHunianHdrPerKegiatanBean) {
+//        this.customComponentsHunianHdrPerKegiatanBean = customComponentsHunianHdrPerKegiatanBean;
+//    }
+    
+    
 }
