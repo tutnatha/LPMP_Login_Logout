@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<ui:composition template="/applayout/pageTemplate.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html" 
+  xmlns:f="http://java.sun.com/jsf/core" 
+  xmlns:b="http://bootsfaces.net/ui"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:cc="http://xmlns.jcp.org/jsf/composite/customComponents">
+
+  <ui:define name="content">
+    <style>
+td {
+	padding: 8px;
+}
+</style>
+
+        <h1>Daftar Kegiatan<b:badge value="yg ada" /></h1>
+
+	<p>Menampilkan data kegiatan yg sering diadakan.</p>
+		
+	<h1>Pilih detail untuk melihat detail kegiatannya</h1>
+        
+        <b:panel title="Live preview" look="info" collapsible="false">
+            <b:form inline="true">
+
+                <b:commandButton value="Cari.." update="@form" col-sm="2"
+                    look="success" action="#{viewOnlyKegiatanBeans.clickCari()}" />
+
+                <b:dataTable value="#{viewOnlyKegiatanBeans.listKegiatan}"
+                             var="kegiatanDtl">
+                    <b:dataTableColumn value="#{kegiatanDtl.kode}" />
+                    <b:dataTableColumn value="#{kegiatanDtl.namaKegiatan}" />
+                    <b:dataTableColumn value="#{kegiatanDtl.nama}" />
+                    <b:dataTableColumn value="#{kegiatanDtl.keterangan}" label="Keterangan."/>
+                    <b:dataTableColumn label="Lihat Kegiatannya."> 
+                        <cc:blueButton caption="Pilih #{kegiatanDtl.kode}" action="#{customComponentsKegiatansBean.onClickKegiatan(kegiatanDtl)}" />    
+                    </b:dataTableColumn>
+
+                </b:dataTable>
+            </b:form>
+        </b:panel>
+  </ui:define>
+</ui:composition>
