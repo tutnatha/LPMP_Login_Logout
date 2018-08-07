@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<ui:composition template="/applayout/pageTemplate.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:define name="content">
+        <style>
+td {
+    padding: 8px;
+}
+</style>
+        <b:form id="bid" prependId="false">
+            <b:container layout="fluid">
+
+                <h:inputText id="No. Kamar" value="#{formEntryKamarBean.no}"></h:inputText>
+                <h:inputText id="Lantai" value="#{formEntryKamarBean.lantai}"></h:inputText>
+                <h:inputText id="Jml T. Tidur" value="#{formEntryKamarBean.lantai}"></h:inputText>
+                <h:inputText id="Url Picture" value="#{formEntryKamarBean.urlPicture}"></h:inputText>
+                
+                <!--
+                <b:selectOneMenu label="No Kamar : " value="#{addDaftarHunianDtlBean.selectOneMenuKamar}">
+                    <f:selectItems value="#{addDaftarHunianDtlBean.selectOneMenuKamars}" />
+                </b:selectOneMenu>
+                -->
+                
+                <b:commandButton value="Close" dismiss="modal" 
+                    action="#{formEntryKamarBean.btnCloseClick()}"/>
+                <b:commandButton value="OK" look="primary" dismiss="modal" 
+                    actionListener="#{formEntryKamarBean.btnSelectItemsOKCLick}"/>
+                
+
+                <!--    </b:modal>
+
+                    <b:row>
+                    <b:button value="Tambahkan Kamar.."
+                                   look="success" onclick="$('.modalPseudoClass').modal()" />
+                    </b:row>
+                -->
+                <b:messages styleClass="msgs" redisplay="true" recursive="true"
+    				id="messages-2" globalOnly="true" severity="info,warn,error,fatal"/>
+            </b:container>
+        </b:form>
+    </ui:define>
+</ui:composition>

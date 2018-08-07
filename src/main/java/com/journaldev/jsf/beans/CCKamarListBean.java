@@ -87,6 +87,11 @@ public class CCKamarListBean implements Serializable{
         String page = "ViewFormKamar.jsf";
         return page;
     }
+
+    public String addKamar(){
+        String page = "FormKamarEntry";
+        return page;
+    }
     
     //getter and setter
     public List<Kamar> getListKamar() {
