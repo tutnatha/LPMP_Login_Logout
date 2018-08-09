@@ -60,7 +60,7 @@ public class FormEntryPenyelenggara implements Serializable{
         return headers;
     }
     
-    public void btnSaveCLick(){
+    public void btnSaveClick(){
         HttpHeaders headers = getHeaders();
         RestTemplate restTemplate = new RestTemplate();
 //        String url = "http://207.148.66.201:8080/user/daftarhunianDtls";    //harus dirubah ke app.properties
