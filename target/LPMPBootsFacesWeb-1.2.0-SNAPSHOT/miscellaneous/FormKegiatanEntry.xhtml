@@ -14,10 +14,15 @@ td {
         <b:form id="bid" prependId="false">
             <b:container layout="fluid">
 
-                <h:inputText id="No. Kamar" value="#{formEntryKamarBean.no}"></h:inputText>
-                <h:inputText id="Lantai" value="#{formEntryKamarBean.lantai}"></h:inputText>
-                <h:inputText id="Jml T. Tidur" value="#{formEntryKamarBean.lantai}"></h:inputText>
-                <h:inputText id="Url Picture" value="#{formEntryKamarBean.urlPicture}"></h:inputText>
+                <b:inputText label="Kode. Kegiatan" labelStyle="width:80px;"
+                             value="#{formEntryKegiatanBean.kode}"></b:inputText>
+                <b:inputText label="Nama Kegiatan" labelStyle="width:80px;"
+                             value="#{formEntryKegiatanBean.namaKegiatan}"></b:inputText>
+                <!--
+                <b:inputText label="Nama" value="#{formEntryKegiatanBean.nama}"></b:inputText>
+                -->
+                <b:inputText label="Keterangan" labelStyle="width:80px;"
+                             value="#{formEntryKegiatanBean.keterangan}"></b:inputText>
                 
                 <!--
                 <b:selectOneMenu label="No Kamar : " value="#{addDaftarHunianDtlBean.selectOneMenuKamar}">
@@ -26,10 +31,9 @@ td {
                 -->
                 
                 <b:commandButton value="Close" dismiss="modal" 
-                    action="#{formEntryKamarBean.btnCloseClick()}"/>
+                    action="#{formEntryKegiatanBean.btnCloseClick()}"/>
                 <b:commandButton value="OK" look="primary" dismiss="modal" 
-                    actionListener="#{formEntryKamarBean.btnSelectItemsOKCLick}"/>
-                
+                    actionListener="#{formEntryKegiatanBean.btnSaveClick}"/>
 
                 <!--    </b:modal>
 

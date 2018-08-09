@@ -6,6 +6,7 @@
 package com.journaldev.jsf.beans;
 
 import com.journaldev.jsf.pojo.Kegiatan;
+import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
@@ -25,7 +26,7 @@ import org.springframework.web.client.RestTemplate;
  */
 @Named(value = "formEntryKegiatanBean") //generate oleh netbeans
 @Dependent                              //generate oleh netbeans
-public class FormEntryKegiatanBean {
+public class FormEntryKegiatanBean implements Serializable{
 
     private Kegiatan kegiatan;
     
@@ -62,7 +63,7 @@ public class FormEntryKegiatanBean {
         return headers;
     }
     
-    public void btnSaveCLick(){
+    public void btnSaveClick(){
         HttpHeaders headers = getHeaders();
         RestTemplate restTemplate = new RestTemplate();
 //        String url = "http://207.148.66.201:8080/user/daftarhunianDtls";    //harus dirubah ke app.properties
@@ -73,7 +74,8 @@ public class FormEntryKegiatanBean {
 //        id.setNoTrx(no);
         objKegiatan.setKode(this.kode);
         objKegiatan.setKeterangan(keterangan);
-        objKegiatan.setNama(nama);
+//        objKegiatan.setNama(nama);
+        objKegiatan.setNama(namaKegiatan);
         objKegiatan.setNamaKegiatan(namaKegiatan);
         
         Sequence seq = new Sequence();

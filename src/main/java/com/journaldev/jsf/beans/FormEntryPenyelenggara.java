@@ -6,6 +6,7 @@
 package com.journaldev.jsf.beans;
 
 import com.course.springbootstarter.penyelenggara.Penyelenggara;
+import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
@@ -25,7 +26,7 @@ import org.springframework.web.client.RestTemplate;
  */
 @Named(value = "formEntryPenyelenggara")
 @Dependent
-public class FormEntryPenyelenggara {
+public class FormEntryPenyelenggara implements Serializable{
 
     private Penyelenggara penyelenggara;
     

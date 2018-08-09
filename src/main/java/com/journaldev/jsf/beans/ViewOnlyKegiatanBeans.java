@@ -125,4 +125,10 @@ public class ViewOnlyKegiatanBeans implements Serializable{
         int i = z.listKegiatan.size();
         System.out.println("i : "+i);
     }
+    
+    //call form input
+    public String addKegiatan(){
+        String page = "FormKegiatanEntry.jsf";
+        return page;
+    }
 }

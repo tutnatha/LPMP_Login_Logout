@@ -29,7 +29,10 @@ td {
 
                 <b:commandButton value="Cari.." update="@form" col-sm="2"
                     look="success" action="#{viewOnlyKegiatanBeans.clickCari()}" />
+                <!--
                 <cc:redButton caption="Tambah Kegiatan" action="#{cCKegiatanListBean.addKegiatan()}" />
+                -->
+                <cc:greenButton caption="Tambah Kegiatan" action="#{viewOnlyKegiatanBeans.addKegiatan()}" />
                 
                 <b:dataTable value="#{viewOnlyKegiatanBeans.listKegiatan}"
                              var="kegiatanDtl">

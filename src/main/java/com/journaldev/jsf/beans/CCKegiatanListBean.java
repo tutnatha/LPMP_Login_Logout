@@ -7,6 +7,7 @@ package com.journaldev.jsf.beans;
 
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
+import javax.faces.bean.SessionScoped;
 
 /**
  *
@@ -14,6 +15,7 @@ import javax.enterprise.context.Dependent;
  */
 @Named(value = "cCKegiatanListBean")
 @Dependent
+@SessionScoped
 public class CCKegiatanListBean {
 
     /**
@@ -23,7 +25,7 @@ public class CCKegiatanListBean {
     }
 
     public String addKegiatan(){
-        String page = "FormKegiatanEntry";
+        String page = "FormKegiatanEntry.jsf";
         return page;
     }    
 }
