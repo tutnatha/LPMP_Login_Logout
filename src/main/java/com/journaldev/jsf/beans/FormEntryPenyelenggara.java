@@ -65,7 +65,7 @@ public class FormEntryPenyelenggara implements Serializable{
         RestTemplate restTemplate = new RestTemplate();
 //        String url = "http://207.148.66.201:8080/user/daftarhunianDtls";    //harus dirubah ke app.properties
 
-        String url = SERVICE_BASE_URI + "user/kegiatans";
+        String url = SERVICE_BASE_URI + "user/penyelenggaras";
         com.course.springbootstarter.penyelenggara.Penyelenggara objPenyelenggara = new com.course.springbootstarter.penyelenggara.Penyelenggara();
 //        int no = Integer.parseInt(this.getNo()); //this.getNoTrx();  //selectOneMenuKamar;
 //        id.setNoTrx(no);
