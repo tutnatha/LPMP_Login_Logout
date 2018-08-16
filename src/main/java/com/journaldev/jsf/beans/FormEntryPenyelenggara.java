@@ -10,6 +10,8 @@ import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.http.HttpEntity;
@@ -24,8 +26,10 @@ import org.springframework.web.client.RestTemplate;
  *
  * @author myssd
  */
-@Named(value = "formEntryPenyelenggara")
-@Dependent
+//@Named(value = "formEntryPenyelenggara")  //fatal : jgn digunakan
+//@Dependent                                //fatal : reserch dulu lebih lanjut
+@ManagedBean
+@ViewScoped
 public class FormEntryPenyelenggara implements Serializable{
 
     private Penyelenggara penyelenggara;
@@ -69,8 +73,10 @@ public class FormEntryPenyelenggara implements Serializable{
         com.course.springbootstarter.penyelenggara.Penyelenggara objPenyelenggara = new com.course.springbootstarter.penyelenggara.Penyelenggara();
 //        int no = Integer.parseInt(this.getNo()); //this.getNoTrx();  //selectOneMenuKamar;
 //        id.setNoTrx(no);
-        objPenyelenggara.setKode(this.kode);
-        objPenyelenggara.setNama(this.nama);
+        kode = this.getKode();
+        nama = this.getNama();
+        objPenyelenggara.setKode(kode); //"kodeZ"
+        objPenyelenggara.setNama(nama); //"namaZ"
         
         Sequence seq = new Sequence();
         int seqNo = seq.nextValue();

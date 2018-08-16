@@ -10,6 +10,8 @@ import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.http.HttpEntity;
@@ -24,8 +26,10 @@ import org.springframework.web.client.RestTemplate;
  *
  * @author myssd
  */
-@Named(value = "formEntryKegiatanBean") //generate oleh netbeans
-@Dependent                              //generate oleh netbeans
+//@Named(value = "formEntryKegiatanBean") //generate oleh netbeans
+//@Dependent                              //generate oleh netbeans
+@ManagedBean
+@ViewScoped
 public class FormEntryKegiatanBean implements Serializable{
 
     private Kegiatan kegiatan;
@@ -76,6 +80,7 @@ public class FormEntryKegiatanBean implements Serializable{
         objKegiatan.setKeterangan(keterangan);
 //        objKegiatan.setNama(nama);
         objKegiatan.setNama(namaKegiatan);
+        namaKegiatan = this.getNamaKegiatan();
         objKegiatan.setNamaKegiatan(namaKegiatan);
         
         Sequence seq = new Sequence();
