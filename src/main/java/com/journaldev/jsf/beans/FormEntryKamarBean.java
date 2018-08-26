@@ -11,6 +11,7 @@ import javax.faces.bean.ViewScoped;
 import com.journaldev.jsf.pojo.daftarhunian.Kamar;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
+import net.bootsfaces.utils.FacesMessages;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -42,7 +43,7 @@ public class FormEntryKamarBean implements Serializable{
 
     public FormEntryKamarBean() {
         FacesContext fc = FacesContext.getCurrentInstance();
-        SERVICE_BASE_URI = fc.getExternalContext().getInitParameter("metadata.serviceBaseURI");                
+        SERVICE_BASE_URI = fc.getExternalContext().getInitParameter("metadata.serviceBaseURI");
     }
     
     @PostConstruct
@@ -88,6 +89,24 @@ public class FormEntryKamarBean implements Serializable{
         //buat kan handle return from web services
         //untuk menampilkan message sukses atau failure saving data..
         HttpStatus statusCode = response.getStatusCode();
+ 
+        if(statusCode.is2xxSuccessful()){
+            String status ="Success";
+            FacesMessages.info("Info", "Input Kamar Sukses!");
+        }
+        if(statusCode.is1xxInformational()){
+            FacesMessages.info("Info", "is1xxInformational ->" + statusCode.toString());
+        }
+        if(statusCode.is3xxRedirection()){
+            FacesMessages.error("is3xxInformational", statusCode.toString());
+        }
+        if(statusCode.is4xxClientError()){
+            FacesMessages.fatal("is4xxClientError", statusCode.toString());
+        }
+        if(statusCode.is5xxServerError()){
+            FacesMessages.fatal("is5xxServerError", statusCode.toString());
+        }
+        
         com.journaldev.jsf.pojo.daftarhunian.Kamar retKamar = response.getBody();
         
         return "CCKamarList.jsf";
@@ -141,5 +160,7 @@ public class FormEntryKamarBean implements Serializable{
         this.urlPicture = urlPicture;
     }
     
-    
+    public String goBack(){
+        return "CCKamarList.jsf";
+    }    
 }

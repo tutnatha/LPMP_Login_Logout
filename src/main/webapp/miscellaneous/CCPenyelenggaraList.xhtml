@@ -39,7 +39,13 @@ td {
                     <b:dataTableColumn value="#{penyelenggara.kode}" label="Kode"/>                    
                     
                     <b:dataTableColumn label="Lihat Kegiatannya.">
-                        <cc:blueButton caption="Pilih #{penyelenggara.nama}" action="#{customComponentsPenyelenggarasBean.onClickPenyelenggara(penyelenggara)}" />
+                        <!--
+                        <cc:blueButton caption="Pilih #{penyelenggara.nama}" 
+                            action="#{customComponentsPenyelenggarasBean.onClickPenyelenggara(penyelenggara)}" />
+                        -->
+                        
+                        <cc:blueButton caption="Pilih #{penyelenggara.nama}" 
+                            action="#{customComponentsPenyelenggarasBean.onEditPenyelenggara(penyelenggara)}" />
                     </b:dataTableColumn>
                     <b:dataTableColumn value="#{penyelenggara.nama}" label="Nama Penyelenggara" />
                 

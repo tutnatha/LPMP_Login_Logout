@@ -13,6 +13,7 @@ import javax.enterprise.context.Dependent;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import net.bootsfaces.utils.FacesMessages;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -95,6 +96,26 @@ public class FormEntryPenyelenggara implements Serializable{
         //buat kan handle return from web services
         //untuk menampilkan message sukses atau failure saving data..
         HttpStatus statusCode = response.getStatusCode();
+        
+        //Faces message 
+        if(statusCode.is2xxSuccessful()){
+            String status ="Success";
+            FacesMessages.info("Info", "Input Kegiatan Sukses!");
+        }
+        if(statusCode.is1xxInformational()){
+            FacesMessages.info("Info", "is1xxInformational ->" + statusCode.toString());
+        }
+        if(statusCode.is3xxRedirection()){
+            FacesMessages.error("is3xxInformational", statusCode.toString());
+        }
+        if(statusCode.is4xxClientError()){
+            FacesMessages.fatal("is4xxClientError", statusCode.toString());
+        }
+        if(statusCode.is5xxServerError()){
+            FacesMessages.fatal("is5xxServerError", statusCode.toString());
+        }
+        
+        //get return value
         com.course.springbootstarter.penyelenggara.Penyelenggara retPenyelenggara = response.getBody();
     }
     
@@ -121,5 +142,8 @@ public class FormEntryPenyelenggara implements Serializable{
     public void setNama(String nama) {
         this.nama = nama;
     }
-    
+
+    public String goBack(){
+        return "CCPenyelenggaraList.jsf";
+    }
 }

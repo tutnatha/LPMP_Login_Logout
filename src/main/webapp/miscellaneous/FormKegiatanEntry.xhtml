@@ -3,7 +3,8 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:b="http://bootsfaces.net/ui"
-                xmlns:ui="http://java.sun.com/jsf/facelets">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:cc="http://java.sun.com/jsf/composite/customComponents">
 
     <ui:define name="content">
         <style>
@@ -31,12 +32,15 @@ td {
                 -->
                 
                 <b:commandButton value="Close" dismiss="modal" 
+                    tooltip="Tutup dan kembali ke layarsebelumnya!" tooltip-position="auto"
                     action="#{formEntryKegiatanBean.btnCloseClick()}"/>
-                <b:commandButton value="OK" look="primary" dismiss="modal" 
+                <b:commandButton value="OK" look="primary" dismiss="modal"
+                    tooltip="Simpan data!" tooltip-position="auto"
                     actionListener="#{formEntryKegiatanBean.btnSaveClick}"/>
-
+                <cc:greenButton caption="Back to the previous page" 
+                    action="#{formEntryKegiatanBean.goBack}" />
+                
                 <!--    </b:modal>
-
                     <b:row>
                     <b:button value="Tambahkan Kamar.."
                                    look="success" onclick="$('.modalPseudoClass').modal()" />
@@ -44,6 +48,8 @@ td {
                 -->
                 <b:messages styleClass="msgs" redisplay="true" recursive="true"
     				id="messages-2" globalOnly="true" severity="info,warn,error,fatal"/>
+                
+            
             </b:container>
         </b:form>
     </ui:define>

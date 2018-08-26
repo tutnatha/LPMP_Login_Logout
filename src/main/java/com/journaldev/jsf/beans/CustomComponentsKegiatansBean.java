@@ -43,7 +43,8 @@ public class CustomComponentsKegiatansBean implements Serializable{
     FacesContext fc = FacesContext.getCurrentInstance();    //coba pasang disini.
     
     List<Kegiatan> listP = new ArrayList<Kegiatan>();
-            
+    private Kegiatan selectedKegiatan;
+    
     public CustomComponentsKegiatansBean(String kode, String nama) {
         this.kode = kode;
         this.nama = nama;
@@ -131,10 +132,12 @@ public class CustomComponentsKegiatansBean implements Serializable{
 //    public String onClickKegiatan(){
         selectedKode = kegiatan.getKode();   //remark dulu
         this.setSelectedKode(selectedKode);
+        //ini yg dilempar ke next page
+        selectedKegiatan = kegiatan;
         //tampilkan Hunian Hdr per Kegiatan
 //        String page = "CompositeComponentsHunianHdr.jsf";
 //        String page = "/miscellaneous/CompositeComponentsHunianHdrPerKegiatan.jsf";
-        String page = "CompositeComponentsHunianHdrPerKegiatan.jsf";
+        String page = "FormKegiatanUpdate.jsf";
         return page;
     }
 
@@ -161,5 +164,14 @@ public class CustomComponentsKegiatansBean implements Serializable{
     public void setFc(FacesContext fc) {
         this.fc = fc;
     }
+
+    public Kegiatan getSelectedKegiatan() {
+        return selectedKegiatan;
+    }
+
+    public void setSelectedKegiatan(Kegiatan selectedKegiatan) {
+        this.selectedKegiatan = selectedKegiatan;
+    }
     
+    //end getter setter
 }

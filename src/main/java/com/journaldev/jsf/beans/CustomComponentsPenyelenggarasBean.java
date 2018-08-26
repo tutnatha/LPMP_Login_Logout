@@ -43,7 +43,8 @@ public class CustomComponentsPenyelenggarasBean implements Serializable{
     FacesContext fc = FacesContext.getCurrentInstance();    //coba pasang disini.
     
     List<Penyelenggara> listP = new ArrayList<Penyelenggara>();
-            
+    private Penyelenggara selectedPenyelenggara;
+    
     public CustomComponentsPenyelenggarasBean(String kode, String nama) {
         this.kode = kode;
         this.nama = nama;
@@ -136,6 +137,17 @@ public class CustomComponentsPenyelenggarasBean implements Serializable{
         return page;
     }
 
+    public String onEditPenyelenggara(Penyelenggara penyelenggara){    //with param
+//    public String onClickPenyelenggara(){
+        selectedKode = penyelenggara.getKode();   //remark dulu
+        this.setSelectedKode(selectedKode);
+        //kirik ke next bean
+        selectedPenyelenggara = penyelenggara;
+        //tampilkan Hunian Hdr per Penyelenggara
+        String page = "FormPenyelenggaraUpdate.jsf";
+        return page;
+    }
+    
     public String getSelectedKode() {
         return selectedKode;
     }
@@ -159,5 +171,14 @@ public class CustomComponentsPenyelenggarasBean implements Serializable{
     public void setFc(FacesContext fc) {
         this.fc = fc;
     }
+
+    public Penyelenggara getSelectedPenyelenggara() {
+        return selectedPenyelenggara;
+    }
+
+    public void setSelectedPenyelenggara(Penyelenggara selectedPenyelenggara) {
+        this.selectedPenyelenggara = selectedPenyelenggara;
+    }
     
+    //end getter setter
 }

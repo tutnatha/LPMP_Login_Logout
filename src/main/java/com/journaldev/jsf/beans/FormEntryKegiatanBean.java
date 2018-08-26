@@ -13,6 +13,7 @@ import javax.enterprise.context.Dependent;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import net.bootsfaces.utils.FacesMessages;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -100,6 +101,23 @@ public class FormEntryKegiatanBean implements Serializable{
         //buat kan handle return from web services
         //untuk menampilkan message sukses atau failure saving data..
         HttpStatus statusCode = response.getStatusCode();
+        if(statusCode.is2xxSuccessful()){
+            String status ="Success";
+            FacesMessages.info("Info", "Input Kegiatan Sukses!");
+        }
+        if(statusCode.is1xxInformational()){
+            FacesMessages.info("Info", "is1xxInformational ->" + statusCode.toString());
+        }
+        if(statusCode.is3xxRedirection()){
+            FacesMessages.error("is3xxInformational", statusCode.toString());
+        }
+        if(statusCode.is4xxClientError()){
+            FacesMessages.fatal("is4xxClientError", statusCode.toString());
+        }
+        if(statusCode.is5xxServerError()){
+            FacesMessages.fatal("is5xxServerError", statusCode.toString());
+        }
+        
         com.course.springbootstarter.kegiatan.Kegiatan retKegiatan = response.getBody();
     }
     
@@ -153,5 +171,9 @@ public class FormEntryKegiatanBean implements Serializable{
 
     public void setKode(String kode) {
         this.kode = kode;
+    }
+    
+    public String goBack(){
+        return "CCKegiatanList.jsf";
     }
 }

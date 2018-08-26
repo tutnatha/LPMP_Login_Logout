@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -32,10 +33,11 @@ public class CCKamarListBean implements Serializable{
     List<Kamar> listKamar = new ArrayList<Kamar>();
     
     private String selectedNo;
+    private Kamar selectedKamar;
     
     public String SERVICE_BASE_URI;
     FacesContext fc = FacesContext.getCurrentInstance();    //coba pasang disini.
-
+    
     public CCKamarListBean() {
         SERVICE_BASE_URI = fc.getExternalContext().getInitParameter("metadata.serviceBaseURI");
     }
@@ -83,8 +85,14 @@ public class CCKamarListBean implements Serializable{
 //    public String onClickKamar(){
         selectedNo = kamar.getNo();   //remark dulu
         this.setSelectedNo(selectedNo);
-        //tampilkan Hunian Hdr per Kamar
-        String page = "ViewFormKamar.jsf";
+        //tampilkan Kamar yg dipilih
+        selectedKamar = new Kamar();
+        selectedKamar.setJmlTt(kamar.getJmlTt());
+        selectedKamar.setLantai(kamar.getLantai());
+        selectedKamar.setUrlPicture(kamar.getUrlPicture());
+        selectedKamar.setNo(kamar.getNo());
+        
+        String page = "FormKamarUpdate.jsf";
         return page;
     }
 
@@ -124,8 +132,15 @@ public class CCKamarListBean implements Serializable{
 
     public void setSelectedNo(String selectedNo) {
         this.selectedNo = selectedNo;
-    }  
-    
+    }    
+
+    public Kamar getSelectedKamar() {
+        return selectedKamar;
+    }
+
+    public void setSelectedKamar(Kamar selectedKamar) {
+        this.selectedKamar = selectedKamar;
+    }
     //end getter and setter    
 
 }

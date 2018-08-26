@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<ui:composition template="/applayout/pageTemplate.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:cc="http://java.sun.com/jsf/composite/customComponents">
+
+    <ui:define name="content">
+        <style>
+td {
+    padding: 8px;
+}
+</style>
+        <b:form id="bid" prependId="false">
+            <b:container layout="fluid">
+
+                <b:inputText label="Kode. Penyelenggara" labelStyle="width:80px;"
+                             value="#{formUpdatePenyelenggara.kode}"></b:inputText>
+                <b:inputText label="Nama Penyelenggara" labelStyle="width:80px;"
+                             value="#{formUpdatePenyelenggara.nama}"></b:inputText>
+                
+                <!--
+                <b:selectOneMenu label="No Kamar : " value="#{addDaftarHunianDtlBean.selectOneMenuKamar}">
+                    <f:selectItems value="#{addDaftarHunianDtlBean.selectOneMenuKamars}" />
+                </b:selectOneMenu>
+                -->
+                
+                <b:commandButton value="Close" dismiss="modal" 
+                    tooltip="Tutup dan kembali ke layarsebelumnya!" tooltip-position="auto"
+                    action="#{formUpdatePenyelenggara.btnCloseClick()}"/>
+                <b:commandButton value="OK" look="primary" dismiss="modal"
+                    tooltip="Simpan data!" tooltip-position="auto"
+                    actionListener="#{formUpdatePenyelenggara.btnSaveClick}"/>
+                <cc:greenButton caption="Back to the previous page" 
+                    action="#{formUpdatePenyelenggara.goBack}" />
+                <!--    </b:modal>
+
+                    <b:row>
+                    <b:button value="Tambahkan Kamar.."
+                                   look="success" onclick="$('.modalPseudoClass').modal()" />
+                    </b:row>
+                -->
+                <b:messages styleClass="msgs" redisplay="true" recursive="true"
+    				id="messages-2" globalOnly="true" severity="info,warn,error,fatal"/>
+            </b:container>
+        </b:form>
+    </ui:define>
+</ui:composition>
