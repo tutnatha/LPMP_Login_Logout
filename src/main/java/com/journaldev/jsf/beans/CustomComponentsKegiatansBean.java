@@ -136,11 +136,23 @@ public class CustomComponentsKegiatansBean implements Serializable{
         selectedKegiatan = kegiatan;
         //tampilkan Hunian Hdr per Kegiatan
 //        String page = "CompositeComponentsHunianHdr.jsf";
+        String page = "/miscellaneous/CompositeComponentsHunianHdrPerKegiatan.jsf";
+        return page;
+    }
+
+    public String onClickUpdateKegiatan(Kegiatan kegiatan){    //with param
+//    public String onClickKegiatan(){
+        selectedKode = kegiatan.getKode();   //remark dulu
+        this.setSelectedKode(selectedKode);
+        //ini yg dilempar ke next page
+        selectedKegiatan = kegiatan;
+        //tampilkan Hunian Hdr per Kegiatan
+//        String page = "CompositeComponentsHunianHdr.jsf";
 //        String page = "/miscellaneous/CompositeComponentsHunianHdrPerKegiatan.jsf";
         String page = "FormKegiatanUpdate.jsf";
         return page;
     }
-
+    
     public String getSelectedKode() {
         return selectedKode;
     }
