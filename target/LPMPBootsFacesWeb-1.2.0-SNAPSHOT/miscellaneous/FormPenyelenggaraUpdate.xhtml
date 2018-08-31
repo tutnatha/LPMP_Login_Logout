@@ -34,6 +34,9 @@ td {
                     actionListener="#{formUpdatePenyelenggara.btnSaveClick}"/>
                 <cc:greenButton caption="Back to the previous page" 
                     action="#{formUpdatePenyelenggara.goBack}" />
+                <cc:redButton caption="Delete #{formUpdatePenyelenggara.kode}" 
+                    action="#{formUpdatePenyelenggara.deleteRow()}" />
+                
                 <!--    </b:modal>
 
                     <b:row>

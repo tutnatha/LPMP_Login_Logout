@@ -134,6 +134,63 @@ public class FormUpdatePenyelenggara implements Serializable{
         //get return value
         com.course.springbootstarter.penyelenggara.Penyelenggara retPenyelenggara = response.getBody();
     }
+
+    public void deleteRow(){
+        HttpHeaders headers = getHeaders();
+        RestTemplate restTemplate = new RestTemplate();
+//        String url = "http://207.148.66.201:8080/user/deletePenyelenggara/{no}";    //harus dirubah ke app.properties
+
+        String url = SERVICE_BASE_URI + "user/deletePenyelenggara/{no}";
+        com.course.springbootstarter.penyelenggara.Penyelenggara objPenyelenggara = new com.course.springbootstarter.penyelenggara.Penyelenggara();
+//        int no = Integer.parseInt(this.getNo()); //this.getNoTrx();  //selectOneMenuKamar;
+//        id.setNoTrx(no);
+        kode = this.getKode();
+        nama = this.getNama();
+        objPenyelenggara.setKode(kode); //"kodeZ"
+        objPenyelenggara.setNama(nama); //"namaZ"
+        
+        Sequence seq = new Sequence();
+        int seqNo = seq.nextValue();
+//        objDfrtDtl.setSeqNo(seqNo);  //remark dulu
+
+        HttpEntity<com.course.springbootstarter.penyelenggara.Penyelenggara> requestEntity = 
+            new HttpEntity<com.course.springbootstarter.penyelenggara.Penyelenggara>(objPenyelenggara, headers);
+        
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("no", kode);
+        
+        //diganti !! dgn yg dibawah
+//        URI uri = restTemplate.postForLocation(url, requestEntity);   
+        //Diganti dgn model ResponseEntity 
+        ResponseEntity<com.course.springbootstarter.penyelenggara.Penyelenggara> response = 
+                restTemplate.exchange(url, HttpMethod.DELETE, requestEntity, 
+                com.course.springbootstarter.penyelenggara.Penyelenggara.class,params);
+
+        //buat kan handle return from web services
+        //untuk menampilkan message sukses atau failure saving data..
+        HttpStatus statusCode = response.getStatusCode();
+        
+        //Faces message 
+        if(statusCode.is2xxSuccessful()){
+            String status ="Success";
+            FacesMessages.info("Info", "Delete Penyelenggara Sukses!");
+        }
+        if(statusCode.is1xxInformational()){
+            FacesMessages.info("Info", "is1xxInformational ->" + statusCode.toString());
+        }
+        if(statusCode.is3xxRedirection()){
+            FacesMessages.error("is3xxInformational", statusCode.toString());
+        }
+        if(statusCode.is4xxClientError()){
+            FacesMessages.fatal("is4xxClientError", statusCode.toString());
+        }
+        if(statusCode.is5xxServerError()){
+            FacesMessages.fatal("is5xxServerError", statusCode.toString());
+        }
+        
+        //get return value
+        com.course.springbootstarter.penyelenggara.Penyelenggara retPenyelenggara = response.getBody();
+    }
     
     public Penyelenggara getPenyelenggara() {
         return penyelenggara;
