@@ -95,7 +95,12 @@ td {
                                 
                                 <b:commandButton id="submit-btn2" value="#{app['save.button.text']}" update="messages-2" col-sm="2"
 		              		look="success" onclick="ajax:reservationBean.addReservationDemo()" />
-                                <!--
+				
+				
+				<b:commandButton id="submit-btn3" value="#{app['update.button.text']}" update="messages-2" col-sm="2"
+		              		look="success" onclick="ajax:reservationBean.updateReservationDemo()" />
+				
+				<!--
                                 <b:commandButton value="Tambah Kamar" update="@form" col-sm="2"
 		              		look="success" onclick="ajax:reservationBean.addRoomReservationDtl()" />
                                 -->

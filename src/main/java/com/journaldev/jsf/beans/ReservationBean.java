@@ -231,6 +231,57 @@ public class ReservationBean implements Serializable{
         setIsDtlBtnDisabled(false);
     }
 
+    public void updateReservationDemo() {
+    	HttpHeaders headers = getHeaders();  
+        RestTemplate restTemplate = new RestTemplate();
+	String url = SERVICE_BASE_URI+"/daftarhunianHdrs/{no}";
+
+	com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr objDfrtHdr = new com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr();
+        objDfrtHdr.setJmlPeserta(jmlPeserta); 
+        objDfrtHdr.setKodeKegiatan(kodeKegiatan);
+        objDfrtHdr.setNo(no);
+        objDfrtHdr.setPenyelenggara(penyelenggara);
+        objDfrtHdr.setSudahSelesai(sudahSelesai);
+        objDfrtHdr.setTglMulai(tglMulai);
+        objDfrtHdr.setTglSelesai(tglSelesai);
+
+	//convert kodeKegiatan => selectOneMenuKegiatan;
+        int intKode = Integer.valueOf(selectOneMenuKegiatan);
+        objDfrtHdr.setKodeKegiatan(intKode);
+        HttpEntity<com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr> requestEntity = 
+                new HttpEntity<com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr>(objDfrtHdr, headers);
+
+	//rest params
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("no", no);
+
+	ResponseEntity<com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr> response = 
+                restTemplate.exchange(url, HttpMethod.PUT, requestEntity, 
+                com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr.class,params);
+
+	HttpStatus statusCode = response.getStatusCode();
+ 
+        if(statusCode.is2xxSuccessful()){
+            String status ="Success";
+            FacesMessages.info("Info", "Input Kamar Sukses!");
+        }
+        if(statusCode.is1xxInformational()){
+            FacesMessages.info("Info", "is1xxInformational ->" + statusCode.toString());
+        }
+        if(statusCode.is3xxRedirection()){
+            FacesMessages.error("is3xxInformational", statusCode.toString());
+        }
+        if(statusCode.is4xxClientError()){
+            FacesMessages.fatal("is4xxClientError", statusCode.toString());
+        }
+        if(statusCode.is5xxServerError()){
+            FacesMessages.fatal("is5xxServerError", statusCode.toString());
+        }
+
+        com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr daftarhunianHdr = response.getBody();
+        
+    }
+
     public void getDaftarhunianHdrByIdDemo() {
     	HttpHeaders headers = getHeaders();  
         RestTemplate restTemplate = new RestTemplate();
@@ -394,6 +445,7 @@ public class ReservationBean implements Serializable{
         Date tglSelesai = dha.getTglSelesai();
         
         //Bean setter start
+	jmlPeserta = jml;
         this.setJmlPeserta(jmlPeserta);
         this.setKodeKegiatan(kodeKegiatan);
         this.setNo(no);
