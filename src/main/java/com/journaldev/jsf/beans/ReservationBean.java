@@ -179,6 +179,27 @@ public class ReservationBean implements Serializable{
                 restTemplate.exchange(url, HttpMethod.POST, requestEntity, 
                 com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr.class);
         HttpStatus statusCode = response.getStatusCode();
+        
+        //Faces message 
+        if(statusCode.is2xxSuccessful()){
+            String status ="Success";
+            FacesMessages.info("Info", "Input Reservai Sukses!");
+	    FacesMessages.info("Info", "Lanjutkan dgn menambahkan Kamar yg dipilih!");
+        }
+        if(statusCode.is1xxInformational()){
+            FacesMessages.info("Info", "is1xxInformational ->" + statusCode.toString());
+        }
+        if(statusCode.is3xxRedirection()){
+            FacesMessages.error("is3xxInformational", statusCode.toString());
+        }
+        if(statusCode.is4xxClientError()){
+            FacesMessages.fatal("is4xxClientError", statusCode.toString());
+        }
+        if(statusCode.is5xxServerError()){
+            FacesMessages.fatal("is5xxServerError", statusCode.toString());
+        }
+	//End Faces message        
+
         com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr daftarhunianHdr = response.getBody();
         
         if(daftarhunianHdr.getNo() != null){
@@ -186,7 +207,7 @@ public class ReservationBean implements Serializable{
            this.setNo(no);
            
            //unable button
-           setIsDtlBtnDisabled(false);
+           this.setIsDtlBtnDisabled(false);
         }
         
 //        assertThat(response.getStatusCode(), is(HttpStatus.CREATED));
@@ -205,8 +226,6 @@ public class ReservationBean implements Serializable{
 //                            response.getStatusCode().toString()));
                         statusCode.toString()));                                
 //        }
-        
-        FacesMessages.info("Info", "PrimeFaces <b>rocks</b>. BootsFaces <b>rocks</b>, too!");
                 
         /*
         if(uri==null){
@@ -228,7 +247,7 @@ public class ReservationBean implements Serializable{
         */
 //    	getDaftarhunianHdrByIdDemo();
         //set unabled button = true
-        setIsDtlBtnDisabled(false);
+        this.setIsDtlBtnDisabled(false);
     }
 
     public void updateReservationDemo() {
@@ -237,7 +256,8 @@ public class ReservationBean implements Serializable{
 	String url = SERVICE_BASE_URI+"/daftarhunianHdrs/{no}";
 
 	com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr objDfrtHdr = new com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr();
-        objDfrtHdr.setJmlPeserta(jmlPeserta); 
+	jmlPeserta = this.getJmlPeserta();
+	objDfrtHdr.setJmlPeserta(jmlPeserta); 
         objDfrtHdr.setKodeKegiatan(kodeKegiatan);
         objDfrtHdr.setNo(no);
         objDfrtHdr.setPenyelenggara(penyelenggara);
@@ -508,7 +528,7 @@ public class ReservationBean implements Serializable{
         
 //        return list;
         //button unabled
-        setIsDtlBtnDisabled(false);
+        this.setIsDtlBtnDisabled(false);
         return dha;
     }
     
@@ -569,7 +589,7 @@ public class ReservationBean implements Serializable{
         this.setQueryDaftarhunianDlt(queryDaftarhunianDlt);
         //disable add detail button
         //disabled="#{bean.isDisabled}"
-        setIsDtlBtnDisabled(true);
+        this.setIsDtlBtnDisabled(true);
     }
 
     public boolean isIsDtlBtnDisabled() {
