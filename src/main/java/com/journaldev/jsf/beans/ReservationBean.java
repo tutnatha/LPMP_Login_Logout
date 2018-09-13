@@ -67,6 +67,8 @@ public class ReservationBean implements Serializable{
 //        private AddDaftarHunianDtlBean addDaftarHunianDtlBean; // +setter (no getter!)
 
         private boolean isDtlBtnDisabled;
+
+	private QueryDaftarhunianDlt selectedQueryDaftarhunianDlt;
         
 	public ReservationBean() {
 		super();
@@ -592,6 +594,12 @@ public class ReservationBean implements Serializable{
         this.setIsDtlBtnDisabled(true);
     }
 
+    public String onEditDftrHunianDtl(QueryDaftarhunianDlt passedObj){
+	//kirim ke next bean
+        selectedQueryDaftarhunianDlt = passedObj;
+	return "LPMPFormModalUpdateReservationDtl.jsf";
+    }
+
     public boolean isIsDtlBtnDisabled() {
         return isDtlBtnDisabled;
     }
@@ -599,5 +607,12 @@ public class ReservationBean implements Serializable{
     public void setIsDtlBtnDisabled(boolean isDtlBtnDisabled) {
         this.isDtlBtnDisabled = isDtlBtnDisabled;
     }
-    
+
+    public QueryDaftarhunianDlt getSelectedQueryDaftarhunianDlt(){
+	return selectedQueryDaftarhunianDlt;
+    }
+ 
+    public void setSelectedQueryDaftarhunianDlt(QueryDaftarhunianDlt qDhDtl){
+	this.selectedQueryDaftarhunianDlt = qDhDtl;
+    }   
 }

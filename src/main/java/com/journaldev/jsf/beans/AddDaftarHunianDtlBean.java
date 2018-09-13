@@ -33,6 +33,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import org.springframework.http.HttpStatus;
+import net.bootsfaces.utils.FacesMessages;
 
 @ManagedBean
 //@RequestScoped  //remark dulu
@@ -139,6 +140,26 @@ public class AddDaftarHunianDtlBean implements Serializable{
         //buat kan handle return from web services
         //untuk menampilkan message sukses atau failure saving data..
         HttpStatus statusCode = response.getStatusCode();
+
+//return msg
+	if(statusCode.is2xxSuccessful()){
+            String status ="Success";
+            FacesMessages.info("Info", "Input Kamar Sukses!");
+        }
+        if(statusCode.is1xxInformational()){
+            FacesMessages.info("Info", "is1xxInformational ->" + statusCode.toString());
+        }
+        if(statusCode.is3xxRedirection()){
+            FacesMessages.error("is3xxInformational", statusCode.toString());
+        }
+        if(statusCode.is4xxClientError()){
+            FacesMessages.fatal("is4xxClientError", statusCode.toString());
+        }
+        if(statusCode.is5xxServerError()){
+            FacesMessages.fatal("is5xxServerError", statusCode.toString());
+        }
+//end return msg
+
         com.journaldev.jsf.pojo.daftarhunian.DaftarHunianDtl daftarhunianDtl = response.getBody();
         
         if(daftarhunianDtl.getId().getNoKamar() != null){

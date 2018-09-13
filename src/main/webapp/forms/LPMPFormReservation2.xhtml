@@ -4,7 +4,8 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:b="http://bootsfaces.net/ui"
-                xmlns:ui="http://java.sun.com/jsf/facelets">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:cc="http://java.sun.com/jsf/composite/customComponents">
 
     <ui:define name="content">
         <style>
@@ -123,7 +124,11 @@ td {
 	                 var="dftrHunianDtl">
                 <b:dataTableColumn value="#{dftrHunianDtl.daftarHunianDtlKey.noKamar}" />
                 <b:dataTableColumn value="#{dftrHunianDtl.daftarHunianDtlKey.noTrx}" />
-                <b:dataTableColumn value="#{dftrHunianDtl.lantai}" />
+		<b:dataTableColumn label="Lihat Hunian Dtl.">
+			<cc:blueButton caption="Pilih #{dftrHunianDtl.daftarHunianDtlKey.noTrx}" 
+                            action="#{reservationBean.onEditDftrHunianDtl(dftrHunianDtl)}" />
+		</b:dataTableColumn>
+		<b:dataTableColumn value="#{dftrHunianDtl.lantai}" />
                 <b:dataTableColumn value="#{dftrHunianDtl.jmlTt}" label="Jml T. Tidur"/>
             </b:dataTable>
         </b:form>

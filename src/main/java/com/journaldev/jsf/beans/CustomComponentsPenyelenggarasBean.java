@@ -141,7 +141,7 @@ public class CustomComponentsPenyelenggarasBean implements Serializable{
 //    public String onClickPenyelenggara(){
         selectedKode = penyelenggara.getKode();   //remark dulu
         this.setSelectedKode(selectedKode);
-        //kirik ke next bean
+        //kirim ke next bean
         selectedPenyelenggara = penyelenggara;
         //tampilkan Hunian Hdr per Penyelenggara
         String page = "FormPenyelenggaraUpdate.jsf";

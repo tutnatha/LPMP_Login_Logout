@@ -192,6 +192,10 @@ public class FormUpdatePenyelenggara implements Serializable{
         com.course.springbootstarter.penyelenggara.Penyelenggara retPenyelenggara = response.getBody();
     }
     
+    public String btnCloseClick(){
+	return "CCPenyelenggaraList.jsf";
+    }
+
     public Penyelenggara getPenyelenggara() {
         return penyelenggara;
     }
