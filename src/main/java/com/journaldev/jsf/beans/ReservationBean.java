@@ -255,7 +255,7 @@ public class ReservationBean implements Serializable{
     public void updateReservationDemo() {
     	HttpHeaders headers = getHeaders();  
         RestTemplate restTemplate = new RestTemplate();
-	String url = SERVICE_BASE_URI+"/daftarhunianHdrs/{no}";
+	String url = SERVICE_BASE_URI+"user/daftarhunianHdrs/{no}";
 
 	com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr objDfrtHdr = new com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr();
 	jmlPeserta = this.getJmlPeserta();

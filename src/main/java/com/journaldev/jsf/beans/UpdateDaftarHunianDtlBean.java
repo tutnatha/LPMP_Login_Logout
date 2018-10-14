@@ -29,6 +29,8 @@ import org.springframework.web.client.RestTemplate;
 
 import com.journaldev.jsf.pojo.daftarhunian.DaftarHunianDtlKey;
 import com.journaldev.jsf.pojo.daftarhunian.QueryDaftarhunianDlt;
+import java.util.HashMap;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
@@ -183,6 +185,69 @@ public class UpdateDaftarHunianDtlBean implements Serializable{
         //return "LPMPFormGetReservation";
     }
 
+    public void btnUpdateItemsOKCLick(){
+        HttpHeaders headers = getHeaders();
+        RestTemplate restTemplate = new RestTemplate();
+        String url = SERVICE_BASE_URI + "user/daftarhunianDtls/{no}";
+        
+        com.journaldev.jsf.pojo.daftarhunian.DaftarHunianDtl objDfrtDtl = new com.journaldev.jsf.pojo.daftarhunian.DaftarHunianDtl();
+        
+        //set 
+        int no = Integer.parseInt(this.getNo()); //this.getNoTrx();  //selectOneMenuKamar;
+        com.journaldev.jsf.pojo.daftarhunian.DaftarHunianDtl.MyCompositePK id = 
+                new com.journaldev.jsf.pojo.daftarhunian.DaftarHunianDtl.MyCompositePK();
+        id.setNoTrx(no);
+        String noKamar = this.getSelectOneMenuKamar();
+        id.setNoKamar(noKamar);
+        objDfrtDtl.setId(id);
+//        objDfrtDtl.setNoKamar(noKamar);
+        //generate auto number
+//        UUID x = new UUID(1, 9999999);  //not use
+        
+//Harusnya dlm proses update tidak membuat seq baru!!!
+//pake methode delete-insert
+        Sequence seq = new Sequence();
+        int seqNo = seq.nextValue();
+        objDfrtDtl.setSeqNo(seqNo);
+        
+        //end
+        
+        HttpEntity<com.journaldev.jsf.pojo.daftarhunian.DaftarHunianDtl> requestEntity = 
+            new HttpEntity<com.journaldev.jsf.pojo.daftarhunian.DaftarHunianDtl>(objDfrtDtl, headers);        
+               
+        Map<String, String> params = new HashMap<String, String>();
+        //params.put("noTrx", Integer.toString(noTrx)); //int noTrx
+	params.put("no", Integer.toString(noTrx)); //int noTrx
+	params.put("noKamar", noKamar); //String noKamar
+        
+        ResponseEntity<com.journaldev.jsf.pojo.daftarhunian.DaftarHunianDtl> response = 
+                restTemplate.exchange(url, HttpMethod.PUT, requestEntity, 
+                com.journaldev.jsf.pojo.daftarhunian.DaftarHunianDtl.class, params);
+
+        HttpStatus statusCode = response.getStatusCode();
+        
+//return msg
+	if(statusCode.is2xxSuccessful()){
+            String status ="Success";
+            FacesMessages.info("Info", "Update Detail Reservasi Sukses!");
+        }
+        if(statusCode.is1xxInformational()){
+            FacesMessages.info("Info", "is1xxInformational ->" + statusCode.toString());
+        }
+        if(statusCode.is3xxRedirection()){
+            FacesMessages.error("is3xxInformational", statusCode.toString());
+        }
+        if(statusCode.is4xxClientError()){
+            FacesMessages.fatal("is4xxClientError", statusCode.toString());
+        }
+        if(statusCode.is5xxServerError()){
+            FacesMessages.fatal("is5xxServerError", statusCode.toString());
+        }
+//end return msg
+        com.journaldev.jsf.pojo.daftarhunian.DaftarHunianDtl daftarhunianDtl = response.getBody();
+        
+    }
+    
     //getters and setters of selectOneMenuKamar
 
     public String getSelectOneMenuKamar() {
@@ -236,5 +301,58 @@ public class UpdateDaftarHunianDtlBean implements Serializable{
         return "LPMPFormReservation?faces-redirect=true";
     }
 
+    //delete row
+    public void btnHapusDtlCLick(){
+        HttpHeaders headers = getHeaders();
+        RestTemplate restTemplate = new RestTemplate();
+        String url = SERVICE_BASE_URI + "user/daftarhunianDtls/{no_trx}/{no_kamar}";  //buka
+//        String url = SERVICE_BASE_URI + "user/daftarhunianDtls/{no_trx_no_kamar}";    //ganti pake yg diatas
+        
+        com.journaldev.jsf.pojo.daftarhunian.DaftarHunianDtl objDfrtDtl = new com.journaldev.jsf.pojo.daftarhunian.DaftarHunianDtl();
+        
+        //set 
+        int no = Integer.parseInt(this.getNo()); //this.getNoTrx();  //selectOneMenuKamar;
+        com.journaldev.jsf.pojo.daftarhunian.DaftarHunianDtl.MyCompositePK id = 
+                new com.journaldev.jsf.pojo.daftarhunian.DaftarHunianDtl.MyCompositePK();
+        id.setNoTrx(no);
+        String noKamar = this.getSelectOneMenuKamar();
+        id.setNoKamar(noKamar);
+        objDfrtDtl.setId(id);
+        
+        HttpEntity<com.journaldev.jsf.pojo.daftarhunian.DaftarHunianDtl> requestEntity = 
+            new HttpEntity<com.journaldev.jsf.pojo.daftarhunian.DaftarHunianDtl>(objDfrtDtl, headers);
+               
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("no_trx", Integer.toString(noTrx)); //int noTrx
+//	params.put("no_trx_no_kamar", Integer.toString(noTrx)+"|"+noKamar); //int noTrx //remark
+	params.put("no_kamar", noKamar); //String noKamar
+        
+        ResponseEntity<com.journaldev.jsf.pojo.daftarhunian.DaftarHunianDtl> response = 
+                restTemplate.exchange(url, HttpMethod.DELETE, requestEntity, 
+                com.journaldev.jsf.pojo.daftarhunian.DaftarHunianDtl.class, params);
+
+        HttpStatus statusCode = response.getStatusCode();
+        
+//return msg
+	if(statusCode.is2xxSuccessful()){
+            String status ="Success";
+            FacesMessages.info("Info", "Delete Detail Reservasi Sukses!");
+        }
+        if(statusCode.is1xxInformational()){
+            FacesMessages.info("Info", "is1xxInformational ->" + statusCode.toString());
+        }
+        if(statusCode.is3xxRedirection()){
+            FacesMessages.error("is3xxInformational", statusCode.toString());
+        }
+        if(statusCode.is4xxClientError()){
+            FacesMessages.fatal("is4xxClientError", statusCode.toString());
+        }
+        if(statusCode.is5xxServerError()){
+            FacesMessages.fatal("is5xxServerError", statusCode.toString());
+        }
+//end return msg
+        com.journaldev.jsf.pojo.daftarhunian.DaftarHunianDtl daftarhunianDtl = response.getBody();
+        
+    }
 }
 

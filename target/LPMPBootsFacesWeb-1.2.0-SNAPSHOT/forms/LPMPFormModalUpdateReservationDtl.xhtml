@@ -28,7 +28,9 @@ td {
                 <b:commandButton value="Close" dismiss="modal" 
                     action="#{updateDaftarHunianDtlBean.btnCloseClick()}"/>
                 <b:commandButton value="OK" look="primary" dismiss="modal" 
-                    actionListener="#{updateDaftarHunianDtlBean.btnSelectItemsOKCLick}"/>
+                    actionListener="#{updateDaftarHunianDtlBean.btnUpdateItemsOKCLick}"/>
+		<cc:redButton caption="Delete : #{addDaftarHunianDtlBean.no}" 
+                               action="#{updateDaftarHunianDtlBean.btnHapusDtlCLick}" />
                 <!--       </f:facet> -->
 
                 <!--    </b:modal>
