@@ -91,26 +91,33 @@ td {
                                                  disabled="true" colMd="4" label=" Kegiatan :" labelColMd="2" />
 
 		      	 <b:row>
-		          	<b:commandButton id="submit-btn" value="#{app['new_reservation.button.text']}" update="@form" col-sm="2"
+                            <!--<b:buttonGroup>-->
+		          	<b:commandButton id="submit-btn" value="#{app['new_reservation.button.text']}"
+                                        update="@form" col-sm="2"
 		              		look="success" onclick="ajax:reservationBean.resetFormField()" />
                                 
-                                <b:commandButton id="submit-btn2" value="#{app['save.button.text']}" update="messages-2" col-sm="2"
+                                <b:commandButton id="submit-btn2" value="#{app['save.button.text']}"
+                                        update="messages-2" col-sm="2"
+                                        disabled="#{(reservationBean.saveButtonDisable)}"
 		              		look="success" onclick="ajax:reservationBean.addReservationDemo()" />
 				
-				
-				<b:commandButton id="submit-btn3" value="#{app['update.button.text']}" update="messages-2" col-sm="2"
+				<b:commandButton id="submit-btn3" value="#{app['update.button.text']}"
+                                        update="messages-2" col-sm="2"
+                                        disabled="#{(reservationBean.updateButtonDisable)}"
 		              		look="success" onclick="ajax:reservationBean.updateReservationDemo()" />
 				
 				<!--
                                 <b:commandButton value="Tambah Kamar" update="@form" col-sm="2"
 		              		look="success" onclick="ajax:reservationBean.addRoomReservationDtl()" />
                                 -->
-                                <b:commandButton id="addDtl-btn" value="Tambah Kamar" action="#{reservationBean.addRoomReservationDtl()}"
-                                    disabled="#{reservationBean.isDtlBtnDisabled}">                                
+                                <b:commandButton id="addDtl-btn" value="Tambah Kamar" 
+                                    action="#{reservationBean.addRoomReservationDtl()}"
+                                    disabled="#{reservationBean.isDtlBtnDisabled}">
                                 </b:commandButton>
                                 
                                 <b:commandButton value="Cari.." update="@form" col-sm="2"
                                     look="success" onclick="ajax:reservationBean.searchByTrxNo()" />
+                            <!--</b:buttonGroup>-->
 		      	 </b:row>
 		         
     			<b:messages styleClass="msgs" redisplay="true" for="@parent" recursive="true" 

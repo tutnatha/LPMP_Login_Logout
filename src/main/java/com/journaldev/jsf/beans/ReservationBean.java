@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import javax.annotation.PostConstruct;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -70,6 +71,9 @@ public class ReservationBean implements Serializable{
 
 	private QueryDaftarhunianDlt selectedQueryDaftarhunianDlt;
         
+        private boolean saveButtonDisable = false;
+        private boolean updateButtonDisable = false;
+        
 	public ReservationBean() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -80,8 +84,18 @@ public class ReservationBean implements Serializable{
                 
                 //disable button
                 setIsDtlBtnDisabled(true);
+                setSaveButtonDisable(true);
+                setUpdateButtonDisable(true);
 	}
 	
+        @PostConstruct
+        public void init() {
+            //disable button
+            setIsDtlBtnDisabled(true);
+            setSaveButtonDisable(true);
+            setUpdateButtonDisable(true);
+        }
+        
 	public String getNo() {
 		return no;
 	}
@@ -140,6 +154,7 @@ public class ReservationBean implements Serializable{
     	return headers;
     }
     
+    //data baru
     public void addReservationDemo() {
 //    	try {
     	HttpHeaders headers = getHeaders();  
@@ -252,6 +267,8 @@ public class ReservationBean implements Serializable{
         this.setIsDtlBtnDisabled(false);
     }
 
+    //existing data
+    //cari dulu terus update
     public void updateReservationDemo() {
     	HttpHeaders headers = getHeaders();  
         RestTemplate restTemplate = new RestTemplate();
@@ -501,6 +518,10 @@ public class ReservationBean implements Serializable{
               queryDaftarhunianDlt.add(q);
             }
         }
+        
+        //set button
+        this.saveButtonDisable = false; //true  //enable
+        setUpdateButtonDisable(false);
     }
     
     public DaftarHunianAsrama getReservationByNoTrx(String noTrx){
@@ -592,6 +613,8 @@ public class ReservationBean implements Serializable{
         //disable add detail button
         //disabled="#{bean.isDisabled}"
         this.setIsDtlBtnDisabled(true);
+        
+        this.saveButtonDisable = false; //Y  //not
     }
 
     public String onEditDftrHunianDtl(QueryDaftarhunianDlt passedObj){
@@ -615,4 +638,24 @@ public class ReservationBean implements Serializable{
     public void setSelectedQueryDaftarhunianDlt(QueryDaftarhunianDlt qDhDtl){
 	this.selectedQueryDaftarhunianDlt = qDhDtl;
     }   
+
+    //saveButtonDisable
+    public boolean isSaveButtonDisable() {
+        return saveButtonDisable;
+    }
+
+    public void setSaveButtonDisable(boolean saveButtonDisable) {
+        this.saveButtonDisable = saveButtonDisable;
+    }
+    //end saveButtonDisable
+
+    public boolean isUpdateButtonDisable() {
+        return updateButtonDisable;
+    }
+
+    public void setUpdateButtonDisable(boolean updateButtonDisable) {
+        this.updateButtonDisable = updateButtonDisable;
+    }
+    
+    
 }
