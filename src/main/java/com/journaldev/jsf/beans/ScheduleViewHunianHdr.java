@@ -5,15 +5,20 @@
  */
 package com.journaldev.jsf.beans;
 
+import com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import org.apache.tomcat.util.codec.binary.Base64;
  
 import org.primefaces.event.ScheduleEntryMoveEvent;
 import org.primefaces.event.ScheduleEntryResizeEvent;
@@ -23,6 +28,12 @@ import org.primefaces.model.DefaultScheduleModel;
 import org.primefaces.model.LazyScheduleModel;
 import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
  
 /**
  *
@@ -39,11 +50,19 @@ public class ScheduleViewHunianHdr implements Serializable {
     private ScheduleModel lazyEventModel;
  
     private ScheduleEvent event = new DefaultScheduleEvent();
+    
+    //Custom variable
+    List<DaftarhunianHdr> listDftrHdr = new ArrayList<DaftarhunianHdr>();
+
+    public String SERVICE_BASE_URI;
+    FacesContext fc = FacesContext.getCurrentInstance();    //coba pasang disini.
+    //end Custom var
  
     /**
      * Creates a new instance of ScheduleViewHunianHdr
      */
     public ScheduleViewHunianHdr() {
+        SERVICE_BASE_URI = fc.getExternalContext().getInitParameter("metadata.serviceBaseURI");
     }
     
     @PostConstruct
@@ -53,7 +72,31 @@ public class ScheduleViewHunianHdr implements Serializable {
         eventModel.addEvent(new DefaultScheduleEvent("Birthday Party", today1Pm(), today6Pm()));
         eventModel.addEvent(new DefaultScheduleEvent("Breakfast at Tiffanys", nextDay9Am(), nextDay11Am()));
         eventModel.addEvent(new DefaultScheduleEvent("Plant the new garden stuff", theDayAfter3Pm(), fourDaysLater3pm()));
-         
+
+        //Internal	0	Mon Mar 05 08:00:00 WITA 2018	Mon Mar 05 08:00:00 WITA 2018	        
+        Date d1 = new Date(2018, 03, 05);
+        Date d2 = new Date(2018, 03, 15);
+        //buat parameterize sesuai dgn tgl Hunian Hdr!!!
+        eventModel.addEvent(new DefaultScheduleEvent("Internal", contohStart(d1), contohEnd(d2)));
+        
+        //loop listDftrHdr
+        String opsi_penyelenggara = "Umum";
+        listDftrHdr = getDaftarhunianHdrPerPenyelenggara(opsi_penyelenggara); //hardcode
+        int size = listDftrHdr.size();
+        for (DaftarhunianHdr d : listDftrHdr) {
+            int jmlPeserta = d.getJmlPeserta();
+            int kodeKegiatan = d.getKodeKegiatan();
+            String no = d.getNo();
+            String penyelenggara = d.getPenyelenggara();
+            String ss = d.getSudahSelesai();
+            Date mulai = d.getTglMulai();       //new Date(2018, 01, 05);    
+            Date selesai = d.getTglSelesai();   //new Date(2018, 01, 15);  
+            
+            eventModel.addEvent(new DefaultScheduleEvent(penyelenggara + "-" + no, 
+          contohStart(mulai), contohEnd(selesai)));
+        }
+        //end loop
+        
         lazyEventModel = new LazyScheduleModel() {
              
             @Override
@@ -199,4 +242,108 @@ public class ScheduleViewHunianHdr implements Serializable {
     private void addMessage(FacesMessage message) {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
+    
+//Custom Code
+    private HttpHeaders getHeaders() {
+    	String credential="mukesh:m123";
+    	//String credential="tarun:t123";
+    	String encodedCredential = new String(Base64.encodeBase64(credential.getBytes()));
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+     	headers.add("Authorization", "Basic " + encodedCredential);
+    	return headers;
+    }
+    
+    public List<DaftarhunianHdr> getDaftarhunianHdrPerPenyelenggara(String kodePenyelenggara){
+	HttpHeaders headers = getHeaders();
+	RestTemplate restTemplate = new RestTemplate();
+//	String url = "http://207.148.66.201:8080/user/daftarhunianHdrs3/{no}";
+        String url = SERVICE_BASE_URI+"user/daftarhunianHdrs3/{no}";
+	HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
+        
+        //instantiate Java Class        
+        //coba kodePenyelenggara di hardcode dulu
+
+	ResponseEntity<DaftarhunianHdr[]> responseEntity = 
+                restTemplate.exchange(url, 
+                HttpMethod.GET, requestEntity, DaftarhunianHdr[].class, kodePenyelenggara);
+//        DaftarHunianAsrama[] hdrList = responseEntity.getBody();
+       //ia sudah menjasi single class
+        DaftarhunianHdr[] kegiatanList = responseEntity.getBody();
+//	return hdrs;
+        List<DaftarhunianHdr> list = Arrays.asList(kegiatanList);
+        
+        int x = list.size();
+        
+        System.out.println("int x :"+x);
+        
+        listDftrHdr.addAll(list);
+        return listDftrHdr;
+    }
+
+    private Date contohStart(Date mulai) {
+//        Date d1 = new Date(2018, 03, 05);
+        Calendar t = (Calendar) startDay(mulai).clone();
+        t.set(Calendar.AM_PM, Calendar.PM);
+        t.set(Calendar.DATE, t.get(Calendar.DATE) - 0);
+        t.set(Calendar.HOUR, 8);
+        t.setTime(mulai);   //coba
+        
+        return t.getTime();
+    }
+    
+    private Date contohEnd(Date selesai) {
+//        Date d1 = new Date(2018, 03, 15);
+        Calendar t = (Calendar) endDay(selesai).clone();
+        t.set(Calendar.AM_PM, Calendar.PM);
+        t.set(Calendar.DATE, t.get(Calendar.DATE) - 0);
+        t.set(Calendar.HOUR, 8);
+        t.setTime(selesai); //coba
+        
+        return t.getTime();
+    }
+    
+    //need parameterize!!!
+    private Calendar startDay(Date mulai) {
+        Calendar calendar = Calendar.getInstance();
+//        calendar.set(2018, 2, 5, 0, 0, 0); 
+        calendar.set(mulai.getYear(), mulai.getMonth() - 1, mulai.getDate(), 0, 0, 0);
+        
+        return calendar;
+    }
+    
+    //0 : january
+    private Calendar endDay(Date selesai) {
+        Calendar calendar = Calendar.getInstance();
+//        calendar.set(2018, 2, 15, 0, 0, 0);
+        calendar.set(selesai.getYear(), selesai.getMonth() - 1, selesai.getDate(), 0, 0, 0);
+        
+        return calendar;
+    }    
+
+    //getter and setter
+    public List<DaftarhunianHdr> getListDftrHdr() {
+        return listDftrHdr;
+    }
+
+    public void setListDftrHdr(List<DaftarhunianHdr> listDftrHdr) {
+        this.listDftrHdr = listDftrHdr;
+    }
+
+    public String getSERVICE_BASE_URI() {
+        return SERVICE_BASE_URI;
+    }
+
+    public void setSERVICE_BASE_URI(String SERVICE_BASE_URI) {
+        this.SERVICE_BASE_URI = SERVICE_BASE_URI;
+    }
+
+    public FacesContext getFc() {
+        return fc;
+    }
+
+    public void setFc(FacesContext fc) {
+        this.fc = fc;
+    }
+    //end getter and setter
 }
