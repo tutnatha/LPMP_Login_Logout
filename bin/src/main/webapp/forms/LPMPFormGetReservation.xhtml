@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<ui:composition template="/applayout/pageTemplate.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html" 
+  xmlns:f="http://java.sun.com/jsf/core" 
+  xmlns:b="http://bootsfaces.net/ui"
+  xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <ui:define name="content">
+    <style>
+td {
+	padding: 8px;
+}
+</style>
+
+	<b:form inline="true">
+	   	<h:panelGrid columns="2" cellpadding="5">
+	   		<b:panel title="Cari/Ubah/Hapus Reservasi" look="primary">
+
+    			<b:inputText label="No trx:" labelStyle="width:80px;" 
+    				value="#{getReservationBean.no}">
+    			
+			    <f:facet name="prepend">
+			    	</f:facet>
+			    </b:inputText>
+			    
+			    <b:inputText label="Penyelenggara:" labelStyle="width:80px;" 
+			    	value="#{getReservationBean.penyelenggara}">
+			    	<f:facet name="prepend">				
+			    </f:facet>
+			    </b:inputText>
+			    
+			    <!-- <b:row> -->
+			    <b:datepicker id="tglmulai" mode="toggle-icon" showWeek="true"
+			    	firstDay="1" value="#{getReservationBean.tglMulai}" required="false"
+			    	label="Tgl Mulai:" label-col-sm="1" col-sm="2"/>
+			    <!-- <b:message for="tglmulai" col-sm="1"/>  --> 
+			    
+			    <b:datepicker id="tglselesai" mode="toggle-icon" showWeek="true"
+			    	firstDay="1" value="#{getReservationBean.tglSelesai}" required="false"
+			    	label="Tgl Selesai:" label-col-sm="3" col-sm="4"/>
+			    <!-- <b:message for="tglselesai" col-sm="1"/>  --> 
+			    <!-- </b:row>  -->			    	
+			     
+			    <b:inputText label="Jml Peserta:" labelStyle="width:80px;" 
+			    	value="#{getReservationBean.jmlPeserta}">
+			    	<f:facet name="prepend">				
+			    </f:facet>
+			    </b:inputText>
+			    			    
+			    <b:inputText label="Kode Kegiatan:" labelStyle="width:80px;" 
+			    	value="#{getReservationBean.kodeKegiatan}">
+			    	<f:facet name="prepend">				
+			    </f:facet>
+			    </b:inputText>
+			    			    
+                        <b:row>
+                            <!--<b:buttonGroup>-->
+                            <!--<b:commandButton value="Cari.." update="@form" col-sm="2"
+                               look="success" onclick="ajax:getReservationBean.getDaftarhunianHdrByIdDemo()" />
+                            -->
+                            <b:commandButton value="Cari.." update="@form" col-sm="2"
+                                    look="success" onclick="ajax:getReservationBean.searchByTrxNo()" />
+                            
+                            <b:commandButton value="Print.." update="@form" col-sm="2"
+                               look="success" onclick="ajax:getReservationBean.printReservasiPerNoTrx()" />
+                            <b:commandButton value="Exportar a PDF" 
+                                actionListener="#{getReservationBean.printReservasiPerNoTrx()}" ajax="false" />
+                            <!--</b:buttonGroup>-->
+                        </b:row>
+
+    			<b:messages styleClass="msgs" redisplay="true" for="@parent" recursive="true" 
+    				id="leftmessages"/>
+			</b:panel>
+			
+       	</h:panelGrid>
+
+	    <b:dataTable value="#{getReservationBean.queryDaftarhunianDlt}"
+	                 var="dftrHunianDtl">
+	        <b:dataTableColumn value="#{dftrHunianDtl.daftarHunianDtlKey.noKamar}" />
+	        <b:dataTableColumn value="#{dftrHunianDtl.daftarHunianDtlKey.noTrx}" />
+	        <b:dataTableColumn value="#{dftrHunianDtl.lantai}" />
+	        <b:dataTableColumn value="#{dftrHunianDtl.jmlTt}" label="Jml T. Tidur"/>
+	    </b:dataTable>
+
+	</b:form>
+  </ui:define>
+</ui:composition>

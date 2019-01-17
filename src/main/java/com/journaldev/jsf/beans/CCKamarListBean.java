@@ -91,7 +91,8 @@ public class CCKamarListBean implements Serializable{
         selectedKamar.setLantai(kamar.getLantai());
         selectedKamar.setUrlPicture(kamar.getUrlPicture());
         selectedKamar.setNo(kamar.getNo());
-        
+        selectedKamar.setNoWisma(kamar.getNoWisma());    //17-jan-19
+
         String page = "FormKamarUpdate.jsf";
         return page;
     }

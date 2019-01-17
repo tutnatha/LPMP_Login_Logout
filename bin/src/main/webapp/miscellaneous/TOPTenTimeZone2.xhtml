@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<ui:composition template="/applayout/pageTemplate.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:cc="http://java.sun.com/jsf/composite/customComponents">
+
+	<ui:define name="content">
+		<style>
+td {
+	padding: 8px;
+}
+</style><h1>10 Daftar Negara<b:badge value="di dunia" /></h1>
+
+		<p>Dengan pembagian waktu terbanyak.</p>
+		
+		<h1>Pilih detail untuk melihat informasi waktu</h1>
+                
+        <b:panel title="Live preview" look="info" collapsible="false">
+            
+             <h:form>
+                <cc:redButton caption="Tampilkan!" action="#{cCTopTenTimeZoneBean.onClick}" />
+                <cc:greenButton caption="Tambah Kamar" action="#{cCTopTenTimeZoneBean.addCountry()}" />
+            </h:form>
+        
+            <h:form>
+                <b:dataTable value="#{cCTopTenTimeZoneBean.listTopTen}"
+                                 var="country"
+                             onpage="console.log('page');">
+                    <b:dataTableColumn value="#{country.no}" label="Kode"/>
+                    
+                    <b:dataTableColumn label="Lihat Negara.">
+                        <cc:blueButton caption="Pilih #{country.nama}" action="#{cCTopTenTimeZoneBean.onClickCountryName(country)}" />
+                    </b:dataTableColumn>
+                    <b:dataTableColumn value="#{country.jmlTz}" label="Jml Time Zone" />
+                    <b:dataTableColumn value="#{country.urlFlag}" label="Flag." />
+                </b:dataTable>
+                
+                    <b:inputText label="Nama Negara:" labelStyle="width:80px;" 
+    			value="#{cCTopTenTimeZoneBean.selectedNo}">
+    			
+			<f:facet name="prepend">
+			</f:facet>
+		    </b:inputText>
+                
+            </h:form>
+        </b:panel>
+    </ui:define>
+</ui:composition>

@@ -37,6 +37,7 @@ public class FormEntryKamarBean implements Serializable{
     private int lantai;
     private int jmlTt;
     private String urlPicture;
+    private String noWisma;  //17-jan-2019
     //end attribute
     
     private String SERVICE_BASE_URI;
@@ -75,6 +76,7 @@ public class FormEntryKamarBean implements Serializable{
         objKamar.setLantai(lantai);  //remark dulu
         objKamar.setNo(no);
         objKamar.setUrlPicture(urlPicture);
+        objKamar.setNoWisma(noWisma); //17-jan-19
 
         HttpEntity<com.journaldev.jsf.pojo.daftarhunian.Kamar> requestEntity = 
             new HttpEntity<com.journaldev.jsf.pojo.daftarhunian.Kamar>(objKamar, headers);
@@ -163,4 +165,14 @@ public class FormEntryKamarBean implements Serializable{
     public String goBack(){
         return "CCKamarList.jsf";
     }    
+
+//17-jan-2019
+    public String getNoWisma() {
+        return noWisma;
+    }
+
+    public void setNoWisma(String noWisma) {
+        this.noWisma = noWisma;
+    }
+
 }

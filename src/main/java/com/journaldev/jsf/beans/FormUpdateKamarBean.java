@@ -44,6 +44,7 @@ public class FormUpdateKamarBean implements Serializable{
     private int lantai;
     private int jmlTt;
     private String urlPicture;
+    private String noWisma;    
     //end attribute
     
     private String SERVICE_BASE_URI;
@@ -66,12 +67,14 @@ public class FormUpdateKamarBean implements Serializable{
         int lantai = sourceBean.getSelectedKamar().getLantai();
         String no = sourceBean.getSelectedKamar().getNo();
         String UrlPicture = sourceBean.getSelectedKamar().getUrlPicture();
+        String noWisma = sourceBean.getSelectedKamar().getNoWisma();
         
         //set this properties class
         this.setJmlTt(jmlTt);
         this.setLantai(lantai);
         this.setNo(no);
         this.setUrlPicture(UrlPicture);
+        this.setNoWisma(noWisma);
     }
     
     private HttpHeaders getHeaders() {
@@ -97,6 +100,7 @@ public class FormUpdateKamarBean implements Serializable{
         objKamar.setLantai(lantai);  //remark dulu
         objKamar.setNo(no);
         objKamar.setUrlPicture(urlPicture);
+        objKamar.setNoWisma(noWisma);   //17-jan-19
 
         HttpEntity<com.journaldev.jsf.pojo.daftarhunian.Kamar> requestEntity = 
             new HttpEntity<com.journaldev.jsf.pojo.daftarhunian.Kamar>(objKamar, headers);
@@ -207,4 +211,13 @@ public class FormUpdateKamarBean implements Serializable{
         this.sourceBean = sourceBean;
     }
     
+//17-jan-2019
+    public String getNoWisma() {
+        return noWisma;
+    }
+
+    public void setNoWisma(String noWisma) {
+        this.noWisma = noWisma;
+    }
+
 }

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition template="/applayout/pageTemplate.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:cc="http://java.sun.com/jsf/composite/customComponents">
+
+    <ui:define name="content">
+        <style>
+td {
+    padding: 8px;
+}
+</style>
+        <b:form id="bid" prependId="false">
+            <b:container layout="fluid">
+
+                <!--
+                <h:outputText value="No. Kamar : #{formEntryKamarBean.no}" />
+                -->
+                
+                <b:inputText label="No Kamar:" labelStyle="width:80px;" 
+                             value="#{formEntryKamarBean.no}"></b:inputText>
+                
+                <b:inputText label="Lantai:" labelStyle="width:80px;" 
+                             value="#{formEntryKamarBean.lantai}"></b:inputText>
+                
+                <b:inputText label="Jml T. Tidur:" labelStyle="width:80px;" 
+                             value="#{formEntryKamarBean.jmlTt}"></b:inputText>
+                
+                <b:inputText label="URL Picture:" labelStyle="width:80px;" 
+                             value="#{formEntryKamarBean.urlPicture}"></b:inputText>
+                
+                <!--
+                <b:selectOneMenu label="No Kamar : " value="#{addDaftarHunianDtlBean.selectOneMenuKamar}">
+                    <f:selectItems value="#{addDaftarHunianDtlBean.selectOneMenuKamars}" />
+                </b:selectOneMenu>
+                -->
+                
+                <b:commandButton value="Close" dismiss="modal"
+                    tooltip="Tutup dan kembali ke layarsebelumnya!" tooltip-position="auto"
+                    action="#{formEntryKamarBean.btnCloseClick()}"/>
+                <b:commandButton value="OK" look="primary" dismiss="modal" 
+                    tooltip="Simpan data!" tooltip-position="auto"
+                    actionListener="#{formEntryKamarBean.btnSaveClick}"/>
+                <cc:greenButton caption="Back to the previous page" 
+                    action="#{formEntryKamarBean.goBack}" />
+
+                <!--    </b:modal>
+
+                    <b:row>
+                    <b:button value="Tambahkan Kamar.."
+                                   look="success" onclick="$('.modalPseudoClass').modal()" />
+                    </b:row>
+                -->
+                <b:messages styleClass="msgs" redisplay="true" recursive="true"
+    				id="messages-2" globalOnly="true" severity="info,warn,error,fatal"/>
+            </b:container>
+        </b:form>
+    </ui:define>
+</ui:composition>

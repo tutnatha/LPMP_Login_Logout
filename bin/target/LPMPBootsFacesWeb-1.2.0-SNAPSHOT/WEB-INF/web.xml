@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <!--param-value>Production</param-value -->
+        <param-value>Production</param-value>
+    </context-param>
+    <context-param>
+        <param-name>com.sun.faces.verifyObjects</param-name>
+        <param-value>false</param-value>
+    </context-param>
+    <context-param>
+        <param-name>de.larmic.butterfaces.provideJQuery</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <context-param>
+        <param-name>de.larmic.butterfaces.provideBootstrap</param-name>
+        <param-value>false</param-value>
+    </context-param>
+    <context-param>
+        <param-name>org.butterfaces.provideBootstrap</param-name>
+        <param-value>false</param-value>
+    </context-param>
+
+    <!-- The BootsFaces_THEME context-param controls the loading of the Themes -->
+    <!-- The default is Bootstrap, the valid values are a Bootswach Theme name (lowercase) or "custom".
+         If custom is chosen, you will have to provide your custom CSS in the "other" folder. -->
+    <context-param>
+        <param-name>BootsFaces_THEME</param-name>
+        <param-value>#{theme.internalTheme}</param-value>
+    </context-param>
+    <!-- The BootsFaces_USETHEME context-param controls the loading of the bootstrap-theme.css -->
+    <!-- The default is false, when set to true the bootstrap-theme.css will be loaded -->
+    <context-param>
+        <param-name>BootsFaces_USETHEME</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <context-param>
+        <param-name>net.bootsfaces.get_jquery_from_cdn</param-name>
+        <param-value>false</param-value>
+    </context-param>
+    <!-- Activates the waitcursor and the double-click protection -->
+    <context-param>
+        <param-name>net.bootsfaces.blockUI</param-name>
+        <param-value>#{blockUIBean.isBlockUIActive()}</param-value>
+    </context-param>
+    <context-param>
+        <param-name>net.bootsfaces.defaults.renderLabel</param-name>
+        <param-value>#{defaultValuesBean.renderLabel}</param-value>
+    </context-param>
+    <!-- should the (wrong, but working) BootsFaces style of displaying error message CSS classes be used? -->
+    <context-param>
+        <param-name>net.bootsfaces.legacy_error_classes</param-name>
+        <param-value>#{messageStyleBean.useLegacyBootsFacesStyle}</param-value>
+    </context-param>
+    <context-param>
+        <param-name>net.bootsfaces.defaults.decorator</param-name>
+        <param-value>false</param-value>
+    </context-param>
+    <!-- set the maximum time-to-live of cache entries to one day -->
+    <context-param>
+        <param-name>org.omnifaces.COMBINED_RESOURCE_HANDLER_CACHE_TTL</param-name>
+        <param-value>86400</param-value>
+    </context-param>
+    <context-param>
+        <param-name>org.omnifaces.COMBINED_RESOURCE_HANDLER_EXCLUDED_RESOURCES</param-name>
+        <param-value>bsf:css/icons.css</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>javax.faces.FACELETS_DECORATORS</param-name>
+        <param-value>
+            net.bootsfaces.decorator.BootsFacesTagDecorator
+        </param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>bootstrap</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>metadata.serviceBaseURI</param-name>
+        <param-value>http://207.148.66.201:8080/</param-value>
+    </context-param>
+
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+<!-- rekomende pakai ini -->
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.jsf</url-pattern>
+    </servlet-mapping>
+<!-- sumber : We've had a lot of trouble with this. I suspect it was the fault of the HeadRenderer in former BootsFaces versions. We've replaced the offending class by a different solution in BootsFaces 0.6.5.
+
+If the problem still persists, try this:
+
+Make sure you've added a <h:head></h:head> tag (even if it's empty). Do not use the HTML tag (<head />).
+Check the URL pattern of the web.xml. Many tutorial recommend to put the JSF files into a virtual folder, such as <url-pattern>/pages/</url-pattern> . Don't do that. There's nothing wrong with simple patterns like ```*.jsf. By the way, this is the default, so you can safely omit the url-pattern altogether.
+If that fails, add the CombinedResourceHandler of OmniFaces or the UnmappedResourceHandler of BootsFaces. (As far as I know, that's almost the same implementation as its OmniFaces counterpart, so you can use the OmniFaces version as well - but I didn't test it).
+Check the URL in your browser. Maybe you entered localhost:8080/index.xthml instead of localhost:8080/index.jsf?
+If you're still stuck, open an issue on the BootsFaces GitHub repository (https://github.com/TheCoder4eu/BootsFaces-OSP/issues). But first read https://github.com/TheCoder4eu/BootsFaces-OSP/issues/157 - maybe that already solves your problem.-->
+<!-- remark saja : tidak rekomended
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>/faces/*</url-pattern>
+    </servlet-mapping>
+-->
+    <session-config>
+        <session-timeout>30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <!--<welcome-file>index.jsf</welcome-file>-->
+        <!--<welcome-file>faces/login.xhtml</welcome-file>-->
+        <welcome-file>login.jsf</welcome-file>
+    </welcome-file-list>
+</web-app>
+
+
+        <!--
+        <?xml version="1.0" encoding="UTF-8"?>
+        <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+            <context-param>
+                <param-name>javax.faces.PROJECT_STAGE</param-name>
+                <param-value>Development</param-value>
+            </context-param>
+            <servlet>
+                <servlet-name>Faces Servlet</servlet-name>
+                <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+                <load-on-startup>1</load-on-startup>
+            </servlet>
+            <servlet-mapping>
+                <servlet-name>Faces Servlet</servlet-name>
+                <url-pattern>/faces/*</url-pattern>
+            </servlet-mapping>
+            <session-config>
+                <session-timeout>
+                    30
+                </session-timeout>
+            </session-config>
+            <welcome-file-list>
+                <welcome-file>faces/login.xhtml</welcome-file>
+            </welcome-file-list>
+        </web-app>
+        -->

@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<ui:composition template="/applayout/pageTemplate.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:cc="http://java.sun.com/jsf/composite/customComponents">
+
+    <ui:define name="content">
+        <style>
+td {
+    padding: 8px;
+}
+</style>
+
+        <b:form id="bid" prependId="false">
+            <b:container layout="fluid">
+                <!--<h:outputText value="No Trx : #{reservationBean.no}" /> -->
+                <h:outputText value="No. Trx : #{updateDaftarHunianDtlBean.no}" />
+		<!--<h:outputText value="No. selectOneMenuKamar : #{updateDaftarHunianDtlBean.selectOneMenuKamar}" />-->
+		<b:badge value="#{updateDaftarHunianDtlBean.selectOneMenuKamar}" />
+                <b:selectOneMenu label="No Kamar : " value="#{updateDaftarHunianDtlBean.selectOneMenuKamar}">
+                    <f:selectItems value="#{updateDaftarHunianDtlBean.selectOneMenuKamars}" />
+                </b:selectOneMenu>
+
+                <!--       <f:facet name="footer"> -->
+                <b:commandButton value="Close" dismiss="modal" 
+                    action="#{updateDaftarHunianDtlBean.btnCloseClick()}"/>
+                <b:commandButton value="OK" look="primary" dismiss="modal" 
+                    actionListener="#{updateDaftarHunianDtlBean.btnUpdateItemsOKCLick}"/>
+		<cc:redButton caption="Delete : #{addDaftarHunianDtlBean.no}" 
+                               action="#{updateDaftarHunianDtlBean.btnHapusDtlCLick}" />
+                <!--       </f:facet> -->
+
+                <!--    </b:modal>
+
+                    <b:row>
+                    <b:button value="Tambahkan Kamar.."
+                                   look="success" onclick="$('.modalPseudoClass').modal()" />
+                    </b:row>
+                -->
+                <b:messages styleClass="msgs" redisplay="true" recursive="true"
+    				id="messages-2" globalOnly="true" severity="info,warn,error,fatal"/>
+            </b:container>
+        </b:form>
+    </ui:define>
+</ui:composition>

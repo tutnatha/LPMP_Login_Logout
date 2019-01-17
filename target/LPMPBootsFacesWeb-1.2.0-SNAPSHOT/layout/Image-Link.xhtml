@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition template="/applayout/pageTemplate.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">    
+
+	<ui:define name="content">
+		<style>
+td {
+	padding: 8px;
+}
+</style>
+
+		<h1>Image (&lt;b:image /&gt;) <b:badge value="since 0.8.0" /></h1>
+		<p>The <code>&lt;b:image /&gt;</code> component is just that: an image. Plus the unified AJAX engine of BootsFaces, and Bootstrap tooltips.</p>
+
+		<h3>Basic usage</h3>
+    <!--            
+    <b:panelGrid colSpans="6,6">
+    -->    
+        <b:panel title="Wisma 3" look="info" collapsible="false">
+            <!--<ui:repeat var="musicStyle" value="#{imagesView.images}"> -->
+            <!--
+                <b:navCommandLink href="http://localhost:8080/2-Sep-2018.LPPM_Login_Logout/layout/navLinks.jsf"
+            
+        value="Page 1 (NavCommandLink)" update="**:targetPage">            
+            -->
+            
+            <!--
+            <b:image name="test" value="../bootstrap/carousel/Valladolid-parque-3.jpg"
+                     tooltip="/bootstrap/carousel/Valladolid-parque-3.jpg" tooltipPosition="right"/>          
+            -->    
+            
+            <b:image name="test" value="../bootstrap/carousel/lpmp_lapangan-volly.jpeg"
+                     tooltip="/bootstrap/carousel/lpmp_lapangan-volly.jpeg" tooltipPosition="right"/>
+            
+            <f:facet name="footer">
+                <strong>JSF markup: </strong>
+                <b:panel>
+
+<script type="syntaxhighlighter" class="brush: xml; toolbar: false;gutter: false; first-line: 1">
+	        <![CDATA[
+	           <b:image name="test" value="../bootstrap/carousel/Valladolid-parque-3.jpg"  tooltip="Ain't he a beauty?" tooltipPosition="right"/>
+    	    ]]>
+          </script>
+                    
+                </b:panel>
+            </f:facet>
+            <!--
+            </b:navCommandLink>
+            -->
+            <!--</ui:repeat>-->
+    </b:panel>
+        
+    <!--
+    </b:panelGrid>
+    -->
+    
+            <b:listLinks>
+                <b:navLink header="BootsFaces" />
+                    <b:navLink href="http://localhost:8080/2-Sep-2018.LPPM_Login_Logout/layout/navLinks.jsf">
+                       <b:badge style="margin-right:5px" value="b:navLink with nested content" />
+                    </b:navLink>
+            </b:listLinks>
+                
+        <!-- harusnya ui:repeat disini -->
+        
+        <b:panel title="Wisma 4" id="lpmp_lapangan-volly" look="primary">
+            <b:image name="test" value="../bootstrap/carousel/lpmp_lapangan-volly.jpeg"
+                     tooltip="/bootstrap/carousel/lpmp_lapangan-volly.jpeg" tooltipPosition="right"/>
+            <f:facet name="footer">
+                    <strong>JSF markup: </strong>
+                    <b:panel>
+
+                <script type="syntaxhighlighter" class="brush: xml; toolbar: false;gutter: false; first-line: 1">
+                    <![CDATA[
+                       <b:image name="test" value="../bootstrap/carousel/lpmp-lapangan-volly.jpg"  tooltip="lpmp-lapangan-volly.jpg" tooltipPosition="right"/>
+                    ]]>
+                </script>
+
+                    </b:panel>
+            </f:facet>
+        </b:panel>
+        
+        <b:panel title="Asrama 1" id="lpmp-pojok" look="primary">
+            <b:image name="test" value="../bootstrap/carousel/lpmp-pojok.jpeg"
+                         tooltip="/bootstrap/carousel/lpmp-pojok.jpeg" tooltipPosition="right"/>
+            <f:facet name="footer">
+                    <strong>JSF markup: </strong>
+                    <b:panel>
+
+                <script type="syntaxhighlighter" class="brush: xml; toolbar: false;gutter: false; first-line: 1">
+                    <![CDATA[
+                       <b:image name="test" value="../bootstrap/carousel/Valladolid-parque-3.jpg"  tooltip="Ain't he a beauty?" tooltipPosition="right"/>
+                    ]]>
+                </script>
+
+                    </b:panel>
+            </f:facet>
+        </b:panel>
+        
+        <b:panel title="lpmp-loby" id="lpmp_lobby" look="primary">
+            <b:image name="test" value="../bootstrap/carousel/lpmp_lobby.jpeg"
+                     tooltip="/bootstrap/carousel/lpmp_lobby.jpg" tooltipPosition="right"/>
+            
+            <f:facet name="footer">
+                <strong>JSF markup: </strong>
+                <b:panel>
+                    
+            <script type="syntaxhighlighter" class="brush: xml; toolbar: false;gutter: false; first-line: 1">
+	        <![CDATA[
+	           <b:image name="test" value="../bootstrap/carousel/Valladolid-parque-3.jpg"  tooltip="Ain't he a beauty?" tooltipPosition="right"/>
+                ]]>
+            </script>
+                    
+                </b:panel>
+            </f:facet>
+            
+        </b:panel>
+
+        <b:panel title="lpmp-loby2" id="lpmp_lobby2" look="primary">
+            <b:image name="test" value="../bootstrap/carousel/lpmp_lobby2.jpeg"
+                     tooltip="/bootstrap/carousel/lpmp_lobby2.jpg" tooltipPosition="right"/>
+            
+            <f:facet name="footer">
+                <strong>JSF markup: </strong>
+                <b:panel>
+                    
+            <script type="syntaxhighlighter" class="brush: xml; toolbar: false;gutter: false; first-line: 1">
+	        <![CDATA[
+	           <b:image name="test" value="../bootstrap/carousel/Valladolid-parque-3.jpg"  tooltip="Ain't he a beauty?" tooltipPosition="right"/>
+                ]]>
+            </script>
+                    
+                </b:panel>
+            </f:facet>
+            
+        </b:panel>
+        
+        <b:panel title="Asrama 2" id="lpmp_mess_ac" look="primary">
+            <b:image name="test" value="../bootstrap/carousel/lpmp_mess_ac.jpeg"
+                     tooltip="/bootstrap/carousel/lpmp_mess_ac.jpg" tooltipPosition="right"/>
+            
+            <f:facet name="footer">
+                <strong>JSF markup: </strong>
+                <b:panel>
+                    
+            <script type="syntaxhighlighter" class="brush: xml; toolbar: false;gutter: false; first-line: 1">
+	        <![CDATA[
+	           <b:image name="test" value="../bootstrap/carousel/lpmp_mess_ac.jpeg" tooltip="lpmp_mess_ac.jpeg" tooltipPosition="right"/>
+    	    ]]>
+            </script>
+                    
+                </b:panel>
+            </f:facet>
+        </b:panel>
+        
+        <b:panel title="Asrama 3" id="lpmp_mess" look="primary">
+            <b:image name="test" value="../bootstrap/carousel/lpmp_mess.jpeg"
+                     tooltip="/bootstrap/carousel/lpmp_mess.jpg" tooltipPosition="right"/>
+            
+            <f:facet name="footer">
+                <strong>JSF markup: </strong>
+                <b:panel>
+                    
+            <script type="syntaxhighlighter" class="brush: xml; toolbar: false;gutter: false; first-line: 1">
+	        <![CDATA[
+	           <b:image name="test" value="../bootstrap/carousel/lpmp_mess_ac.jpeg" tooltip="lpmp_mess_ac.jpeg" tooltipPosition="right"/>
+    	    ]]>
+            </script>
+                    
+                </b:panel>
+            </f:facet>
+        </b:panel>
+        
+	</ui:define>
+</ui:composition>

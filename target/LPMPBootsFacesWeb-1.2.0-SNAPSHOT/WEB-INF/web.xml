@@ -82,7 +82,8 @@
 
     <context-param>
         <param-name>metadata.serviceBaseURI</param-name>
-        <param-value>http://207.148.66.201:8080/</param-value>
+<!--        <param-value>http://207.148.66.201:8080/</param-value>-->
+        <param-value>http://149.28.154.243:8080/</param-value>
     </context-param>
 
     <servlet>

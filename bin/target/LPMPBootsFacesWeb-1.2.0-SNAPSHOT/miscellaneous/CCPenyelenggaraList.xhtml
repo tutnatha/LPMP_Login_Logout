@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<ui:composition template="/applayout/pageTemplate.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:cc="http://java.sun.com/jsf/composite/customComponents">
+
+	<ui:define name="content">
+		<style>
+td {
+	padding: 8px;
+}
+</style>
+		<h1>Daftar Penyelenggara<b:badge value="yg ada" /></h1>
+
+		<p>Menampilkan data penyelenggara yang ada saat ini.</p>
+		
+		<h1>Pilih detail untuk melihat detail penyelenggara</h1>
+                
+        <b:panel title="Live preview" look="info" collapsible="false">
+            
+            <h:form>
+                <cc:redButton caption="Tampilkan!" action="#{customComponentsPenyelenggarasBean.onClick}" />
+                <cc:greenButton caption="Tambah Penyelenggara" action="#{cCPenyelenggaraListBean.addPenyelenggara()}" />
+            
+            </h:form>
+        
+            <h:form>
+                <b:dataTable value="#{customComponentsPenyelenggarasBean.listP}"
+                                 var="penyelenggara"
+                             onpage="console.log('page');">
+                    <b:dataTableColumn value="#{penyelenggara.kode}" label="Kode"/>                    
+                    
+                    <b:dataTableColumn label="Lihat Kegiatannya.">
+                        <!--
+                        <cc:blueButton caption="Pilih #{penyelenggara.nama}" 
+                            action="#{customComponentsPenyelenggarasBean.onClickPenyelenggara(penyelenggara)}" />
+                        -->
+                        
+                        <cc:blueButton caption="Pilih #{penyelenggara.nama}" 
+                            action="#{customComponentsPenyelenggarasBean.onEditPenyelenggara(penyelenggara)}" />
+                    </b:dataTableColumn>
+                    <b:dataTableColumn value="#{penyelenggara.nama}" label="Nama Penyelenggara" />
+                
+                </b:dataTable>
+                
+                
+                    <b:inputText label="No trx:" labelStyle="width:80px;" 
+    			value="#{customComponentsPenyelenggarasBean.selectedKode}">
+    			
+			<f:facet name="prepend">
+			</f:facet>
+		    </b:inputText>
+                
+            </h:form>
+        </b:panel>
+    </ui:define>
+</ui:composition>

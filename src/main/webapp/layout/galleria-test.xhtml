@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition template="/applayout/pageTemplate.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <ui:define name="content">
+		<style>
+td {
+	padding: 8px;
+}
+</style>
+        
+        <p:galleria value="#{imagesView.images}" var="image">
+          <!--  
+          <p:graphicImage value="/bootstrap/carousel/#{image}"/>
+-->
+<!--
+          <f:facet name="content"> -->
+            <!--
+              <p:graphicImage value="/bootstrap/carousel/#{image}" alt="#{image}" />
+            -->
+            
+            <b:image value="../bootstrap/carousel/#{image}"  tooltip="#{image}" 
+                         title="#{image}" alt="Image Description for #{image}"/>
+            
+        <!--    <span style="position:absolute;right:0;top:0;">
+        
+                <p:commandButton styleClass="ui-icon ui-icon-search" onclick="jsCallRemote(this);" />
+            </span>
+         </f:facet> -->
+        </p:galleria>
+        
+<!--
+        <script>
+            function jsCallRemote(btn) {
+            var imageFileName = btn.parentNode.parentNode.getElementsByTagName('img')[0].alt;
+            selectImage([{name:'imageFileName', value:imageFileName}]);
+        }
+        </script>
+
+        <pe:remoteCommand name="selectImage" actionListener="#{imagesView.selectImage}" />
+-->        
+    </ui:define>
+</ui:composition>

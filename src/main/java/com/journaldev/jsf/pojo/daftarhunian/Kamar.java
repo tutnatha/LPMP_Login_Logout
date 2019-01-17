@@ -6,6 +6,7 @@ public class Kamar {
     private int lantai;
     private int jmlTt;
     private String urlPicture;
+    private String noWisma;
 
     public Kamar() {
         super();
@@ -42,6 +43,15 @@ public class Kamar {
 
     public void setUrlPicture(String urlPicture) {
         this.urlPicture = urlPicture;
+    }
+
+//17-jan-2019
+    public String getNoWisma() {
+        return noWisma;
+    }
+
+    public void setNoWisma(String noWisma) {
+        this.noWisma = noWisma;
     }
 
 }

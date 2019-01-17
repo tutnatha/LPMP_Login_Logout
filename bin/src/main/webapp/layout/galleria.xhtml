@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition template="/applayout/pageTemplate.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui">
+        
+
+    <ui:define name="content">
+		<style>
+td {
+	padding: 8px;
+}
+</style>
+        
+            <p:galleria value="#{imagesView.images}" var="image" panelWidth="500" 
+                        panelHeight="313" showCaption="true">
+                <!--
+                <p:graphicImage name="demo/images/nature/#{image}" 
+                    alt="Image Description for #{image}" title="#{image}"/>       
+                <p:graphicImage name="#{image}" alt="Image Description for #{image}" 
+                    title="#{image}" value="#{image}"/>
+                <p:graphicImage name="#{image}" alt="Image Description for #{image}" 
+                                    title="#{image}" value="../bootstrap/carousel/#{image}"/>
+                <b:image value="../bootstrap/carousel/#{image}"/>
+                -->
+                
+                <p:commandLink action="#{imagesView.cmdButton()}">
+                    <b:image value="../bootstrap/carousel/#{image}"  tooltip="#{image}" 
+                         title="#{image}" alt="Image Description for #{image}"/>
+                    <!--<p:graphicImage name="#{image}" alt="Image Description for #{image}" 
+                                    title="#{image}" value="../bootstrap/carousel/#{image}"/>-->
+                    <f:param name="id" value="#{image}" />
+                </p:commandLink>
+            </p:galleria>
+        
+            <b:buttonGroup>
+                <b:button value="#{image}" />
+                <!--<b:button value="Middle" />
+                <b:button value="Right" />-->
+            </b:buttonGroup>        
+
+        
+        <script>
+            function jsCallRemote(btn) {
+            var imageFileName = btn.parentNode.parentNode.getElementsByTagName('img')[0].alt;
+            selectImage([{name:'imageFileName', value:imageFileName}]);
+        }
+        </script>      
+       
+        
+    </ui:define>
+</ui:composition>
