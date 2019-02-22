@@ -60,7 +60,12 @@ public class AddDaftarHunianDtlBean implements Serializable{
     
     ArrayList<Penyelenggara> pList = new ArrayList<Penyelenggara>();
     PenyelenggaraHashMap pHm = new PenyelenggaraHashMap();
-            
+
+//24-Jan-19
+    private String nip;
+    private String nama;
+//End 24-Jan-19
+
     public AddDaftarHunianDtlBean() {
         FacesContext fc = FacesContext.getCurrentInstance();
         SERVICE_BASE_URI = fc.getExternalContext().getInitParameter("metadata.serviceBaseURI");
@@ -232,6 +237,24 @@ public class AddDaftarHunianDtlBean implements Serializable{
         reservationBean.searchByTrxNo();
         return "LPMPFormReservation?faces-redirect=true";
     }
+
+//24-Jan-19
+    public String getNip() {
+        return nip;
+    }
+
+    public void setNip(String nip) {
+        this.nip = nip;
+    }
+
+    public String getNama() {
+        return nama;
+    }
+
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
+//24-Jan-19
 
 }
 

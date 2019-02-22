@@ -55,6 +55,10 @@ public class UpdateDaftarHunianDtlBean implements Serializable{
 //    @ManagedProperty(value="#{param.no}")
     private String no;
     
+//25-Jan-19
+    private String nip;
+    private String nama;
+
     private List<String> selectOneMenuKamars = new ArrayList<String>();
     private String selectOneMenuKamar;
 
@@ -203,7 +207,8 @@ public class UpdateDaftarHunianDtlBean implements Serializable{
 //        objDfrtDtl.setNoKamar(noKamar);
         //generate auto number
 //        UUID x = new UUID(1, 9999999);  //not use
-        
+        objDfrtDtl.setNip(nip);
+        objDfrtDtl.setNama(nama);
 //Harusnya dlm proses update tidak membuat seq baru!!!
 //pake methode delete-insert
         Sequence seq = new Sequence();
@@ -285,6 +290,22 @@ public class UpdateDaftarHunianDtlBean implements Serializable{
         this.no = no;
     }
     //End Getter and Setter
+
+    public String getNip() {
+        return nip;
+    }
+
+    public void setNip(String nip) {
+        this.nip = nip;
+    }
+
+    public String getNama() {
+        return nama;
+    }
+
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
 
     //Tidak Pakai Getter ya..
 //    public ReservationBean getReservationBean() {

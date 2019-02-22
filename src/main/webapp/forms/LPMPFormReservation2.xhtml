@@ -26,11 +26,15 @@ td {
                                 <b:inputText value="7" label="Kode Kegiatan"  onkeyup="ajax:messagesBean.update()" update="leftmessages rightmessages"  />
                      -->
                     <b:inputText label="No trx:" labelStyle="width:80px;"
+                                 binding="#{reservationBean.noBinding}"
                                  value="#{reservationBean.no}">
 
                         <f:facet name="prepend">
                         </f:facet>
                     </b:inputText>
+                     
+                    <h:outputText value="#{reservationBean.no}" id="outputText"/>
+
 <!--
                     <b:inputText label="Penyelenggara:" labelStyle="width:80px;"
                                  value="#{reservationBean.penyelenggara}">

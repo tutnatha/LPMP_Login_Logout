@@ -7,10 +7,12 @@ public class DaftarHunianDtl {
 //	private int no;
 	private int seqNo;
 //	private String noKamar;
+        private String nip;
+        private String nama;
 
         public static class MyCompositePK implements Serializable{
         private int noTrx;
-        private String noKamar;
+        private String noKamar;       
         
 //        protected MyCompositePK(){
         public MyCompositePK(){	
@@ -72,5 +74,23 @@ public class DaftarHunianDtl {
     public void setId(MyCompositePK id) {
         this.id = id;
     }
-	
+
+//25-Jan-19	
+    public String getNip() {
+        return nip;
+    }
+
+    public void setNip(String nip) {
+        this.nip = nip;
+    }
+
+    public String getNama() {
+        return nama;
+    }
+
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
+
+//end 25-Jan-19
 }

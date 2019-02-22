@@ -38,6 +38,7 @@ public class DaftarhunianHdr {
 //    @Column(name="sudah_selesai")
     private String sudahSelesai;
     private int kodeKegiatan;
+    private String userAppId;
 
     public DaftarhunianHdr() {
 
@@ -114,4 +115,13 @@ public class DaftarhunianHdr {
     public void setKodeKegiatan(int kodeKegiatan){
 	this.kodeKegiatan = kodeKegiatan;
     }
+
+    public String getUserAppId() {
+        return userAppId;
+    }
+
+    public void setUserAppId(String userAppId) {
+        this.userAppId = userAppId;
+    }
+
 }

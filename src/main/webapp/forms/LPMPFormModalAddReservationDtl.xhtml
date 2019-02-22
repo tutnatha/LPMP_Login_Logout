@@ -22,6 +22,22 @@ td {
                     <f:selectItems value="#{addDaftarHunianDtlBean.selectOneMenuKamars}" />
                 </b:selectOneMenu>
 
+<!-- 24-Jan-2019 -->
+                <b:inputText label="Nip :" labelStyle="width:80px;" 
+    				value="#{addDaftarHunianDtlBean.nip}">
+    			
+                    <f:facet name="prepend">
+                        </f:facet>
+                </b:inputText>
+                
+                <b:inputText label="Nama :" labelStyle="width:80px;" 
+    				value="#{addDaftarHunianDtlBean.nama}">
+    			
+                    <f:facet name="prepend">
+                        </f:facet>
+                </b:inputText>
+<!-- End 24-Jan-2019 -->
+
                 <!--       <f:facet name="footer"> -->
                 <b:commandButton value="Close" dismiss="modal" 
                     action="#{addDaftarHunianDtlBean.btnCloseClick()}"/>

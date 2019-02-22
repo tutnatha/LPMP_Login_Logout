@@ -35,6 +35,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
+import net.bootsfaces.component.inputText.InputText;
 
 @ManagedBean
 //@RequestScoped    //remark dulu..
@@ -74,6 +75,9 @@ public class ReservationBean implements Serializable{
         private boolean saveButtonDisable = false;
         private boolean updateButtonDisable = false;
         
+//binding var
+        private InputText noBinding;
+
 	public ReservationBean() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -94,6 +98,9 @@ public class ReservationBean implements Serializable{
             setIsDtlBtnDisabled(true);
             setSaveButtonDisable(true);
             setUpdateButtonDisable(true);
+
+            //set noTrx
+            this.setNo(getLatestReservationNoTrx("user"));
         }
         
 	public String getNo() {
@@ -172,6 +179,10 @@ public class ReservationBean implements Serializable{
         UUID x = new UUID(1, 9999999);
         no = x.toString();
         objDfrtHdr.setNo(no);
+//Default value
+        if (penyelenggara==null){
+            penyelenggara="Internal";
+        }
         objDfrtHdr.setPenyelenggara(penyelenggara);
         sudahSelesai = "N";
         objDfrtHdr.setSudahSelesai(sudahSelesai);
@@ -181,7 +192,8 @@ public class ReservationBean implements Serializable{
         //convert kodeKegiatan => selectOneMenuKegiatan;
         int intKode = Integer.valueOf(selectOneMenuKegiatan);
         objDfrtHdr.setKodeKegiatan(intKode);
-        
+        objDfrtHdr.setUserAppId("user");
+
     	HttpEntity<com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr> requestEntity = 
                 new HttpEntity<com.journaldev.jsf.pojo.daftarhunian.DaftarhunianHdr>(objDfrtHdr, headers);
 //    	URI uri = restTemplate.postForLocation(url, requestEntity);     //bisa juga pake ini...
@@ -227,6 +239,19 @@ public class ReservationBean implements Serializable{
            this.setIsDtlBtnDisabled(false);
         }
         
+//26-Jan-2019
+//Get Latest NoTrx
+    	String urlMaxNoTrx = SERVICE_BASE_URI+"user/findMaxNoTrxByUserAppId/{user}";
+        HttpEntity<String> requestEntityMaxNoTrx = new HttpEntity<String>(headers);
+        ResponseEntity<String> responseEntityMaxNoTrx = restTemplate.exchange(urlMaxNoTrx, 
+            HttpMethod.GET, requestEntityMaxNoTrx, String.class);
+        String noTrx = responseEntityMaxNoTrx.getBody();
+
+//Harus ditampilkan ke UI browser
+        this.setNo(noTrx);
+        no = noTrx;
+//End 26-Jan-2019
+
 //        assertThat(response.getStatusCode(), is(HttpStatus.CREATED));
 
         /* end buka */
@@ -265,6 +290,10 @@ public class ReservationBean implements Serializable{
 //    	getDaftarhunianHdrByIdDemo();
         //set unabled button = true
         this.setIsDtlBtnDisabled(false);
+
+        //LatestReservationNoTrx
+        this.setNo(getLatestReservationNoTrx("user"));
+        noBinding.setValue(getLatestReservationNoTrx("user")); //this.getNo()
     }
 
     //existing data
@@ -615,6 +644,27 @@ public class ReservationBean implements Serializable{
         this.setIsDtlBtnDisabled(true);
         
         this.saveButtonDisable = false; //Y  //not
+
+        this.setNo(getLatestReservationNoTrx("user"));
+    }
+
+//14-Feb-2019
+//mih sube mekelo nok..
+//i just want to show on the first time page loading
+    public String getLatestReservationNoTrx(String userId){
+        HttpHeaders headers = getHeaders();
+	RestTemplate restTemplate = new RestTemplate();
+        
+        String url = SERVICE_BASE_URI+"user/findMaxNoTrxByUserAppId/{user}";
+	HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
+        
+        ResponseEntity<String> responseEntity =        
+                restTemplate.exchange(url, 
+        HttpMethod.GET, requestEntity, String.class, userId); //userID
+
+        String noTrx = responseEntity.getBody();
+
+        return noTrx;
     }
 
     public String onEditDftrHunianDtl(QueryDaftarhunianDlt passedObj){
@@ -657,5 +707,12 @@ public class ReservationBean implements Serializable{
         this.updateButtonDisable = updateButtonDisable;
     }
     
-    
+//binding 
+    public InputText getNoBinding(){
+        return noBinding;
+    }
+
+    public void setNoBinding(InputText noBinding){
+        this.noBinding = noBinding;
+    }
 }
