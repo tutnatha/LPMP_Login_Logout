@@ -139,8 +139,15 @@ public class FormUpdateKegiatanBean implements Serializable{
         
         com.course.springbootstarter.kegiatan.Kegiatan retKegiatan = response.getBody();
         
-    }   
-    
+    }
+
+    public String btnCloseClick(){
+        //retrieve by noTrx
+//        reservationBean.searchByTrxNo();  //remark dulu
+//        return "LPMPFormReservation?faces-redirect=true";
+        return "CCKegiatanList?faces-redirect=true";
+    }
+
     //getter and setter
     public  Kegiatan getKegiatan() {
         return kegiatan;

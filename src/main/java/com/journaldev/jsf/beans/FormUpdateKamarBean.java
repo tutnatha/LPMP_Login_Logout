@@ -141,7 +141,14 @@ public class FormUpdateKamarBean implements Serializable{
         
         return "CCKamarList.jsf";
     }
-    
+
+    public String btnCloseClick(){
+        //retrieve by noTrx
+//        reservationBean.searchByTrxNo();  //remark dulu
+//        return "LPMPFormReservation?faces-redirect=true";
+        return "CCKamarList?faces-redirect=true";
+    }
+
     public boolean isIsProtect() {
         return isProtect;
     }
